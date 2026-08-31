@@ -1,0 +1,1631 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Meu Carrinho</title>
+
+
+    <style>
+
+        * {
+
+            box-sizing: border-box;
+
+            margin: 0;
+
+            padding: 0;
+
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f5f5;
+
+            color: #222;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* ==============================
+           CABEÇALHO
+        ============================== */
+
+        header {
+
+            background: #111827;
+
+            color: white;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.15);
+
+        }
+
+
+        .topo {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 16px 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+        }
+
+
+        .logo {
+
+            font-size: 23px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logo span {
+
+            color: #22c55e;
+
+        }
+
+
+        .voltar {
+
+            border: none;
+
+            background: transparent;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+        }
+
+
+        .voltar:hover {
+
+            color: #22c55e;
+
+        }
+
+
+        /* ==============================
+           CONTEÚDO
+        ============================== */
+
+        main {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 30px 20px 60px;
+
+        }
+
+
+        .titulo {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .titulo h1 {
+
+            font-size: 28px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .titulo p {
+
+            color: #666;
+
+        }
+
+
+        /* ==============================
+           LAYOUT
+        ============================== */
+
+        .layout {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                330px;
+
+            gap: 25px;
+
+            align-items: start;
+
+        }
+
+
+        /* ==============================
+           LISTA
+        ============================== */
+
+        .lista {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+
+        }
+
+
+        .item {
+
+            background: white;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            display: grid;
+
+            grid-template-columns:
+                90px
+                minmax(0, 1fr)
+                auto;
+
+            gap: 15px;
+
+            align-items: center;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.07);
+
+        }
+
+
+        .item img {
+
+            width: 90px;
+
+            height: 90px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+
+            background: #eee;
+
+        }
+
+
+        .nome {
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .preco-unitario {
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        /* ==============================
+           QUANTIDADE
+        ============================== */
+
+        .controle {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            border: 1px solid #ddd;
+
+            border-radius: 7px;
+
+            overflow: hidden;
+
+            background: white;
+
+        }
+
+
+        .controle button {
+
+            width: 36px;
+
+            height: 34px;
+
+            border: none;
+
+            background: #f3f4f6;
+
+            cursor: pointer;
+
+            font-size: 19px;
+
+            font-weight: bold;
+
+        }
+
+
+        .controle button:hover {
+
+            background: #e5e7eb;
+
+        }
+
+
+        .controle input {
+
+            width: 60px;
+
+            height: 34px;
+
+            border: none;
+
+            outline: none;
+
+            text-align: center;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            background: white;
+
+        }
+
+
+        .controle input:focus {
+
+            background: #f9fafb;
+
+        }
+
+
+        /* Remove setinhas do input */
+
+        .controle input::-webkit-outer-spin-button,
+        .controle input::-webkit-inner-spin-button {
+
+            -webkit-appearance: none;
+
+            margin: 0;
+
+        }
+
+
+        .controle input[type=number] {
+
+            appearance: textfield;
+
+        }
+
+
+        /* ==============================
+           VALOR
+        ============================== */
+
+        .lado-direito {
+
+            text-align: right;
+
+        }
+
+
+        .subtotal-item {
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            color: #16a34a;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .remover {
+
+            border: none;
+
+            background: transparent;
+
+            color: #dc2626;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+        }
+
+
+        .remover:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* ==============================
+           RESUMO
+        ============================== */
+
+        .resumo {
+
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,.08);
+
+            position: sticky;
+
+            top: 20px;
+
+        }
+
+
+        .resumo h2 {
+
+            font-size: 20px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .linha {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 12px;
+
+            color: #555;
+
+        }
+
+
+        .linha.total {
+
+            border-top: 1px solid #ddd;
+
+            padding-top: 15px;
+
+            margin-top: 15px;
+
+            color: #111;
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+        }
+
+
+        .botao-finalizar {
+
+            width: 100%;
+
+            border: none;
+
+            background: #22c55e;
+
+            color: white;
+
+            padding: 14px;
+
+            border-radius: 8px;
+
+            margin-top: 20px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .botao-finalizar:hover {
+
+            background: #16a34a;
+
+        }
+
+
+        .botao-continuar {
+
+            width: 100%;
+
+            border: 1px solid #ddd;
+
+            background: white;
+
+            color: #333;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            margin-top: 10px;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+        }
+
+
+        .botao-continuar:hover {
+
+            background: #f3f4f6;
+
+        }
+
+
+        /* ==============================
+           CARRINHO VAZIO
+        ============================== */
+
+        .vazio {
+
+            background: white;
+
+            border-radius: 12px;
+
+            text-align: center;
+
+            padding: 70px 20px;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.07);
+
+        }
+
+
+        .vazio .icone {
+
+            font-size: 55px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .vazio h2 {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .vazio p {
+
+            color: #777;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .botao-loja {
+
+            display: inline-block;
+
+            border: none;
+
+            background: #22c55e;
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ==============================
+           NOTIFICAÇÃO
+        ============================== */
+
+        .notificacao {
+
+            position: fixed;
+
+            right: 20px;
+
+            bottom: 20px;
+
+            background: #16a34a;
+
+            color: white;
+
+            padding: 14px 18px;
+
+            border-radius: 8px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,.2);
+
+            transform:
+                translateY(100px);
+
+            opacity: 0;
+
+            transition: .3s;
+
+            z-index: 2000;
+
+        }
+
+
+        .notificacao.mostrar {
+
+            transform:
+                translateY(0);
+
+            opacity: 1;
+
+        }
+
+
+        /* ==============================
+           RODAPÉ
+        ============================== */
+
+        footer {
+
+            background: #111827;
+
+            color: #aaa;
+
+            text-align: center;
+
+            padding: 25px 15px;
+
+            margin-top: 30px;
+
+        }
+
+
+        /* ==============================
+           CELULAR
+        ============================== */
+
+        @media (max-width: 750px) {
+
+            .layout {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .resumo {
+
+                position: static;
+
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .item {
+
+                grid-template-columns:
+                    70px
+                    minmax(0, 1fr);
+
+                gap: 12px;
+
+            }
+
+
+            .item img {
+
+                width: 70px;
+
+                height: 70px;
+
+            }
+
+
+            .lado-direito {
+
+                grid-column: 1 / -1;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: space-between;
+
+                text-align: left;
+
+                border-top: 1px solid #eee;
+
+                padding-top: 10px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="topo">
+
+        <div class="logo">
+
+            BJ<span>IMPRESSOS</span>
+
+        </div>
+
+
+        <button
+            class="voltar"
+            onclick="voltarParaLoja()"
+        >
+
+            ← Continuar comprando
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+    <div class="titulo">
+
+        <h1>
+            🛒 Meu Carrinho
+        </h1>
+
+
+        <p id="quantidadeTexto">
+
+            0 itens
+
+        </p>
+
+    </div>
+
+
+
+    <div id="conteudoCarrinho">
+
+        <!--
+            O conteúdo será criado
+            pelo JavaScript.
+        -->
+
+    </div>
+
+
+</main>
+
+
+
+<footer>
+
+    BJ IMPRESSOS © 2026
+
+</footer>
+
+
+
+<div
+    id="notificacao"
+    class="notificacao"
+>
+
+</div>
+
+
+
+<script>
+
+
+    /* ==========================================
+       CARREGAR CARRINHO
+    ========================================== */
+
+    let carrinho = [];
+
+
+    try {
+
+        carrinho =
+            JSON.parse(
+                localStorage.getItem(
+                    "carrinhoLoja"
+                )
+            ) || [];
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar carrinho:",
+            erro
+        );
+
+        carrinho = [];
+
+    }
+
+
+
+    /* ==========================================
+       FORMATAR MOEDA
+    ========================================== */
+
+    function formatarMoeda(
+        valor
+    ) {
+
+        return Number(
+            valor || 0
+        ).toLocaleString(
+
+            "pt-BR",
+
+            {
+
+                style: "currency",
+
+                currency: "BRL"
+
+            }
+
+        );
+
+    }
+
+
+
+    /* ==========================================
+       ESCAPAR TEXTO
+    ========================================== */
+
+    function escapar(
+        valor
+    ) {
+
+        return String(
+            valor ?? ""
+        )
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+    }
+
+
+
+    /* ==========================================
+       SALVAR CARRINHO
+    ========================================== */
+
+    function salvarCarrinho() {
+
+        localStorage.setItem(
+
+            "carrinhoLoja",
+
+            JSON.stringify(
+                carrinho
+            )
+
+        );
+
+    }
+
+
+
+    /* ==========================================
+       RENDERIZAR
+    ========================================== */
+
+    function renderizarCarrinho() {
+
+        const container =
+            document.getElementById(
+                "conteudoCarrinho"
+            );
+
+
+        const quantidadeTexto =
+            document.getElementById(
+                "quantidadeTexto"
+            );
+
+
+        /* ======================================
+           CARRINHO VAZIO
+        ====================================== */
+
+        if (
+            !Array.isArray(carrinho)
+            ||
+            !carrinho.length
+        ) {
+
+            quantidadeTexto.textContent =
+                "Seu carrinho está vazio";
+
+
+            container.innerHTML = `
+
+                <div class="vazio">
+
+                    <div class="icone">
+
+                        🛒
+
+                    </div>
+
+
+                    <h2>
+
+                        Seu carrinho está vazio
+
+                    </h2>
+
+
+                    <p>
+
+                        Adicione alguns produtos
+                        para continuar.
+
+                    </p>
+
+
+                    <button
+                        class="botao-loja"
+                        onclick="voltarParaLoja()"
+                    >
+
+                        Ver produtos
+
+                    </button>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+
+        /* ======================================
+           QUANTIDADE TOTAL
+        ====================================== */
+
+        const quantidadeTotal =
+            carrinho.reduce(
+
+                (
+                    total,
+                    item
+                ) => {
+
+                    return (
+
+                        total +
+
+                        Number(
+                            item.quantidade || 0
+                        )
+
+                    );
+
+                },
+
+                0
+
+            );
+
+
+        quantidadeTexto.textContent =
+
+            quantidadeTotal === 1
+
+                ? "1 item"
+
+                : `${quantidadeTotal} itens`;
+
+
+
+        /* ======================================
+           SUBTOTAL
+        ====================================== */
+
+        const subtotal =
+            carrinho.reduce(
+
+                (
+                    total,
+                    item
+                ) => {
+
+                    const preco =
+                        Number(
+                            item.preco || 0
+                        );
+
+
+                    const quantidade =
+                        Number(
+                            item.quantidade || 0
+                        );
+
+
+                    return (
+
+                        total +
+                        (
+                            preco *
+                            quantidade
+                        )
+
+                    );
+
+                },
+
+                0
+
+            );
+
+
+
+        /* ======================================
+           PRODUTOS
+        ====================================== */
+
+        let produtosHTML = "";
+
+
+        carrinho.forEach(
+
+            (
+                item,
+                index
+            ) => {
+
+                const preco =
+                    Number(
+                        item.preco || 0
+                    );
+
+
+                const quantidade =
+                    Number(
+                        item.quantidade || 1
+                    );
+
+
+                const totalItem =
+                    preco *
+                    quantidade;
+
+
+                const imagem =
+                    item.imagem ||
+                    item.foto ||
+                    "https://via.placeholder.com/200x200?text=Produto";
+
+
+
+                produtosHTML += `
+
+                    <div class="item">
+
+
+                        <img
+                            src="${escapar(imagem)}"
+                            alt="${escapar(item.nome)}"
+                            onerror="
+                                this.src='https://via.placeholder.com/200x200?text=Produto'
+                            "
+                        >
+
+
+                        <div>
+
+
+                            <div class="nome">
+
+                                ${escapar(item.nome)}
+
+                            </div>
+
+
+                            <div class="preco-unitario">
+
+                                ${formatarMoeda(preco)}
+                                cada
+
+                            </div>
+
+
+                            <div class="controle">
+
+
+                                <button
+                                    type="button"
+                                    onclick="
+                                        alterarQuantidade(
+                                            ${index},
+                                            -1
+                                        )
+                                    "
+                                    aria-label="Diminuir"
+                                >
+
+                                    −
+
+                                </button>
+
+
+                                <input
+                                    type="number"
+                                    id="quantidade-${index}"
+                                    value="${quantidade}"
+                                    min="1"
+                                    step="1"
+                                    inputmode="numeric"
+                                    onchange="
+                                        digitarQuantidade(
+                                            ${index},
+                                            this.value
+                                        )
+                                    "
+                                    oninput="
+                                        digitarQuantidade(
+                                            ${index},
+                                            this.value
+                                        )
+                                    "
+                                    aria-label="Quantidade"
+                                >
+
+
+                                <button
+                                    type="button"
+                                    onclick="
+                                        alterarQuantidade(
+                                            ${index},
+                                            1
+                                        )
+                                    "
+                                    aria-label="Aumentar"
+                                >
+
+                                    +
+
+                                </button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="lado-direito">
+
+
+                            <div>
+
+
+                                <div class="subtotal-item">
+
+                                    ${formatarMoeda(totalItem)}
+
+                                </div>
+
+
+                                <button
+                                    class="remover"
+                                    onclick="
+                                        removerItem(
+                                            ${index}
+                                        )
+                                    "
+                                >
+
+                                    🗑 Remover
+
+                                </button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                `;
+
+            }
+
+        );
+
+
+
+        /* ======================================
+           HTML FINAL
+        ====================================== */
+
+        container.innerHTML = `
+
+            <div class="layout">
+
+
+                <div class="lista">
+
+                    ${produtosHTML}
+
+                </div>
+
+
+
+                <div class="resumo">
+
+
+                    <h2>
+
+                        Resumo do pedido
+
+                    </h2>
+
+
+                    <div class="linha">
+
+                        <span>
+
+                            Subtotal
+
+                        </span>
+
+
+                        <strong>
+
+                            ${formatarMoeda(
+                                subtotal
+                            )}
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="linha">
+
+                        <span>
+
+                            Frete
+
+                        </span>
+
+
+                        <span>
+
+                            A calcular
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="linha total">
+
+                        <span>
+
+                            Total
+
+                        </span>
+
+
+                        <strong>
+
+                            ${formatarMoeda(
+                                subtotal
+                            )}
+
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="botao-finalizar"
+                        onclick="finalizarPedido()"
+                    >
+
+                        Continuar para finalizar
+
+                    </button>
+
+
+                    <button
+                        class="botao-continuar"
+                        onclick="voltarParaLoja()"
+                    >
+
+                        ← Continuar comprando
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    /* ==========================================
+       ALTERAR PELOS BOTÕES
+    ========================================== */
+
+    function alterarQuantidade(
+        index,
+        valor
+    ) {
+
+        if (!carrinho[index]) {
+
+            return;
+
+        }
+
+
+        let quantidade =
+            Number(
+                carrinho[index].quantidade || 1
+            );
+
+
+        quantidade +=
+            Number(valor);
+
+
+        if (
+            quantidade < 1
+        ) {
+
+            quantidade = 1;
+
+        }
+
+
+        carrinho[index].quantidade =
+            quantidade;
+
+
+        salvarCarrinho();
+
+
+        renderizarCarrinho();
+
+    }
+
+
+
+    /* ==========================================
+       DIGITAR QUANTIDADE
+    ========================================== */
+
+    function digitarQuantidade(
+        index,
+        valor
+    ) {
+
+        if (!carrinho[index]) {
+
+            return;
+
+        }
+
+
+        /*
+            Aceita somente números
+            inteiros positivos.
+        */
+
+        let quantidade =
+            parseInt(
+                String(valor).replace(
+                    /\D/g,
+                    ""
+                ),
+                10
+            );
+
+
+        if (
+            isNaN(quantidade)
+            ||
+            quantidade < 1
+        ) {
+
+            quantidade = 1;
+
+        }
+
+
+        carrinho[index].quantidade =
+            quantidade;
+
+
+        salvarCarrinho();
+
+
+        renderizarCarrinho();
+
+    }
+
+
+
+    /* ==========================================
+       REMOVER ITEM
+    ========================================== */
+
+    function removerItem(
+        index
+    ) {
+
+        if (!carrinho[index]) {
+
+            return;
+
+        }
+
+
+        const nome =
+            carrinho[index].nome ||
+            "este produto";
+
+
+        const confirmar =
+            confirm(
+                `Deseja remover ${nome} do carrinho?`
+            );
+
+
+        if (!confirmar) {
+
+            return;
+
+        }
+
+
+        carrinho.splice(
+            index,
+            1
+        );
+
+
+        salvarCarrinho();
+
+
+        mostrarNotificacao(
+            "Produto removido do carrinho."
+        );
+
+
+        renderizarCarrinho();
+
+    }
+
+
+
+    /* ==========================================
+       VOLTAR PARA LOJA
+    ========================================== */
+
+    function voltarParaLoja() {
+
+        window.location.href =
+            "index.html";
+
+    }
+
+
+
+    /* ==========================================
+       FINALIZAR PEDIDO
+    ========================================== */
+
+    function finalizarPedido() {
+
+        if (
+            !carrinho.length
+        ) {
+
+            alert(
+                "Seu carrinho está vazio."
+            );
+
+            return;
+
+        }
+
+
+        /*
+            Mantém o carrinho salvo
+            para o checkout acessar.
+        */
+
+        salvarCarrinho();
+
+
+        window.location.href =
+            "checkout.html";
+
+    }
+
+
+
+    /* ==========================================
+       NOTIFICAÇÃO
+    ========================================== */
+
+    function mostrarNotificacao(
+        texto
+    ) {
+
+        const elemento =
+            document.getElementById(
+                "notificacao"
+            );
+
+
+        elemento.textContent =
+            texto;
+
+
+        elemento.classList.add(
+            "mostrar"
+        );
+
+
+        clearTimeout(
+            window.timerNotificacao
+        );
+
+
+        window.timerNotificacao =
+            setTimeout(
+
+                () => {
+
+                    elemento.classList.remove(
+                        "mostrar"
+                    );
+
+                },
+
+                2500
+
+            );
+
+    }
+
+
+
+    /* ==========================================
+       INICIAR
+    ========================================== */
+
+    renderizarCarrinho();
+
+</script>
+
+
+</body>
+
+</html>
+```

@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>BJ IMPRESSOS</title>
+
+
+    <style>
+
+        * {
+
+            box-sizing: border-box;
+
+            margin: 0;
+
+            padding: 0;
+
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f5f5;
+
+            color: #222;
+
+        }
+
+
+        /* =========================
+           CABEÇALHO
+        ========================= */
+
+        header {
+
+            background: #111827;
+
+            color: white;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.15);
+
+        }
+
+
+        .topo {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 15px 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+        }
+
+
+        .logo {
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+
+        }
+
+
+        .logo span {
+
+            color: #22c55e;
+
+        }
+
+
+        .barra-pesquisa {
+
+            flex: 1;
+
+            max-width: 500px;
+
+        }
+
+
+        .barra-pesquisa input {
+
+            width: 100%;
+
+            padding: 12px 15px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: 15px;
+
+        }
+
+
+        .botao-carrinho {
+
+            position: relative;
+
+            background: #22c55e;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 18px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+
+        }
+
+
+        .botao-carrinho:hover {
+
+            background: #16a34a;
+
+        }
+
+
+        .contador {
+
+            position: absolute;
+
+            top: -8px;
+
+            right: -8px;
+
+            background: #ef4444;
+
+            color: white;
+
+            min-width: 22px;
+
+            height: 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =========================
+           CATEGORIAS
+        ========================= */
+
+        .categorias {
+
+            max-width: 1200px;
+
+            margin: 20px auto 0;
+
+            padding: 0 20px;
+
+            display: flex;
+
+            gap: 10px;
+
+            overflow-x: auto;
+
+        }
+
+
+        .categoria {
+
+            border: 1px solid #ddd;
+
+            background: white;
+
+            padding: 9px 16px;
+
+            border-radius: 20px;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
+        }
+
+
+        .categoria:hover,
+        .categoria.ativa {
+
+            background: #22c55e;
+
+            color: white;
+
+            border-color: #22c55e;
+
+        }
+
+
+        /* =========================
+           CONTEÚDO
+        ========================= */
+
+        main {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 25px 20px 50px;
+
+        }
+
+
+        .titulo {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .titulo h1 {
+
+            font-size: 28px;
+
+        }
+
+
+        .titulo p {
+
+            color: #666;
+
+            margin-top: 5px;
+
+        }
+
+
+        /* =========================
+           PRODUTOS
+        ========================= */
+
+        .produtos {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fill,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 20px;
+
+        }
+
+
+        .produto {
+
+            background: white;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.08);
+
+            transition: .2s;
+
+        }
+
+
+        .produto:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,.12);
+
+        }
+
+
+        .produto-imagem {
+
+            width: 100%;
+
+            height: 210px;
+
+            object-fit: cover;
+
+            background: #eee;
+
+        }
+
+
+        .produto-conteudo {
+
+            padding: 15px;
+
+        }
+
+
+        .produto-nome {
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .produto-descricao {
+
+            font-size: 14px;
+
+            color: #666;
+
+            min-height: 40px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .produto-preco {
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            color: #16a34a;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        /* =========================
+           QUANTIDADE
+        ========================= */
+
+        .quantidade {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border: 1px solid #ddd;
+
+            border-radius: 7px;
+
+            margin-bottom: 10px;
+
+            overflow: hidden;
+
+        }
+
+
+        .quantidade button {
+
+            width: 40px;
+
+            height: 38px;
+
+            border: none;
+
+            background: #f3f4f6;
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .quantidade button:hover {
+
+            background: #e5e7eb;
+
+        }
+
+
+        .quantidade input {
+
+            width: 70px;
+
+            height: 38px;
+
+            border: none;
+
+            outline: none;
+
+            text-align: center;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            background: white;
+
+        }
+
+
+        .quantidade input:focus {
+
+            background: #f9fafb;
+
+        }
+
+
+        /* Remove setinhas do input number */
+
+        .quantidade input::-webkit-outer-spin-button,
+        .quantidade input::-webkit-inner-spin-button {
+
+            -webkit-appearance: none;
+
+            margin: 0;
+
+        }
+
+
+        .quantidade input[type=number] {
+
+            appearance: textfield;
+
+        }
+
+
+        .estoque-info {
+
+            text-align: center;
+
+            font-size: 12px;
+
+            color: #777;
+
+            margin-top: -4px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        /* =========================
+           BOTÃO ADICIONAR
+        ========================= */
+
+        .adicionar {
+
+            width: 100%;
+
+            padding: 11px;
+
+            background: #111827;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+        }
+
+
+        .adicionar:hover {
+
+            background: #374151;
+
+        }
+
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .carregando {
+
+            text-align: center;
+
+            padding: 50px;
+
+            color: #666;
+
+        }
+
+
+        /* =========================
+           SEM PRODUTOS
+        ========================= */
+
+        .sem-produtos {
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            color: #777;
+
+        }
+
+
+        .sem-produtos h2 {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        /* =========================
+           NOTIFICAÇÃO
+        ========================= */
+
+        .notificacao {
+
+            position: fixed;
+
+            right: 20px;
+
+            bottom: 20px;
+
+            background: #16a34a;
+
+            color: white;
+
+            padding: 15px 20px;
+
+            border-radius: 8px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,.2);
+
+            transform:
+                translateY(100px);
+
+            opacity: 0;
+
+            transition: .3s;
+
+            z-index: 2000;
+
+        }
+
+
+        .notificacao.mostrar {
+
+            transform:
+                translateY(0);
+
+            opacity: 1;
+
+        }
+
+
+        /* =========================
+           RODAPÉ
+        ========================= */
+
+        footer {
+
+            background: #111827;
+
+            color: #aaa;
+
+            text-align: center;
+
+            padding: 25px 15px;
+
+            margin-top: 30px;
+
+        }
+
+
+        /* =========================
+           CELULAR
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .topo {
+
+                flex-wrap: wrap;
+
+            }
+
+
+            .logo {
+
+                font-size: 20px;
+
+            }
+
+
+            .barra-pesquisa {
+
+                order: 3;
+
+                flex-basis: 100%;
+
+                max-width: none;
+
+            }
+
+
+            .produtos {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(0, 1fr)
+                    );
+
+                gap: 12px;
+
+            }
+
+
+            .produto-imagem {
+
+                height: 160px;
+
+            }
+
+
+            .produto-conteudo {
+
+                padding: 11px;
+
+            }
+
+
+            .produto-nome {
+
+                font-size: 16px;
+
+            }
+
+
+            .produto-preco {
+
+                font-size: 18px;
+
+            }
+
+
+            .quantidade input {
+
+                width: 55px;
+
+            }
+
+
+            .quantidade button {
+
+                width: 34px;
+
+            }
+
+        }
+
+
+        @media (max-width: 430px) {
+
+            .produtos {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+
+            .produto-descricao {
+
+                font-size: 13px;
+
+            }
+
+
+            .botao-carrinho {
+
+                padding: 10px 12px;
+
+            }
+
+
+            .quantidade {
+
+                width: 100%;
+
+            }
+
+
+            .quantidade input {
+
+                width: 50px;
+
+            }
+
+
+            .quantidade button {
+
+                width: 32px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="topo">
+
+
+        <div class="logo">
+
+            BJ<span>IMPRESSOS</span>
+
+        </div>
+
+
+        <div class="barra-pesquisa">
+
+            <input
+                type="text"
+                id="pesquisa"
+                placeholder="🔎 Buscar produto..."
+            >
+
+        </div>
+
+
+        <button
+            class="botao-carrinho"
+            onclick="abrirCarrinho()"
+        >
+
+            🛒 Carrinho
+
+
+            <span
+                class="contador"
+                id="contadorCarrinho"
+            >
+                0
+            </span>
+
+        </button>
+
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     CATEGORIAS
+========================= -->
+
+<div
+    class="categorias"
+    id="categorias"
+>
+
+    <button
+        class="categoria ativa"
+        data-categoria="todas"
+        onclick="selecionarCategoria('todas', this)"
+    >
+
+        Todos
+
+    </button>
+
+</div>
+
+
+
+<main>
+
+
+    <div class="titulo">
+
+        <h1>
+            Produtos
+        </h1>
+
+        <p>
+            Escolha os produtos e informe a quantidade desejada.
+        </p>
+
+    </div>
+
+
+    <div
+        id="produtos"
+        class="produtos"
+    >
+
+        <div class="carregando">
+
+            Carregando produtos...
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+
+<footer>
+
+    <p>
+        Minha Loja © 2026
+    </p>
+
+</footer>
+
+
+
+<div
+    id="notificacao"
+    class="notificacao"
+>
+
+    Produto adicionado ao carrinho!
+
+</div>
+
+
+
+<script type="module">
+
+
+    /* ==========================================
+       FIREBASE
+    ========================================== */
+
+    import {
+        initializeApp
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+    import {
+        getFirestore,
+        collection,
+        getDocs
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    /* ==========================================
+       CONFIGURAÇÃO FIREBASE
+    ========================================== */
+
+    const firebaseConfig = {
+
+        apiKey:
+            "AIzaSyDtFVa120k4xnggOHibWOs61Jn-hJaSsdU",
+
+        authDomain:
+            "timonha-b36d6.firebaseapp.com",
+
+        projectId:
+            "timonha-b36d6",
+
+        storageBucket:
+            "timonha-b36d6.firebasestorage.app",
+
+        messagingSenderId:
+            "59864953764",
+
+        appId:
+            "1:59864953764:web:9d44c30ff09b00a0f44731"
+
+    };
+
+
+    const app =
+        initializeApp(
+            firebaseConfig
+        );
+
+
+    const db =
+        getFirestore(app);
+
+
+
+    /* ==========================================
+       VARIÁVEIS
+    ========================================== */
+
+    let produtos = [];
+
+
+    let categoriaSelecionada =
+        "todas";
+
+
+    let carrinho =
+        JSON.parse(
+            localStorage.getItem(
+                "carrinhoLoja"
+            )
+        ) || [];
+
+
+    /*
+        Guarda a quantidade digitada
+        para cada produto.
+    */
+
+    const quantidades = {};
+
+
+
+    /* ==========================================
+       CARREGAR PRODUTOS
+    ========================================== */
+
+    async function carregarProdutos() {
+
+        const container =
+            document.getElementById(
+                "produtos"
+            );
+
+
+        try {
+
+            const snapshot =
+                await getDocs(
+                    collection(
+                        db,
+                        "produtos"
+                    )
+                );
+
+
+            produtos = [];
+
+
+            snapshot.forEach(
+                documento => {
+
+                    const dados =
+                        documento.data();
+
+
+                    /*
+                        Somente produtos ativos
+                    */
+
+                    if (
+
+                        dados.ativo === false
+
+                        ||
+
+                        dados.ativa === false
+
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    produtos.push({
+
+                        id:
+                            documento.id,
+
+                        ...dados
+
+                    });
+
+
+                    /*
+                        Quantidade inicial
+                    */
+
+                    quantidades[
+                        documento.id
+                    ] = 1;
+
+                }
+            );
+
+
+            montarCategorias();
+
+
+            renderizarProdutos();
+
+
+            atualizarContador();
+
+
+        } catch (erro) {
+
+            console.error(
+                erro
+            );
+
+
+            container.innerHTML = `
+
+                <div class="sem-produtos">
+
+                    <h2>
+
+                        Não foi possível
+                        carregar os produtos.
+
+                    </h2>
+
+
+                    <p>
+
+                        Verifique a configuração
+                        do Firebase.
+
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       CATEGORIAS
+    ========================================== */
+
+    function montarCategorias() {
+
+        const container =
+            document.getElementById(
+                "categorias"
+            );
+
+
+        /*
+            Mantém somente o botão Todos
+            antes de criar as categorias.
+        */
+
+        container.innerHTML = `
+
+            <button
+                class="categoria ${
+                    categoriaSelecionada === "todas"
+                    ? "ativa"
+                    : ""
+                }"
+                onclick="selecionarCategoria(
+                    'todas',
+                    this
+                )"
+            >
+                Todos
+            </button>
+
+        `;
+
+
+        const categorias = [
+
+            ...new Set(
+
+                produtos
+
+                    .map(
+                        produto =>
+                            produto.categoria
+                    )
+
+                    .filter(Boolean)
+
+            )
+
+        ];
+
+
+        categorias.forEach(
+            categoria => {
+
+                const botao =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                botao.className =
+                    "categoria";
+
+
+                botao.textContent =
+                    categoria;
+
+
+                if (
+                    categoriaSelecionada ===
+                    categoria
+                ) {
+
+                    botao.classList.add(
+                        "ativa"
+                    );
+
+                }
+
+
+                botao.onclick =
+                    function() {
+
+                        selecionarCategoria(
+                            categoria,
+                            this
+                        );
+
+                    };
+
+
+                container.appendChild(
+                    botao
+                );
+
+            }
+        );
+
+    }
+
+
+
+    window.selecionarCategoria =
+        function(
+            categoria,
+            botao
+        ) {
+
+            categoriaSelecionada =
+                categoria;
+
+
+            document
+                .querySelectorAll(
+                    ".categoria"
+                )
+                .forEach(
+                    elemento => {
+
+                        elemento.classList.remove(
+                            "ativa"
+                        );
+
+                    }
+                );
+
+
+            botao.classList.add(
+                "ativa"
+            );
+
+
+            renderizarProdutos();
+
+        };
+
+
+
+    /* ==========================================
+       RENDERIZAR PRODUTOS
+    ========================================== */
+
+    function renderizarProdutos() {
+
+        const container =
+            document.getElementById(
+                "produtos"
+            );
+
+
+        const pesquisa =
+            document
+                .getElementById(
+                    "pesquisa"
+                )
+                .value
+                .toLowerCase()
+                .trim();
+
+
+        const filtrados =
+            produtos.filter(
+                produto => {
+
+                    const nome =
+                        String(
+                            produto.nome ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const descricao =
+                        String(
+                            produto.descricao ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const categoria =
+                        String(
+                            produto.categoria ||
+                            ""
+                        );
+
+
+                    const correspondePesquisa =
+
+                        nome.includes(
+                            pesquisa
+                        )
+
+                        ||
+
+                        descricao.includes(
+                            pesquisa
+                        );
+
+
+                    const correspondeCategoria =
+
+                        categoriaSelecionada ===
+                        "todas"
+
+                        ||
+
+                        categoria ===
+                        categoriaSelecionada;
+
+
+                    return (
+
+                        correspondePesquisa
+
+                        &&
+
+                        correspondeCategoria
+
+                    );
+
+                }
+            );
+
+
+        if (!filtrados.length) {
+
+            container.innerHTML = `
+
+                <div class="sem-produtos">
+
+                    <h2>
+                        Nenhum produto encontrado.
+                    </h2>
+
+                    <p>
+                        Tente outra pesquisa
+                        ou categoria.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        filtrados.forEach(
+            produto => {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "produto";
+
+
+                const imagem =
+                    produto.imagem ||
+
+                    produto.foto ||
+
+                    "https://via.placeholder.com/500x400?text=Produto";
+
+
+                const preco =
+                    Number(
+                        produto.preco || 0
+                    );
+
+
+                /*
+                    Estoque.
+
+                    Se não existir estoque
+                    ou for 0, permitimos
+                    a compra normalmente.
+
+                    Se houver estoque maior
+                    que zero, limitamos
+                    a quantidade.
+                */
+
+                const estoque =
+                    Number(
+                        produto.estoque ?? 0
+                    );
+
+
+                const temControleEstoque =
+                    estoque > 0;
+
+
+                const quantidadeAtual =
+                    quantidades[
+                        produto.id
+                    ] || 1;
+
+
+                card.innerHTML = `
+
+                    <img
+                        class="produto-imagem"
+                        src="${escapar(imagem)}"
+                        alt="${escapar(
+                            produto.nome ||
+                            "Produto"
+                        )}"
+                        onerror="
+                            this.src='https://via.placeholder.com/500x400?text=Produto'
+                        "
+                    >
+
+
+                    <div class="produto-conteudo">
+
+
+                        <div class="produto-nome">
+
+                            ${escapar(
+                                produto.nome ||
+                                "Produto sem nome"
+                            )}
+
+                        </div>
+
+
+                        <div class="produto-descricao">
+
+                            ${escapar(
+                                produto.descricao ||
+                                ""
+                            )}
+
+                        </div>
+
+
+                        <div class="produto-preco">
+
+                            ${formatarMoeda(
+                                preco
+                            )}
+
+                        </div>
+
+
+                        <div class="quantidade">
+
+
+                            <button
+                                type="button"
+                                onclick="
+                                    alterarQuantidade(
+                                        '${produto.id}',
+                                        -1
+                                    )
+                                "
+                                aria-label="Diminuir quantidade"
+                            >
+
+                                −
+
+                            </button>
+
+
+                            <input
+                                type="number"
+                                id="quantidade-${produto.id}"
+                                value="${quantidadeAtual}"
+                                min="1"
+                                ${
+                                    temControleEstoque
+                                    ? `max="${estoque}"`
+                                    : ""
+                                }
+                                step="1"
+                                inputmode="numeric"
+                                aria-label="Quantidade"
+                                onchange="
+                                    digitarQuantidade(
+                                        '${produto.id}',
+                                        this.value
+                                    )
+                                "
+                                oninput="
+                                    digitarQuantidade(
+                                        '${produto.id}',
+                                        this.value
+                                    )
+                                "
+                            >
+
+
+                            <button
+                                type="button"
+                                onclick="
+                                    alterarQuantidade(
+                                        '${produto.id}',
+                                        1
+                                    )
+                                "
+                                aria-label="Aumentar quantidade"
+                            >
+
+                                +
+
+                            </button>
+
+
+                        </div>
+
+
+                        ${
+                            temControleEstoque
+
+                            ?
+
+                            `
+
+                            <div class="estoque-info">
+
+                                Estoque disponível:
+                                ${estoque}
+
+                            </div>
+
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+
+                        <button
+                            class="adicionar"
+                            onclick="
+                                adicionarCarrinho(
+                                    '${produto.id}'
+                                )
+                            "
+                        >
+
+                            🛒 Adicionar ao carrinho
+
+                        </button>
+
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* ==========================================
+       ALTERAR QUANTIDADE
+       PELOS BOTÕES
+    ========================================== */
+
+    window.alterarQuantidade =
+        function(
+            id,
+            valor
+        ) {
+
+            const produto =
+                produtos.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!produto) {
+
+                return;
+
+            }
+
+
+            let quantidade =
+                Number(
+                    quantidades[id] || 1
+                );
+
+
+            quantidade +=
+                Number(valor);
+
+
+            if (
+                quantidade < 1
+            ) {
+
+                quantidade = 1;
+
+            }
+
+
+            /*
+                Respeita estoque
+                quando informado.
+            */
+
+            const estoque =
+                Number(
+                    produto.estoque ?? 0
+                );
+
+
+            if (
+                estoque > 0 &&
+                quantidade > estoque
+            ) {
+
+                quantidade =
+                    estoque;
+
+
+                mostrarNotificacao(
+                    `Quantidade limitada ao estoque disponível: ${estoque}.`
+                );
+
+            }
+
+
+            quantidades[id] =
+                quantidade;
+
+
+            atualizarCampoQuantidade(
+                id
+            );
+
+        };
+
+
+
+    /* ==========================================
+       DIGITAR QUANTIDADE
+    ========================================== */
+
+    window.digitarQuantidade =
+        function(
+            id,
+            valor
+        ) {
+
+            const produto =
+                produtos.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!produto) {
+
+                return;
+
+            }
+
+
+            /*
+                Remove tudo que não for
+                número inteiro.
+            */
+
+            let quantidade =
+                parseInt(
+                    String(
+                        valor
+                    ).replace(
+                        /\D/g,
+                        ""
+                    ),
+                    10
+                );
+
+
+            if (
+                isNaN(
+                    quantidade
+                )
+                ||
+                quantidade < 1
+            ) {
+
+                quantidade = 1;
+
+            }
+
+
+            const estoque =
+                Number(
+                    produto.estoque ?? 0
+                );
+
+
+            if (
+                estoque > 0 &&
+                quantidade > estoque
+            ) {
+
+                quantidade =
+                    estoque;
+
+
+                mostrarNotificacao(
+                    `Quantidade limitada ao estoque disponível: ${estoque}.`
+                );
+
+            }
+
+
+            quantidades[id] =
+                quantidade;
+
+
+            atualizarCampoQuantidade(
+                id
+            );
+
+        };
+
+
+
+    /* ==========================================
+       ATUALIZAR CAMPO
+    ========================================== */
+
+    function atualizarCampoQuantidade(
+        id
+    ) {
+
+        const elemento =
+            document.getElementById(
+                `quantidade-${id}`
+            );
+
+
+        if (elemento) {
+
+            elemento.value =
+                quantidades[id] || 1;
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       ADICIONAR AO CARRINHO
+    ========================================== */
+
+    window.adicionarCarrinho =
+        function(id) {
+
+            const produto =
+                produtos.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!produto) {
+
+                return;
+
+            }
+
+
+            let quantidade =
+                Number(
+                    quantidades[id] || 1
+                );
+
+
+            if (
+                !Number.isInteger(
+                    quantidade
+                )
+                ||
+                quantidade < 1
+            ) {
+
+                quantidade = 1;
+
+            }
+
+
+            /*
+                Verifica estoque
+            */
+
+            const estoque =
+                Number(
+                    produto.estoque ?? 0
+                );
+
+
+            if (
+                estoque > 0
+                &&
+                quantidade > estoque
+            ) {
+
+                quantidade =
+                    estoque;
+
+
+                quantidades[id] =
+                    quantidade;
+
+
+                atualizarCampoQuantidade(
+                    id
+                );
+
+            }
+
+
+            /*
+                Verifica se o produto
+                já está no carrinho.
+            */
+
+            const existente =
+                carrinho.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (existente) {
+
+                const novaQuantidade =
+                    Number(
+                        existente.quantidade ||
+                        0
+                    )
+                    +
+                    quantidade;
+
+
+                /*
+                    Não ultrapassar
+                    o estoque total.
+                */
+
+                if (
+                    estoque > 0
+                    &&
+                    novaQuantidade > estoque
+                ) {
+
+                    mostrarNotificacao(
+                        `Não é possível adicionar mais. Estoque disponível: ${estoque}.`
+                    );
+
+                    return;
+
+                }
+
+
+                existente.quantidade =
+                    novaQuantidade;
+
+            }
+
+            else {
+
+                carrinho.push({
+
+                    id:
+                        produto.id,
+
+                    nome:
+                        produto.nome ||
+                        "",
+
+                    preco:
+                        Number(
+                            produto.preco ||
+                            0
+                        ),
+
+                    imagem:
+                        produto.imagem ||
+                        produto.foto ||
+                        "",
+
+                    quantidade:
+                        quantidade
+
+                });
+
+            }
+
+
+            salvarCarrinho();
+
+
+            atualizarContador();
+
+
+            mostrarNotificacao(
+
+                `${quantidade}x ${
+                    produto.nome
+                } adicionado ao carrinho!`
+
+            );
+
+
+            /*
+                Depois de adicionar,
+                volta para 1.
+            */
+
+            quantidades[id] =
+                1;
+
+
+            atualizarCampoQuantidade(
+                id
+            );
+
+        };
+
+
+
+    /* ==========================================
+       SALVAR CARRINHO
+    ========================================== */
+
+    function salvarCarrinho() {
+
+        localStorage.setItem(
+
+            "carrinhoLoja",
+
+            JSON.stringify(
+                carrinho
+            )
+
+        );
+
+    }
+
+
+
+    /* ==========================================
+       CONTADOR DO CARRINHO
+    ========================================== */
+
+    function atualizarContador() {
+
+        const total =
+            carrinho.reduce(
+
+                (
+                    soma,
+                    produto
+                ) =>
+
+                    soma +
+
+                    Number(
+                        produto.quantidade ||
+                        0
+                    ),
+
+                0
+
+            );
+
+
+        const contador =
+            document.getElementById(
+                "contadorCarrinho"
+            );
+
+
+        if (contador) {
+
+            contador.textContent =
+                total;
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       ABRIR CARRINHO
+    ========================================== */
+
+    window.abrirCarrinho =
+        function() {
+
+            window.location.href =
+                "carrinho.html";
+
+        };
+
+
+
+    /* ==========================================
+       NOTIFICAÇÃO
+    ========================================== */
+
+    function mostrarNotificacao(
+        texto
+    ) {
+
+        const elemento =
+            document.getElementById(
+                "notificacao"
+            );
+
+
+        elemento.textContent =
+            texto;
+
+
+        elemento.classList.add(
+            "mostrar"
+        );
+
+
+        clearTimeout(
+            window.timerNotificacao
+        );
+
+
+        window.timerNotificacao =
+            setTimeout(
+                () => {
+
+                    elemento.classList.remove(
+                        "mostrar"
+                    );
+
+                },
+                2500
+            );
+
+    }
+
+
+
+    /* ==========================================
+       MOEDA
+    ========================================== */
+
+    function formatarMoeda(
+        valor
+    ) {
+
+        return Number(
+            valor || 0
+        ).toLocaleString(
+
+            "pt-BR",
+
+            {
+
+                style: "currency",
+
+                currency: "BRL"
+
+            }
+
+        );
+
+    }
+
+
+
+    /* ==========================================
+       SEGURANÇA
+    ========================================== */
+
+    function escapar(
+        valor
+    ) {
+
+        return String(
+            valor ?? ""
+        )
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+    }
+
+
+
+    /* ==========================================
+       PESQUISA
+    ========================================== */
+
+    document
+        .getElementById(
+            "pesquisa"
+        )
+        .addEventListener(
+
+            "input",
+
+            renderizarProdutos
+
+        );
+
+
+
+    /* ==========================================
+       INICIAR
+    ========================================== */
+
+    carregarProdutos();
+
+</script>
+
+
+</body>
+
+</html>

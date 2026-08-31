@@ -1,0 +1,2304 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Administração de Produtos</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f3f4f6;
+
+            color: #111827;
+
+        }
+
+
+        /* ===================================
+           TOPO
+        =================================== */
+
+        header {
+
+            background: #111827;
+
+            color: white;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.15);
+
+        }
+
+
+        .topo {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 15px 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+        }
+
+
+        .logo {
+
+            font-size: 23px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logo span {
+
+            color: #22c55e;
+
+        }
+
+
+        .menu {
+
+            display: flex;
+
+            gap: 8px;
+
+            align-items: center;
+
+        }
+
+
+        .menu button {
+
+            border: none;
+
+            background: transparent;
+
+            color: white;
+
+            padding: 9px 12px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+        }
+
+
+        .menu button:hover {
+
+            background: #374151;
+
+        }
+
+
+        /* ===================================
+           CONTAINER
+        =================================== */
+
+        main {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 25px 20px 60px;
+
+        }
+
+
+        .titulo {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .titulo h1 {
+
+            font-size: 27px;
+
+        }
+
+
+        .titulo p {
+
+            color: #6b7280;
+
+            margin-top: 5px;
+
+        }
+
+
+        .botao-novo {
+
+            border: none;
+
+            background: #22c55e;
+
+            color: white;
+
+            padding: 12px 18px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+        .botao-novo:hover {
+
+            background: #16a34a;
+
+        }
+
+
+        /* ===================================
+           MENSAGEM
+        =================================== */
+
+        #mensagem {
+
+            display: none;
+
+            padding: 12px 15px;
+
+            border-radius: 8px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        #mensagem.sucesso {
+
+            display: block;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+        }
+
+
+        #mensagem.erro {
+
+            display: block;
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+        }
+
+
+        /* ===================================
+           FORMULÁRIO
+        =================================== */
+
+        .formulario {
+
+            display: none;
+
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 22px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,.07);
+
+        }
+
+
+        .formulario.mostrar {
+
+            display: block;
+
+        }
+
+
+        .formulario h2 {
+
+            margin-bottom: 20px;
+
+            font-size: 20px;
+
+        }
+
+
+        .grid-form {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 15px;
+
+        }
+
+
+        .campo {
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .campo.completo {
+
+            grid-column:
+                1 / -1;
+
+        }
+
+
+        .campo label {
+
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .campo input,
+        .campo textarea,
+        .campo select {
+
+            width: 100%;
+
+            padding: 11px 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            background: white;
+
+        }
+
+
+        .campo input:focus,
+        .campo textarea:focus,
+        .campo select:focus {
+
+            border-color: #22c55e;
+
+        }
+
+
+        .campo textarea {
+
+            min-height: 90px;
+
+            resize: vertical;
+
+        }
+
+
+        .ajuda {
+
+            display: block;
+
+            margin-top: 5px;
+
+            font-size: 12px;
+
+            color: #777;
+
+        }
+
+
+        .preview {
+
+            margin-top: 10px;
+
+            display: none;
+
+        }
+
+
+        .preview img {
+
+            width: 120px;
+
+            height: 100px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+
+            border: 1px solid #ddd;
+
+        }
+
+
+        .acoes-form {
+
+            margin-top: 20px;
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+
+        .botao {
+
+            border: none;
+
+            border-radius: 7px;
+
+            padding: 11px 18px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+        .salvar {
+
+            background: #22c55e;
+
+            color: white;
+
+        }
+
+
+        .cancelar {
+
+            background: #e5e7eb;
+
+            color: #374151;
+
+        }
+
+
+        /* ===================================
+           BARRA DE PESQUISA
+        =================================== */
+
+        .barra {
+
+            background: white;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            margin-bottom: 18px;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.05);
+
+        }
+
+
+        .barra input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 7px;
+
+            outline: none;
+
+            font-size: 15px;
+
+        }
+
+
+        /* ===================================
+           TABELA
+        =================================== */
+
+        .tabela-container {
+
+            background: white;
+
+            border-radius: 12px;
+
+            overflow-x: auto;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,.07);
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 800px;
+
+        }
+
+
+        th {
+
+            background: #f9fafb;
+
+            text-align: left;
+
+            padding: 13px;
+
+            font-size: 13px;
+
+            color: #6b7280;
+
+            border-bottom: 1px solid #e5e7eb;
+
+        }
+
+
+        td {
+
+            padding: 13px;
+
+            border-bottom: 1px solid #f0f0f0;
+
+            vertical-align: middle;
+
+            font-size: 14px;
+
+        }
+
+
+        tr:last-child td {
+
+            border-bottom: none;
+
+        }
+
+
+        .produto-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .produto-info img {
+
+            width: 50px;
+
+            height: 50px;
+
+            object-fit: cover;
+
+            border-radius: 7px;
+
+            background: #eee;
+
+        }
+
+
+        .produto-nome {
+
+            font-weight: bold;
+
+        }
+
+
+        .categoria {
+
+            color: #777;
+
+            font-size: 12px;
+
+            margin-top: 3px;
+
+        }
+
+
+        .preco {
+
+            font-weight: bold;
+
+            color: #16a34a;
+
+        }
+
+
+        .status {
+
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+        }
+
+
+        .status.ativo {
+
+            background: #dcfce7;
+
+            color: #166534;
+
+        }
+
+
+        .status.inativo {
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+        }
+
+
+        .acoes {
+
+            display: flex;
+
+            gap: 6px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .acao {
+
+            border: none;
+
+            padding: 7px 9px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+        }
+
+
+        .editar {
+
+            background: #dbeafe;
+
+            color: #1d4ed8;
+
+        }
+
+
+        .ativar {
+
+            background: #dcfce7;
+
+            color: #166534;
+
+        }
+
+
+        .desativar {
+
+            background: #fef3c7;
+
+            color: #92400e;
+
+        }
+
+
+        .excluir {
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+        }
+
+
+        /* ===================================
+           VAZIO
+        =================================== */
+
+        .vazio {
+
+            text-align: center;
+
+            padding: 50px 20px;
+
+            color: #777;
+
+        }
+
+
+        /* ===================================
+           LOADING
+        =================================== */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 35px;
+
+            color: #777;
+
+        }
+
+
+        /* ===================================
+           RESPONSIVO
+        =================================== */
+
+        @media (max-width: 700px) {
+
+            .grid-form {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .campo.completo {
+
+                grid-column: auto;
+
+            }
+
+
+            .titulo {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+            }
+
+
+            .topo {
+
+                flex-wrap: wrap;
+
+            }
+
+
+            .menu {
+
+                width: 100%;
+
+                overflow-x: auto;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="topo">
+
+
+        <div class="logo">
+
+            Minha<span>Loja</span>
+            <small style="font-size:12px;color:#aaa;">
+                ADMIN
+            </small>
+
+        </div>
+
+
+        <div class="menu">
+
+            <button
+                onclick="irParaLoja()"
+            >
+                🛍 Loja
+            </button>
+
+
+            <button
+                onclick="recarregar()"
+            >
+                🔄 Atualizar
+            </button>
+
+        </div>
+
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+    <div class="titulo">
+
+        <div>
+
+            <h1>
+                Produtos
+            </h1>
+
+            <p>
+                Cadastre e gerencie os produtos da loja.
+            </p>
+
+        </div>
+
+
+        <button
+            class="botao-novo"
+            onclick="novoProduto()"
+        >
+
+            + Novo produto
+
+        </button>
+
+    </div>
+
+
+
+    <div
+        id="mensagem"
+    ></div>
+
+
+
+    <!-- ===========================
+         FORMULÁRIO
+    ============================ -->
+
+    <div
+        id="formulario"
+        class="formulario"
+    >
+
+        <h2
+            id="tituloFormulario"
+        >
+            Novo produto
+        </h2>
+
+
+        <form
+            id="formProduto"
+        >
+
+
+            <div class="grid-form">
+
+
+                <div class="campo">
+
+                    <label>
+                        Nome do produto *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        required
+                        placeholder="Ex.: Arroz 5kg"
+                    >
+
+                </div>
+
+
+
+                <div class="campo">
+
+                    <label>
+                        Categoria
+                    </label>
+
+                    <input
+                        type="text"
+                        id="categoria"
+                        placeholder="Ex.: Alimentos"
+                    >
+
+                </div>
+
+
+
+                <div class="campo">
+
+                    <label>
+                        Preço *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="preco"
+                        required
+                        min="0"
+                        step="0.01"
+                        placeholder="0,00"
+                    >
+
+                </div>
+
+
+
+                <div class="campo">
+
+                    <label>
+                        Estoque
+                    </label>
+
+                    <input
+                        type="number"
+                        id="estoque"
+                        min="0"
+                        step="1"
+                        value="0"
+                        placeholder="0"
+                    >
+
+                </div>
+
+
+
+                <div class="campo completo">
+
+                    <label>
+                        Descrição
+                    </label>
+
+                    <textarea
+                        id="descricao"
+                        placeholder="Descrição do produto..."
+                    ></textarea>
+
+                </div>
+
+
+
+                <div class="campo completo">
+
+                    <label>
+                        URL da imagem
+                    </label>
+
+                    <input
+                        type="url"
+                        id="imagem"
+                        placeholder="https://..."
+                    >
+
+                    <span class="ajuda">
+                        Nesta primeira versão,
+                        informe o endereço da imagem.
+                    </span>
+
+
+                    <div
+                        id="preview"
+                        class="preview"
+                    >
+
+                        <img
+                            id="imagemPreview"
+                            src=""
+                            alt="Prévia"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="campo">
+
+                    <label>
+                        Produto ativo?
+                    </label>
+
+                    <select id="ativo">
+
+                        <option value="true">
+                            Sim
+                        </option>
+
+                        <option value="false">
+                            Não
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="acoes-form">
+
+                <button
+                    type="submit"
+                    class="botao salvar"
+                    id="botaoSalvar"
+                >
+
+                    💾 Salvar produto
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="botao cancelar"
+                    onclick="cancelarFormulario()"
+                >
+
+                    Cancelar
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+
+    <!-- ===========================
+         PESQUISA
+    ============================ -->
+
+    <div class="barra">
+
+        <input
+            type="text"
+            id="pesquisa"
+            placeholder="🔎 Pesquisar por nome ou categoria..."
+        >
+
+    </div>
+
+
+
+    <!-- ===========================
+         TABELA
+    ============================ -->
+
+    <div class="tabela-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Produto
+                    </th>
+
+                    <th>
+                        Preço
+                    </th>
+
+                    <th>
+                        Estoque
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Ações
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="listaProdutos"
+            >
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="loading"
+                    >
+                        Carregando produtos...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</main>
+
+
+
+<script type="module">
+
+
+    /* ==========================================
+       FIREBASE
+    ========================================== */
+
+    import {
+        initializeApp
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+    import {
+        getFirestore,
+        collection,
+        addDoc,
+        getDocs,
+        doc,
+        updateDoc,
+        deleteDoc,
+        serverTimestamp
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    /*
+        COLOQUE AQUI A MESMA CONFIGURAÇÃO
+        DO SEU PROJETO FIREBASE
+    */
+const firebaseConfig = {
+  apiKey: "AIzaSyDtFVa120k4xnggOHibWOs61Jn-hJaSsdU",
+  authDomain: "timonha-b36d6.firebaseapp.com",
+  projectId: "timonha-b36d6",
+  storageBucket: "timonha-b36d6.firebasestorage.app",
+  messagingSenderId: "59864953764",
+  appId: "1:59864953764:web:9d44c30ff09b00a0f44731"
+
+    };
+
+
+    const app =
+        initializeApp(
+            firebaseConfig
+        );
+
+
+    const db =
+        getFirestore(app);
+
+
+
+    /* ==========================================
+       VARIÁVEIS
+    ========================================== */
+
+    let produtos = [];
+
+    let produtoEditando = null;
+
+
+
+    /* ==========================================
+       ELEMENTOS
+    ========================================== */
+
+    const formulario =
+        document.getElementById(
+            "formulario"
+        );
+
+
+    const formProduto =
+        document.getElementById(
+            "formProduto"
+        );
+
+
+    const listaProdutos =
+        document.getElementById(
+            "listaProdutos"
+        );
+
+
+    const pesquisa =
+        document.getElementById(
+            "pesquisa"
+        );
+
+
+
+    /* ==========================================
+       MENSAGEM
+    ========================================== */
+
+    function mostrarMensagem(
+        texto,
+        tipo
+    ) {
+
+        const elemento =
+            document.getElementById(
+                "mensagem"
+            );
+
+
+        elemento.textContent =
+            texto;
+
+
+        elemento.className =
+            tipo;
+
+
+        setTimeout(() => {
+
+            elemento.className = "";
+
+            elemento.textContent = "";
+
+        }, 3500);
+
+    }
+
+
+
+    /* ==========================================
+       MOEDA
+    ========================================== */
+
+    function moeda(valor) {
+
+        return Number(
+            valor || 0
+        ).toLocaleString(
+
+            "pt-BR",
+
+            {
+                style: "currency",
+                currency: "BRL"
+            }
+
+        );
+
+    }
+
+
+
+    /* ==========================================
+       ESCAPAR
+    ========================================== */
+
+    function escapar(valor) {
+
+        return String(
+            valor ?? ""
+        )
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+    }
+
+
+
+    /* ==========================================
+       CARREGAR PRODUTOS
+    ========================================== */
+
+    async function carregarProdutos() {
+
+        listaProdutos.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="loading"
+                >
+
+                    Carregando produtos...
+
+                </td>
+
+            </tr>
+
+        `;
+
+
+        try {
+
+            const snapshot =
+                await getDocs(
+                    collection(
+                        db,
+                        "produtos"
+                    )
+                );
+
+
+            produtos = [];
+
+
+            snapshot.forEach(
+                documento => {
+
+                    produtos.push({
+
+                        id:
+                            documento.id,
+
+                        ...documento.data()
+
+                    });
+
+                }
+            );
+
+
+            renderizarProdutos();
+
+
+        } catch (erro) {
+
+            console.error(
+                erro
+            );
+
+
+            listaProdutos.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="vazio"
+                    >
+
+                        Erro ao carregar produtos.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+
+            mostrarMensagem(
+                "Erro ao carregar os produtos.",
+                "erro"
+            );
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       RENDERIZAR
+    ========================================== */
+
+    function renderizarProdutos() {
+
+        const termo =
+            pesquisa
+                .value
+                .toLowerCase()
+                .trim();
+
+
+        const filtrados =
+            produtos.filter(
+                produto => {
+
+                    const nome =
+                        String(
+                            produto.nome || ""
+                        ).toLowerCase();
+
+
+                    const categoria =
+                        String(
+                            produto.categoria || ""
+                        ).toLowerCase();
+
+
+                    return (
+
+                        nome.includes(
+                            termo
+                        )
+
+                        ||
+
+                        categoria.includes(
+                            termo
+                        )
+
+                    );
+
+                }
+            );
+
+
+        if (!filtrados.length) {
+
+            listaProdutos.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="vazio"
+                    >
+
+                        Nenhum produto encontrado.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        listaProdutos.innerHTML = "";
+
+
+        filtrados.forEach(
+            produto => {
+
+                const ativo =
+                    produto.ativo !== false &&
+                    produto.ativa !== false;
+
+
+                const imagem =
+                    produto.imagem ||
+                    produto.foto ||
+                    "https://via.placeholder.com/100x100?text=Produto";
+
+
+                const linha =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                linha.innerHTML = `
+
+                    <td>
+
+                        <div class="produto-info">
+
+                            <img
+                                src="${escapar(imagem)}"
+                                alt="${escapar(produto.nome)}"
+                                onerror="this.src='https://via.placeholder.com/100x100?text=Produto'"
+                            >
+
+
+                            <div>
+
+                                <div class="produto-nome">
+
+                                    ${escapar(
+                                        produto.nome ||
+                                        "Sem nome"
+                                    )}
+
+                                </div>
+
+
+                                <div class="categoria">
+
+                                    ${escapar(
+                                        produto.categoria ||
+                                        "Sem categoria"
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="preco">
+
+                            ${moeda(
+                                produto.preco
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        ${Number(
+                            produto.estoque || 0
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="status ${
+                                ativo
+                                ? "ativo"
+                                : "inativo"
+                            }"
+                        >
+
+                            ${
+                                ativo
+                                ? "Ativo"
+                                : "Inativo"
+                            }
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <div class="acoes">
+
+                            <button
+                                class="acao editar"
+                                onclick="editarProduto('${produto.id}')"
+                            >
+                                ✏️ Editar
+                            </button>
+
+
+                            <button
+                                class="acao ${
+                                    ativo
+                                    ? "desativar"
+                                    : "ativar"
+                                }"
+                                onclick="alternarProduto('${produto.id}')"
+                            >
+
+                                ${
+                                    ativo
+                                    ? "⏸ Desativar"
+                                    : "▶ Ativar"
+                                }
+
+                            </button>
+
+
+                            <button
+                                class="acao excluir"
+                                onclick="excluirProduto('${produto.id}')"
+                            >
+
+                                🗑 Excluir
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                `;
+
+
+                listaProdutos.appendChild(
+                    linha
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* ==========================================
+       NOVO PRODUTO
+    ========================================== */
+
+    window.novoProduto =
+        function() {
+
+            produtoEditando =
+                null;
+
+
+            formProduto.reset();
+
+
+            document.getElementById(
+                "ativo"
+            ).value = "true";
+
+
+            document.getElementById(
+                "tituloFormulario"
+            ).textContent =
+                "Novo produto";
+
+
+            document.getElementById(
+                "botaoSalvar"
+            ).textContent =
+                "💾 Salvar produto";
+
+
+            esconderPreview();
+
+
+            formulario.classList.add(
+                "mostrar"
+            );
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        };
+
+
+
+    /* ==========================================
+       EDITAR
+    ========================================== */
+
+    window.editarProduto =
+        function(id) {
+
+            const produto =
+                produtos.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!produto) {
+
+                return;
+
+            }
+
+
+            produtoEditando =
+                id;
+
+
+            document.getElementById(
+                "nome"
+            ).value =
+                produto.nome || "";
+
+
+            document.getElementById(
+                "categoria"
+            ).value =
+                produto.categoria || "";
+
+
+            document.getElementById(
+                "preco"
+            ).value =
+                produto.preco || 0;
+
+
+            document.getElementById(
+                "estoque"
+            ).value =
+                produto.estoque || 0;
+
+
+            document.getElementById(
+                "descricao"
+            ).value =
+                produto.descricao || "";
+
+
+            document.getElementById(
+                "imagem"
+            ).value =
+                produto.imagem ||
+                produto.foto ||
+                "";
+
+
+            document.getElementById(
+                "ativo"
+            ).value =
+                (
+                    produto.ativo !== false &&
+                    produto.ativa !== false
+                )
+                ? "true"
+                : "false";
+
+
+            document.getElementById(
+                "tituloFormulario"
+            ).textContent =
+                "Editar produto";
+
+
+            document.getElementById(
+                "botaoSalvar"
+            ).textContent =
+                "💾 Atualizar produto";
+
+
+            atualizarPreview();
+
+
+            formulario.classList.add(
+                "mostrar"
+            );
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        };
+
+
+
+    /* ==========================================
+       ATIVAR / DESATIVAR
+    ========================================== */
+
+    window.alternarProduto =
+        async function(id) {
+
+            const produto =
+                produtos.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!produto) {
+
+                return;
+
+            }
+
+
+            const ativoAtual =
+                produto.ativo !== false &&
+                produto.ativa !== false;
+
+
+            const novoStatus =
+                !ativoAtual;
+
+
+            try {
+
+                await updateDoc(
+
+                    doc(
+                        db,
+                        "produtos",
+                        id
+                    ),
+
+                    {
+
+                        ativo:
+                            novoStatus,
+
+                        atualizadoEm:
+                            serverTimestamp()
+
+                    }
+
+                );
+
+
+                mostrarMensagem(
+
+                    novoStatus
+
+                        ? "Produto ativado."
+
+                        : "Produto desativado.",
+
+                    "sucesso"
+
+                );
+
+
+                carregarProdutos();
+
+
+            } catch (erro) {
+
+                console.error(
+                    erro
+                );
+
+
+                mostrarMensagem(
+                    "Não foi possível alterar o status.",
+                    "erro"
+                );
+
+            }
+
+        };
+
+
+
+    /* ==========================================
+       EXCLUIR
+    ========================================== */
+
+    window.excluirProduto =
+        async function(id) {
+
+            const produto =
+                produtos.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!produto) {
+
+                return;
+
+            }
+
+
+            const confirmar =
+                confirm(
+
+                    `Deseja realmente excluir o produto "${produto.nome}"?`
+
+                );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            try {
+
+                await deleteDoc(
+
+                    doc(
+                        db,
+                        "produtos",
+                        id
+                    )
+
+                );
+
+
+                mostrarMensagem(
+                    "Produto excluído com sucesso.",
+                    "sucesso"
+                );
+
+
+                carregarProdutos();
+
+
+            } catch (erro) {
+
+                console.error(
+                    erro
+                );
+
+
+                mostrarMensagem(
+                    "Não foi possível excluir o produto.",
+                    "erro"
+                );
+
+            }
+
+        };
+
+
+
+    /* ==========================================
+       FORMULÁRIO SUBMIT
+    ========================================== */
+
+    formProduto.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const botao =
+                document.getElementById(
+                    "botaoSalvar"
+                );
+
+
+            botao.disabled = true;
+
+
+            try {
+
+                const nome =
+                    document.getElementById(
+                        "nome"
+                    )
+                    .value
+                    .trim();
+
+
+                const categoria =
+                    document.getElementById(
+                        "categoria"
+                    )
+                    .value
+                    .trim();
+
+
+                const preco =
+                    Number(
+                        document.getElementById(
+                            "preco"
+                        ).value
+                    );
+
+
+                const estoque =
+                    Number(
+                        document.getElementById(
+                            "estoque"
+                        ).value
+                    );
+
+
+                const descricao =
+                    document.getElementById(
+                        "descricao"
+                    )
+                    .value
+                    .trim();
+
+
+                const imagem =
+                    document.getElementById(
+                        "imagem"
+                    )
+                    .value
+                    .trim();
+
+
+                const ativo =
+                    document.getElementById(
+                        "ativo"
+                    ).value === "true";
+
+
+                const dados = {
+
+                    nome:
+                        nome,
+
+                    categoria:
+                        categoria,
+
+                    preco:
+                        preco,
+
+                    estoque:
+                        estoque,
+
+                    descricao:
+                        descricao,
+
+                    imagem:
+                        imagem,
+
+                    ativo:
+                        ativo,
+
+                    atualizadoEm:
+                        serverTimestamp()
+
+                };
+
+
+
+                /* =========================
+                   NOVO
+                ========================== */
+
+                if (!produtoEditando) {
+
+                    dados.criadoEm =
+                        serverTimestamp();
+
+
+                    await addDoc(
+
+                        collection(
+                            db,
+                            "produtos"
+                        ),
+
+                        dados
+
+                    );
+
+
+                    mostrarMensagem(
+                        "Produto cadastrado com sucesso!",
+                        "sucesso"
+                    );
+
+                }
+
+
+                /* =========================
+                   EDITAR
+                ========================== */
+
+                else {
+
+                    await updateDoc(
+
+                        doc(
+                            db,
+                            "produtos",
+                            produtoEditando
+                        ),
+
+                        dados
+
+                    );
+
+
+                    mostrarMensagem(
+                        "Produto atualizado com sucesso!",
+                        "sucesso"
+                    );
+
+                }
+
+
+                cancelarFormulario();
+
+                carregarProdutos();
+
+
+            } catch (erro) {
+
+                console.error(
+                    erro
+                );
+
+
+                mostrarMensagem(
+                    "Não foi possível salvar o produto.",
+                    "erro"
+                );
+
+            }
+
+
+            botao.disabled =
+                false;
+
+        }
+    );
+
+
+
+    /* ==========================================
+       CANCELAR
+    ========================================== */
+
+    window.cancelarFormulario =
+        function() {
+
+            produtoEditando =
+                null;
+
+
+            formulario.classList.remove(
+                "mostrar"
+            );
+
+
+            formProduto.reset();
+
+
+            esconderPreview();
+
+        };
+
+
+
+    /* ==========================================
+       PREVIEW IMAGEM
+    ========================================== */
+
+    const campoImagem =
+        document.getElementById(
+            "imagem"
+        );
+
+
+    campoImagem.addEventListener(
+        "input",
+        atualizarPreview
+    );
+
+
+    function atualizarPreview() {
+
+        const url =
+            campoImagem.value.trim();
+
+
+        const preview =
+            document.getElementById(
+                "preview"
+            );
+
+
+        const imagem =
+            document.getElementById(
+                "imagemPreview"
+            );
+
+
+        if (!url) {
+
+            esconderPreview();
+
+            return;
+
+        }
+
+
+        imagem.src =
+            url;
+
+
+        imagem.onload =
+            function() {
+
+                preview.style.display =
+                    "block";
+
+            };
+
+
+        imagem.onerror =
+            function() {
+
+                preview.style.display =
+                    "none";
+
+            };
+
+    }
+
+
+
+    function esconderPreview() {
+
+        document.getElementById(
+            "preview"
+        ).style.display =
+            "none";
+
+    }
+
+
+
+    /* ==========================================
+       PESQUISA
+    ========================================== */
+
+    pesquisa.addEventListener(
+        "input",
+        renderizarProdutos
+    );
+
+
+
+    /* ==========================================
+       IR PARA LOJA
+    ========================================== */
+
+    window.irParaLoja =
+        function() {
+
+            window.location.href =
+                "../index.html";
+
+        };
+
+
+
+    /* ==========================================
+       RECARREGAR
+    ========================================== */
+
+    window.recarregar =
+        function() {
+
+            carregarProdutos();
+
+        };
+
+
+
+    /* ==========================================
+       INICIAR
+    ========================================== */
+
+    carregarProdutos();
+
+</script>
+
+
+</body>
+
+</html>
+```

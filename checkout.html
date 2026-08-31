@@ -1,0 +1,2270 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Finalizar Pedido - BJ IMPRESSOS</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f5f5;
+
+            color: #222;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* =========================
+           CABEÇALHO
+        ========================= */
+
+        header {
+
+            background: #111827;
+
+            color: white;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.15);
+
+        }
+
+
+        .topo {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 16px 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+        }
+
+
+        .logo {
+
+            font-size: 23px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logo span {
+
+            color: #22c55e;
+
+        }
+
+
+        .voltar {
+
+            border: none;
+
+            background: transparent;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+        }
+
+
+        .voltar:hover {
+
+            color: #22c55e;
+
+        }
+
+
+        /* =========================
+           CONTEÚDO
+        ========================= */
+
+        main {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 30px 20px 60px;
+
+        }
+
+
+        .titulo {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .titulo h1 {
+
+            font-size: 28px;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .titulo p {
+
+            color: #666;
+
+        }
+
+
+        .layout {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                350px;
+
+            gap: 25px;
+
+            align-items: start;
+
+        }
+
+
+        /* =========================
+           FORMULÁRIO
+        ========================= */
+
+        .formulario {
+
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.07);
+
+        }
+
+
+        .formulario h2 {
+
+            font-size: 20px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .grupo {
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .grupo label {
+
+            display: block;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .grupo input,
+        .grupo select,
+        .grupo textarea {
+
+            width: 100%;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            padding: 11px 12px;
+
+            font-size: 15px;
+
+            outline: none;
+
+            background: white;
+
+        }
+
+
+        .grupo input:focus,
+        .grupo select:focus,
+        .grupo textarea:focus {
+
+            border-color: #22c55e;
+
+        }
+
+
+        .grupo textarea {
+
+            min-height: 90px;
+
+            resize: vertical;
+
+        }
+
+
+        .linha-form {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 12px;
+
+        }
+
+
+        .obrigatorio {
+
+            color: #dc2626;
+
+        }
+
+
+        /* =========================
+           RESUMO
+        ========================= */
+
+        .resumo {
+
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,.08);
+
+            position: sticky;
+
+            top: 20px;
+
+        }
+
+
+        .resumo h2 {
+
+            font-size: 20px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .produto-resumo {
+
+            display: grid;
+
+            grid-template-columns:
+                55px
+                minmax(0,1fr);
+
+            gap: 10px;
+
+            padding-bottom: 12px;
+
+            margin-bottom: 12px;
+
+            border-bottom: 1px solid #eee;
+
+        }
+
+
+        .produto-resumo img {
+
+            width: 55px;
+
+            height: 55px;
+
+            object-fit: cover;
+
+            border-radius: 7px;
+
+            background: #eee;
+
+        }
+
+
+        .produto-resumo-nome {
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .produto-resumo-info {
+
+            color: #666;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .linha-total {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 10px;
+
+            border-top: 1px solid #ddd;
+
+            padding-top: 15px;
+
+            margin-top: 10px;
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+        }
+
+
+        .valor-total {
+
+            color: #16a34a;
+
+        }
+
+
+        /* =========================
+           BOTÃO
+        ========================= */
+
+        .botao-finalizar {
+
+            width: 100%;
+
+            border: none;
+
+            background: #22c55e;
+
+            color: white;
+
+            padding: 14px;
+
+            border-radius: 8px;
+
+            margin-top: 20px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .botao-finalizar:hover {
+
+            background: #16a34a;
+
+        }
+
+
+        .botao-finalizar:disabled {
+
+            background: #9ca3af;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* =========================
+           AVISO
+        ========================= */
+
+        .aviso {
+
+            background: #f0fdf4;
+
+            border: 1px solid #bbf7d0;
+
+            color: #166534;
+
+            border-radius: 8px;
+
+            padding: 12px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            margin-top: 15px;
+
+        }
+
+
+        /* =========================
+           ERRO
+        ========================= */
+
+        .erro {
+
+            display: none;
+
+            background: #fef2f2;
+
+            border: 1px solid #fecaca;
+
+            color: #991b1b;
+
+            border-radius: 8px;
+
+            padding: 12px;
+
+            margin-bottom: 15px;
+
+            font-size: 14px;
+
+        }
+
+
+        .erro.mostrar {
+
+            display: block;
+
+        }
+
+
+        /* =========================
+           SUCESSO
+        ========================= */
+
+        .sucesso {
+
+            display: none;
+
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 50px 25px;
+
+            text-align: center;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,.08);
+
+        }
+
+
+        .sucesso.mostrar {
+
+            display: block;
+
+        }
+
+
+        .sucesso .icone {
+
+            font-size: 55px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .sucesso h2 {
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .numero-pedido {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            color: #16a34a;
+
+            margin: 15px 0;
+
+        }
+
+
+        .botao-voltar {
+
+            border: none;
+
+            background: #111827;
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            margin-top: 15px;
+
+        }
+
+
+        /* =========================
+           RESPONSIVO
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .layout {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .resumo {
+
+                position: static;
+
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .linha-form {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .formulario {
+
+                padding: 18px;
+
+            }
+
+
+            .resumo {
+
+                padding: 18px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="topo">
+
+        <div class="logo">
+
+            BJ<span>IMPRESSOS</span>
+
+        </div>
+
+
+        <button
+            class="voltar"
+            onclick="voltarCarrinho()"
+        >
+
+            ← Voltar ao carrinho
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+    <div
+        id="areaCheckout"
+    >
+
+        <div class="titulo">
+
+            <h1>
+                Finalizar Pedido
+            </h1>
+
+            <p>
+                Preencha seus dados para concluir o pedido.
+            </p>
+
+        </div>
+
+
+
+        <div
+            id="mensagemErro"
+            class="erro"
+        ></div>
+
+
+
+        <div class="layout">
+
+
+            <!-- =====================
+                 FORMULÁRIO
+            ====================== -->
+
+            <div class="formulario">
+
+
+                <h2>
+                    👤 Dados do cliente
+                </h2>
+
+
+                <form
+                    id="formPedido"
+                >
+
+
+                    <div class="grupo">
+
+                        <label for="nome">
+
+                            Nome completo
+                            <span class="obrigatorio">*</span>
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            placeholder="Digite seu nome completo"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="grupo">
+
+                        <label for="whatsapp">
+
+                            WhatsApp
+                            <span class="obrigatorio">*</span>
+
+                        </label>
+
+
+                        <input
+                            type="tel"
+                            id="whatsapp"
+                            name="whatsapp"
+                            placeholder="(88) 99999-9999"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="grupo">
+
+                        <label for="email">
+
+                            E-mail
+
+                        </label>
+
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="seuemail@email.com"
+                        >
+
+                    </div>
+
+
+
+                    <h2
+                        style="
+                            margin-top:25px;
+                        "
+                    >
+
+                        📍 Endereço de entrega
+
+                    </h2>
+
+
+
+                    <div class="grupo">
+
+                        <label for="cep">
+
+                            CEP
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="cep"
+                            name="cep"
+                            placeholder="00000-000"
+                            maxlength="9"
+                        >
+
+                    </div>
+
+
+
+                    <div class="grupo">
+
+                        <label for="endereco">
+
+                            Endereço
+                            <span class="obrigatorio">*</span>
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="endereco"
+                            name="endereco"
+                            placeholder="Rua, Avenida..."
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="linha-form">
+
+
+                        <div class="grupo">
+
+                            <label for="numero">
+
+                                Número
+                                <span class="obrigatorio">*</span>
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="numero"
+                                name="numero"
+                                placeholder="123"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <div class="grupo">
+
+                            <label for="bairro">
+
+                                Bairro
+                                <span class="obrigatorio">*</span>
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="bairro"
+                                name="bairro"
+                                placeholder="Bairro"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="linha-form">
+
+
+                        <div class="grupo">
+
+                            <label for="cidade">
+
+                                Cidade
+                                <span class="obrigatorio">*</span>
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="cidade"
+                                name="cidade"
+                                placeholder="Cidade"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <div class="grupo">
+
+                            <label for="estado">
+
+                                Estado
+                                <span class="obrigatorio">*</span>
+
+                            </label>
+
+
+                            <select
+                                id="estado"
+                                name="estado"
+                                required
+                            >
+
+                                <option value="">
+                                    Selecione
+                                </option>
+
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="grupo">
+
+                        <label for="observacao">
+
+                            Observações do pedido
+
+                        </label>
+
+
+                        <textarea
+                            id="observacao"
+                            name="observacao"
+                            placeholder="Alguma observação sobre o pedido?"
+                        ></textarea>
+
+                    </div>
+
+
+
+                    <button
+                        type="submit"
+                        class="botao-finalizar"
+                        id="botaoFinalizar"
+                    >
+
+                        📱 Finalizar e enviar pedido
+
+                    </button>
+
+
+                    <div class="aviso">
+
+                        Após finalizar, seu pedido será
+                        registrado e você será direcionado
+                        para o WhatsApp da loja para
+                        enviar os detalhes do pedido.
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+
+
+            <!-- =====================
+                 RESUMO
+            ====================== -->
+
+            <div class="resumo">
+
+
+                <h2>
+
+                    🛒 Resumo do pedido
+
+                </h2>
+
+
+                <div
+                    id="listaResumo"
+                ></div>
+
+
+                <div class="linha-total">
+
+                    <span>
+                        Total
+                    </span>
+
+
+                    <span
+                        class="valor-total"
+                        id="totalPedido"
+                    >
+
+                        R$ 0,00
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         SUCESSO
+    ========================= -->
+
+    <div
+        id="areaSucesso"
+        class="sucesso"
+    >
+
+        <div class="icone">
+            ✅
+        </div>
+
+
+        <h2>
+            Pedido registrado!
+        </h2>
+
+
+        <p>
+            Seu pedido foi registrado com sucesso.
+        </p>
+
+
+        <div
+            class="numero-pedido"
+            id="numeroPedido"
+        >
+        </div>
+
+
+        <p>
+            Agora envie a mensagem pelo WhatsApp
+            para confirmar seu pedido.
+        </p>
+
+
+        <button
+            class="botao-voltar"
+            onclick="voltarParaLoja()"
+        >
+
+            Voltar para a loja
+
+        </button>
+
+    </div>
+
+
+</main>
+
+
+
+<script type="module">
+
+
+    /* ==========================================
+       FIREBASE
+    ========================================== */
+
+    import {
+        initializeApp
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+    import {
+        getFirestore,
+        collection,
+        addDoc,
+        serverTimestamp
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+
+    /* ==========================================
+       CONFIGURAÇÃO FIREBASE
+    ========================================== */
+
+    const firebaseConfig = {
+
+        apiKey:
+            "AIzaSyDtFVa120k4xnggOHibWOs61Jn-hJaSsdU",
+
+        authDomain:
+            "timonha-b36d6.firebaseapp.com",
+
+        projectId:
+            "timonha-b36d6",
+
+        storageBucket:
+            "timonha-b36d6.firebasestorage.app",
+
+        messagingSenderId:
+            "59864953764",
+
+        appId:
+            "1:59864953764:web:9d44c30ff09b00a0f44731"
+
+    };
+
+
+    const app =
+        initializeApp(
+            firebaseConfig
+        );
+
+
+    const db =
+        getFirestore(app);
+
+
+
+    /* ==========================================
+       WHATSAPP DA LOJA
+    ========================================== */
+
+    const WHATSAPP_LOJA =
+        "5588982355586";
+
+
+
+    /* ==========================================
+       CARRINHO
+    ========================================== */
+
+    let carrinho = [];
+
+
+    try {
+
+        carrinho =
+            JSON.parse(
+                localStorage.getItem(
+                    "carrinhoLoja"
+                )
+            ) || [];
+
+    }
+
+    catch (erro) {
+
+        console.error(
+            erro
+        );
+
+        carrinho = [];
+
+    }
+
+
+
+    /* ==========================================
+       FORMATAR MOEDA
+    ========================================== */
+
+    function formatarMoeda(
+        valor
+    ) {
+
+        return Number(
+            valor || 0
+        ).toLocaleString(
+
+            "pt-BR",
+
+            {
+
+                style: "currency",
+
+                currency: "BRL"
+
+            }
+
+        );
+
+    }
+
+
+
+    /* ==========================================
+       ESCAPAR HTML
+    ========================================== */
+
+    function escapar(
+        valor
+    ) {
+
+        return String(
+            valor ?? ""
+        )
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+    }
+
+
+
+    /* ==========================================
+       MOSTRAR RESUMO
+    ========================================== */
+
+    function carregarResumo() {
+
+        const lista =
+            document.getElementById(
+                "listaResumo"
+            );
+
+
+        const totalElemento =
+            document.getElementById(
+                "totalPedido"
+            );
+
+
+        if (
+            !carrinho.length
+        ) {
+
+            lista.innerHTML = `
+
+                <p
+                    style="
+                        color:#777;
+                        font-size:14px;
+                    "
+                >
+
+                    Seu carrinho está vazio.
+
+                </p>
+
+            `;
+
+
+            totalElemento.textContent =
+                formatarMoeda(0);
+
+
+            return;
+
+        }
+
+
+        let total =
+            0;
+
+
+        lista.innerHTML = "";
+
+
+        carrinho.forEach(
+            item => {
+
+                const preco =
+                    Number(
+                        item.preco || 0
+                    );
+
+
+                const quantidade =
+                    Number(
+                        item.quantidade || 1
+                    );
+
+
+                const subtotal =
+                    preco *
+                    quantidade;
+
+
+                total +=
+                    subtotal;
+
+
+                const imagem =
+                    item.imagem ||
+                    item.foto ||
+                    "https://via.placeholder.com/100x100?text=Produto";
+
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                div.className =
+                    "produto-resumo";
+
+
+                div.innerHTML = `
+
+                    <img
+                        src="${escapar(imagem)}"
+                        alt="${escapar(item.nome)}"
+                        onerror="
+                            this.src='https://via.placeholder.com/100x100?text=Produto'
+                        "
+                    >
+
+
+                    <div>
+
+                        <div
+                            class="produto-resumo-nome"
+                        >
+
+                            ${escapar(item.nome)}
+
+                        </div>
+
+
+                        <div
+                            class="produto-resumo-info"
+                        >
+
+                            Quantidade:
+                            ${quantidade}
+
+                            <br>
+
+                            ${formatarMoeda(preco)}
+                            cada
+
+                            <br>
+
+                            <strong>
+
+                                ${formatarMoeda(subtotal)}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                lista.appendChild(
+                    div
+                );
+
+            }
+        );
+
+
+        totalElemento.textContent =
+            formatarMoeda(
+                total
+            );
+
+    }
+
+
+
+    /* ==========================================
+       CALCULAR TOTAL
+    ========================================== */
+
+    function calcularTotal() {
+
+        return carrinho.reduce(
+
+            (
+                total,
+                item
+            ) => {
+
+                return (
+
+                    total +
+
+                    (
+                        Number(
+                            item.preco || 0
+                        )
+                        *
+                        Number(
+                            item.quantidade || 0
+                        )
+                    )
+
+                );
+
+            },
+
+            0
+
+        );
+
+    }
+
+
+
+    /* ==========================================
+       MÁSCARA WHATSAPP
+    ========================================== */
+
+    document
+        .getElementById(
+            "whatsapp"
+        )
+        .addEventListener(
+
+            "input",
+
+            function() {
+
+                let valor =
+                    this.value.replace(
+                        /\D/g,
+                        ""
+                    );
+
+
+                if (
+                    valor.length > 11
+                ) {
+
+                    valor =
+                        valor.substring(
+                            0,
+                            11
+                        );
+
+                }
+
+
+                if (
+                    valor.length <= 10
+                ) {
+
+                    valor =
+                        valor.replace(
+                            /^(\d{2})(\d)/,
+                            "($1) $2"
+                        )
+
+                        .replace(
+                            /(\d{4})(\d)/,
+                            "$1-$2"
+                        );
+
+                }
+
+                else {
+
+                    valor =
+                        valor.replace(
+                            /^(\d{2})(\d)/,
+                            "($1) $2"
+                        )
+
+                        .replace(
+                            /(\d{5})(\d)/,
+                            "$1-$2"
+                        );
+
+                }
+
+
+                this.value =
+                    valor;
+
+            }
+
+        );
+
+
+
+    /* ==========================================
+       MÁSCARA CEP
+    ========================================== */
+
+    document
+        .getElementById(
+            "cep"
+        )
+        .addEventListener(
+
+            "input",
+
+            function() {
+
+                let valor =
+                    this.value.replace(
+                        /\D/g,
+                        ""
+                    );
+
+
+                if (
+                    valor.length > 8
+                ) {
+
+                    valor =
+                        valor.substring(
+                            0,
+                            8
+                        );
+
+                }
+
+
+                if (
+                    valor.length > 5
+                ) {
+
+                    valor =
+                        valor.substring(
+                            0,
+                            5
+                        )
+                        +
+                        "-"
+                        +
+                        valor.substring(
+                            5
+                        );
+
+                }
+
+
+                this.value =
+                    valor;
+
+            }
+
+        );
+
+
+
+    /* ==========================================
+       GERAR NÚMERO DO PEDIDO
+    ========================================== */
+
+    function gerarNumeroPedido() {
+
+        const agora =
+            new Date();
+
+
+        const ano =
+            agora.getFullYear();
+
+
+        const mes =
+            String(
+                agora.getMonth() + 1
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const dia =
+            String(
+                agora.getDate()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const hora =
+            String(
+                agora.getHours()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const minuto =
+            String(
+                agora.getMinutes()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const segundo =
+            String(
+                agora.getSeconds()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        return `${ano}${mes}${dia}${hora}${minuto}${segundo}`;
+
+    }
+
+
+
+    /* ==========================================
+       MONTAR MENSAGEM WHATSAPP
+    ========================================== */
+
+    function montarMensagem(
+        numeroPedido,
+        dadosCliente
+    ) {
+
+        let mensagem =
+
+            `🛒 *NOVO PEDIDO - BJ IMPRESSOS*\n\n` +
+
+            `📋 *Pedido:* #${numeroPedido}\n` +
+
+            `📅 *Data:* ${new Date().toLocaleString("pt-BR")}\n\n` +
+
+            `👤 *CLIENTE*\n` +
+
+            `Nome: ${dadosCliente.nome}\n` +
+
+            `WhatsApp: ${dadosCliente.whatsapp}\n`;
+
+
+        if (
+            dadosCliente.email
+        ) {
+
+            mensagem +=
+                `E-mail: ${dadosCliente.email}\n`;
+
+        }
+
+
+        mensagem +=
+
+            `\n📦 *PRODUTOS*\n\n`;
+
+
+        carrinho.forEach(
+            (
+                item,
+                index
+            ) => {
+
+                const preco =
+                    Number(
+                        item.preco || 0
+                    );
+
+
+                const quantidade =
+                    Number(
+                        item.quantidade || 1
+                    );
+
+
+                const subtotal =
+                    preco *
+                    quantidade;
+
+
+                mensagem +=
+
+                    `${index + 1}. *${item.nome}*\n` +
+
+                    `Quantidade: ${quantidade}\n` +
+
+                    `Valor unitário: ${formatarMoeda(preco)}\n` +
+
+                    `Subtotal: ${formatarMoeda(subtotal)}\n\n`;
+
+            }
+        );
+
+
+        mensagem +=
+
+            `💰 *TOTAL: ${formatarMoeda(
+                calcularTotal()
+            )}*\n\n` +
+
+            `📍 *ENDEREÇO DE ENTREGA*\n` +
+
+            `${dadosCliente.endereco}, ${dadosCliente.numero}\n` +
+
+            `${dadosCliente.bairro}\n` +
+
+            `${dadosCliente.cidade} - ${dadosCliente.estado}\n`;
+
+
+        if (
+            dadosCliente.cep
+        ) {
+
+            mensagem +=
+                `CEP: ${dadosCliente.cep}\n`;
+
+        }
+
+
+        if (
+            dadosCliente.observacao
+        ) {
+
+            mensagem +=
+
+                `\n📝 *OBSERVAÇÃO*\n` +
+
+                `${dadosCliente.observacao}\n`;
+
+        }
+
+
+        mensagem +=
+
+            `\nObrigado!`;
+
+
+
+        return mensagem;
+
+    }
+
+
+
+    /* ==========================================
+       FINALIZAR PEDIDO
+    ========================================== */
+
+    document
+        .getElementById(
+            "formPedido"
+        )
+        .addEventListener(
+
+            "submit",
+
+            async function(
+                evento
+            ) {
+
+                evento.preventDefault();
+
+
+                const botao =
+                    document.getElementById(
+                        "botaoFinalizar"
+                    );
+
+
+                const erro =
+                    document.getElementById(
+                        "mensagemErro"
+                    );
+
+
+                erro.classList.remove(
+                    "mostrar"
+                );
+
+
+                if (
+                    !carrinho.length
+                ) {
+
+                    erro.textContent =
+                        "Seu carrinho está vazio.";
+
+
+                    erro.classList.add(
+                        "mostrar"
+                    );
+
+
+                    return;
+
+                }
+
+
+                const dadosCliente = {
+
+                    nome:
+                        document
+                            .getElementById(
+                                "nome"
+                            )
+                            .value
+                            .trim(),
+
+                    whatsapp:
+                        document
+                            .getElementById(
+                                "whatsapp"
+                            )
+                            .value
+                            .trim(),
+
+                    email:
+                        document
+                            .getElementById(
+                                "email"
+                            )
+                            .value
+                            .trim(),
+
+                    cep:
+                        document
+                            .getElementById(
+                                "cep"
+                            )
+                            .value
+                            .trim(),
+
+                    endereco:
+                        document
+                            .getElementById(
+                                "endereco"
+                            )
+                            .value
+                            .trim(),
+
+                    numero:
+                        document
+                            .getElementById(
+                                "numero"
+                            )
+                            .value
+                            .trim(),
+
+                    bairro:
+                        document
+                            .getElementById(
+                                "bairro"
+                            )
+                            .value
+                            .trim(),
+
+                    cidade:
+                        document
+                            .getElementById(
+                                "cidade"
+                            )
+                            .value
+                            .trim(),
+
+                    estado:
+                        document
+                            .getElementById(
+                                "estado"
+                            )
+                            .value,
+
+                    observacao:
+                        document
+                            .getElementById(
+                                "observacao"
+                            )
+                            .value
+                            .trim()
+
+                };
+
+
+                /*
+                    Validação
+                */
+
+                if (
+                    !dadosCliente.nome ||
+                    !dadosCliente.whatsapp ||
+                    !dadosCliente.endereco ||
+                    !dadosCliente.numero ||
+                    !dadosCliente.bairro ||
+                    !dadosCliente.cidade ||
+                    !dadosCliente.estado
+                ) {
+
+                    erro.textContent =
+
+                        "Preencha todos os campos obrigatórios.";
+
+                    erro.classList.add(
+                        "mostrar"
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                    Desabilita botão
+                */
+
+                botao.disabled =
+                    true;
+
+
+                botao.textContent =
+                    "⏳ Registrando pedido...";
+
+
+                try {
+
+                    const numeroPedido =
+                        gerarNumeroPedido();
+
+
+                    const total =
+                        calcularTotal();
+
+
+                    /*
+                        Dados completos
+                        que serão salvos
+                        no Firestore.
+                    */
+
+                    const pedido = {
+
+                        numeroPedido:
+                            numeroPedido,
+
+                        cliente: {
+
+                            nome:
+                                dadosCliente.nome,
+
+                            whatsapp:
+                                dadosCliente.whatsapp,
+
+                            email:
+                                dadosCliente.email
+
+                        },
+
+
+                        endereco: {
+
+                            cep:
+                                dadosCliente.cep,
+
+                            endereco:
+                                dadosCliente.endereco,
+
+                            numero:
+                                dadosCliente.numero,
+
+                            bairro:
+                                dadosCliente.bairro,
+
+                            cidade:
+                                dadosCliente.cidade,
+
+                            estado:
+                                dadosCliente.estado
+
+                        },
+
+
+                        produtos:
+                            carrinho.map(
+                                item => ({
+
+                                    produtoId:
+                                        item.id,
+
+                                    nome:
+                                        item.nome,
+
+                                    preco:
+                                        Number(
+                                            item.preco ||
+                                            0
+                                        ),
+
+                                    quantidade:
+                                        Number(
+                                            item.quantidade ||
+                                            1
+                                        ),
+
+                                    subtotal:
+
+                                        Number(
+                                            item.preco ||
+                                            0
+                                        )
+                                        *
+                                        Number(
+                                            item.quantidade ||
+                                            1
+                                        )
+
+                                })
+                            ),
+
+
+                        total:
+                            total,
+
+
+                        observacao:
+                            dadosCliente.observacao,
+
+
+                        status:
+                            "aguardando_pagamento",
+
+
+                        pagamento:
+                            {
+
+                                status:
+                                    "pendente"
+
+                            },
+
+
+                        criadoEm:
+                            serverTimestamp()
+
+                    };
+
+
+                    /*
+                        Salvar no Firestore
+                    */
+
+                    await addDoc(
+
+                        collection(
+                            db,
+                            "pedidos"
+                        ),
+
+                        pedido
+
+                    );
+
+
+                    /*
+                        Montar mensagem
+                    */
+
+                    const mensagem =
+                        montarMensagem(
+                            numeroPedido,
+                            dadosCliente
+                        );
+
+
+                    /*
+                        Salvar o número
+                        localmente
+                    */
+
+                    localStorage.setItem(
+
+                        "ultimoPedido",
+
+                        numeroPedido
+
+                    );
+
+
+                    /*
+                        Limpar carrinho
+                    */
+
+                    localStorage.removeItem(
+                        "carrinhoLoja"
+                    );
+
+
+                    /*
+                        Mostrar sucesso
+                    */
+
+                    document
+                        .getElementById(
+                            "areaCheckout"
+                        )
+                        .style.display =
+                        "none";
+
+
+                    document
+                        .getElementById(
+                            "areaSucesso"
+                        )
+                        .classList.add(
+                            "mostrar"
+                        );
+
+
+                    document
+                        .getElementById(
+                            "numeroPedido"
+                        )
+                        .textContent =
+
+                            `Pedido #${numeroPedido}`;
+
+
+                    /*
+                        Abrir WhatsApp
+                    */
+
+                    const urlWhatsApp =
+
+                        `https://wa.me/${WHATSAPP_LOJA}?text=` +
+
+                        encodeURIComponent(
+                            mensagem
+                        );
+
+
+                    setTimeout(
+
+                        () => {
+
+                            window.location.href =
+                                urlWhatsApp;
+
+                        },
+
+                        1000
+
+                    );
+
+                }
+
+                catch (e) {
+
+                    console.error(
+                        e
+                    );
+
+
+                    erro.textContent =
+
+                        "Não foi possível registrar o pedido. " +
+
+                        "Verifique sua conexão e tente novamente.";
+
+
+                    erro.classList.add(
+                        "mostrar"
+                    );
+
+
+                    botao.disabled =
+                        false;
+
+
+                    botao.textContent =
+                        "📱 Finalizar e enviar pedido";
+
+                }
+
+            }
+
+        );
+
+
+
+    /* ==========================================
+       NAVEGAÇÃO
+    ========================================== */
+
+    window.voltarCarrinho =
+        function() {
+
+            window.location.href =
+                "carrinho.html";
+
+        };
+
+
+    window.voltarParaLoja =
+        function() {
+
+            window.location.href =
+                "index.html";
+
+        };
+
+
+
+    /* ==========================================
+       INICIAR
+    ========================================== */
+
+    carregarResumo();
+
+
+</script>
+
+
+</body>
+
+</html>
+```

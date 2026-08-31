@@ -1,0 +1,1874 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Pedido realizado</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f5f5;
+
+            color: #222;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* ===============================
+           CABEÇALHO
+        =============================== */
+
+        header {
+
+            background: #111827;
+
+            color: white;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.15);
+
+        }
+
+
+        .topo {
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding: 16px 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+        }
+
+
+        .logo {
+
+            font-size: 23px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logo span {
+
+            color: #22c55e;
+
+        }
+
+
+        .voltar {
+
+            background: transparent;
+
+            border: none;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+        }
+
+
+        .voltar:hover {
+
+            color: #22c55e;
+
+        }
+
+
+        /* ===============================
+           CONTEÚDO
+        =============================== */
+
+        main {
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding: 30px 20px 60px;
+
+        }
+
+
+        /* ===============================
+           SUCESSO
+        =============================== */
+
+        .sucesso {
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 30px 20px;
+
+            text-align: center;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,.07);
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .icone-sucesso {
+
+            width: 70px;
+
+            height: 70px;
+
+            margin: auto auto 15px;
+
+            border-radius: 50%;
+
+            background: #dcfce7;
+
+            color: #16a34a;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 38px;
+
+        }
+
+
+        .sucesso h1 {
+
+            font-size: 28px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .sucesso p {
+
+            color: #666;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .numero-pedido {
+
+            margin-top: 15px;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            color: #16a34a;
+
+        }
+
+
+        /* ===============================
+           GRID
+        =============================== */
+
+        .grid {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0,1fr)
+                320px;
+
+            gap: 20px;
+
+            align-items: start;
+
+        }
+
+
+        /* ===============================
+           CARD
+        =============================== */
+
+        .card {
+
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,.07);
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .card:last-child {
+
+            margin-bottom: 0;
+
+        }
+
+
+        .card h2 {
+
+            font-size: 19px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        /* ===============================
+           PRODUTOS
+        =============================== */
+
+        .produto {
+
+            display: grid;
+
+            grid-template-columns:
+                65px
+                minmax(0,1fr)
+                auto;
+
+            gap: 12px;
+
+            align-items: center;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid #eee;
+
+        }
+
+
+        .produto:first-child {
+
+            padding-top: 0;
+
+        }
+
+
+        .produto:last-child {
+
+            border-bottom: none;
+
+            padding-bottom: 0;
+
+        }
+
+
+        .produto img {
+
+            width: 65px;
+
+            height: 65px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+
+            background: #eee;
+
+        }
+
+
+        .produto-nome {
+
+            font-weight: bold;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .produto-detalhes {
+
+            font-size: 13px;
+
+            color: #777;
+
+        }
+
+
+        .produto-total {
+
+            font-weight: bold;
+
+            color: #16a34a;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* ===============================
+           DADOS
+        =============================== */
+
+        .dados {
+
+            display: grid;
+
+            gap: 12px;
+
+        }
+
+
+        .dado {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding-bottom: 10px;
+
+            border-bottom: 1px solid #eee;
+
+        }
+
+
+        .dado:last-child {
+
+            border-bottom: none;
+
+            padding-bottom: 0;
+
+        }
+
+
+        .dado-label {
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+        .dado-valor {
+
+            font-weight: bold;
+
+            text-align: right;
+
+        }
+
+
+        /* ===============================
+           STATUS
+        =============================== */
+
+        .status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            background: #fef3c7;
+
+            color: #92400e;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ===============================
+           TOTAL
+        =============================== */
+
+        .linha {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 9px 0;
+
+            color: #555;
+
+        }
+
+
+        .linha-total {
+
+            border-top: 1px solid #ddd;
+
+            margin-top: 8px;
+
+            padding-top: 15px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+        }
+
+
+        .valor-total {
+
+            color: #16a34a;
+
+        }
+
+
+        /* ===============================
+           BOTÕES
+        =============================== */
+
+        .botoes {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .botao {
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 8px;
+
+            padding: 13px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .botao-whatsapp {
+
+            background: #22c55e;
+
+            color: white;
+
+        }
+
+
+        .botao-whatsapp:hover {
+
+            background: #16a34a;
+
+        }
+
+
+        .botao-loja {
+
+            background: #111827;
+
+            color: white;
+
+        }
+
+
+        .botao-loja:hover {
+
+            background: #374151;
+
+        }
+
+
+        /* ===============================
+           LOADING
+        =============================== */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 70px 20px;
+
+        }
+
+
+        .spinner {
+
+            width: 45px;
+
+            height: 45px;
+
+            border: 4px solid #ddd;
+
+            border-top-color: #22c55e;
+
+            border-radius: 50%;
+
+            animation:
+                girar .8s linear infinite;
+
+            margin: auto auto 15px;
+
+        }
+
+
+        @keyframes girar {
+
+            to {
+
+                transform: rotate(360deg);
+
+            }
+
+        }
+
+
+        /* ===============================
+           ERRO
+        =============================== */
+
+        .erro {
+
+            background: white;
+
+            padding: 50px 20px;
+
+            border-radius: 12px;
+
+            text-align: center;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,.07);
+
+        }
+
+
+        .erro h2 {
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .erro p {
+
+            color: #777;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* ===============================
+           RODAPÉ
+        =============================== */
+
+        footer {
+
+            background: #111827;
+
+            color: #aaa;
+
+            text-align: center;
+
+            padding: 25px 15px;
+
+            margin-top: 30px;
+
+        }
+
+
+        /* ===============================
+           RESPONSIVO
+        =============================== */
+
+        @media (max-width: 750px) {
+
+            .grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .sucesso h1 {
+
+                font-size: 23px;
+
+            }
+
+
+            .produto {
+
+                grid-template-columns:
+                    55px
+                    minmax(0,1fr)
+                    auto;
+
+            }
+
+
+            .produto img {
+
+                width: 55px;
+
+                height: 55px;
+
+            }
+
+
+            .produto-total {
+
+                font-size: 14px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="topo">
+
+        <div class="logo">
+
+            Minha<span>Loja</span>
+
+        </div>
+
+
+        <button
+            class="voltar"
+            onclick="irParaLoja()"
+        >
+
+            🛍 Voltar para loja
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+    <div id="conteudo">
+
+        <div class="loading">
+
+            <div class="spinner"></div>
+
+            <p>
+                Carregando seu pedido...
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<footer>
+
+    Minha Loja © 2026
+
+</footer>
+
+
+
+<script type="module">
+
+    /* ==========================================
+       FIREBASE
+    ========================================== */
+
+    import {
+        initializeApp
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+    import {
+        getFirestore,
+        doc,
+        getDoc
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    /*
+        UTILIZE A MESMA CONFIGURAÇÃO
+        DO SEU PROJETO FIREBASE
+    */
+
+    const firebaseConfig = {
+  apiKey: "AIzaSyDtFVa120k4xnggOHibWOs61Jn-hJaSsdU",
+  authDomain: "timonha-b36d6.firebaseapp.com",
+  projectId: "timonha-b36d6",
+  storageBucket: "timonha-b36d6.firebasestorage.app",
+  messagingSenderId: "59864953764",
+  appId: "1:59864953764:web:9d44c30ff09b00a0f44731"
+
+    };
+
+
+
+    const app =
+        initializeApp(
+            firebaseConfig
+        );
+
+
+    const db =
+        getFirestore(app);
+
+
+
+    /* ==========================================
+       PEGAR ID DA URL
+    ========================================== */
+
+    const parametros =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const pedidoId =
+        parametros.get("id");
+
+
+
+    /* ==========================================
+       FORMATAR MOEDA
+    ========================================== */
+
+    function formatarMoeda(valor) {
+
+        return Number(
+            valor || 0
+        ).toLocaleString(
+
+            "pt-BR",
+
+            {
+
+                style: "currency",
+
+                currency: "BRL"
+
+            }
+
+        );
+
+    }
+
+
+
+    /* ==========================================
+       FORMATAR DATA
+    ========================================== */
+
+    function formatarData(data) {
+
+        if (!data) {
+
+            return "";
+
+        }
+
+
+        let dataObj;
+
+
+        if (
+            typeof data.toDate ===
+            "function"
+        ) {
+
+            dataObj =
+                data.toDate();
+
+        } else {
+
+            dataObj =
+                new Date(data);
+
+        }
+
+
+        if (
+            isNaN(
+                dataObj.getTime()
+            )
+        ) {
+
+            return "";
+
+        }
+
+
+        return dataObj.toLocaleString(
+
+            "pt-BR",
+
+            {
+
+                day: "2-digit",
+
+                month: "2-digit",
+
+                year: "numeric",
+
+                hour: "2-digit",
+
+                minute: "2-digit"
+
+            }
+
+        );
+
+    }
+
+
+
+    /* ==========================================
+       ESCAPAR HTML
+    ========================================== */
+
+    function escapar(valor) {
+
+        return String(
+            valor ?? ""
+        )
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+    }
+
+
+
+    /* ==========================================
+       CARREGAR PEDIDO
+    ========================================== */
+
+    async function carregarPedido() {
+
+        const conteudo =
+            document.getElementById(
+                "conteudo"
+            );
+
+
+        if (!pedidoId) {
+
+            mostrarErro(
+                "Pedido não encontrado.",
+                "O endereço não contém o identificador do pedido."
+            );
+
+            return;
+
+        }
+
+
+        try {
+
+            const referencia =
+                doc(
+                    db,
+                    "pedidos",
+                    pedidoId
+                );
+
+
+            const documento =
+                await getDoc(
+                    referencia
+                );
+
+
+            if (
+                !documento.exists()
+            ) {
+
+                mostrarErro(
+                    "Pedido não encontrado.",
+                    "Não encontramos esse pedido no sistema."
+                );
+
+                return;
+
+            }
+
+
+            const pedido =
+                documento.data();
+
+
+            mostrarPedido(
+                pedido
+            );
+
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao carregar pedido:",
+                erro
+            );
+
+
+            mostrarErro(
+                "Erro ao carregar pedido.",
+                "Não foi possível consultar os dados do pedido."
+            );
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       MOSTRAR PEDIDO
+    ========================================== */
+
+    function mostrarPedido(
+        pedido
+    ) {
+
+        const cliente =
+            pedido.cliente || {};
+
+
+        const endereco =
+            pedido.endereco || {};
+
+
+        const produtos =
+            pedido.produtos || [];
+
+
+        let produtosHTML = "";
+
+
+        produtos.forEach(
+            item => {
+
+                const quantidade =
+                    Number(
+                        item.quantidade || 0
+                    );
+
+
+                const preco =
+                    Number(
+                        item.precoUnitario || 0
+                    );
+
+
+                const subtotal =
+                    Number(
+                        item.subtotal ??
+                        (
+                            preco *
+                            quantidade
+                        )
+                    );
+
+
+                const imagem =
+                    item.imagem ||
+                    "https://via.placeholder.com/100x100?text=Produto";
+
+
+                produtosHTML += `
+
+                    <div class="produto">
+
+                        <img
+                            src="${escapar(imagem)}"
+                            alt="${escapar(item.nome)}"
+                            onerror="this.src='https://via.placeholder.com/100x100?text=Produto'"
+                        >
+
+
+                        <div>
+
+                            <div class="produto-nome">
+
+                                ${escapar(item.nome)}
+
+                            </div>
+
+
+                            <div class="produto-detalhes">
+
+                                ${quantidade} x
+                                ${formatarMoeda(preco)}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="produto-total">
+
+                            ${formatarMoeda(subtotal)}
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+
+        const subtotal =
+            Number(
+                pedido.subtotal || 0
+            );
+
+
+        const frete =
+            Number(
+                pedido.frete || 0
+            );
+
+
+        const desconto =
+            Number(
+                pedido.desconto || 0
+            );
+
+
+        const total =
+            Number(
+                pedido.total ??
+                (
+                    subtotal +
+                    frete -
+                    desconto
+                )
+            );
+
+
+        const status =
+            pedido.status ||
+            "aguardando_pagamento";
+
+
+        let statusTexto =
+            "Aguardando pagamento";
+
+
+        if (
+            status ===
+            "pago"
+        ) {
+
+            statusTexto =
+                "Pagamento confirmado";
+
+        }
+
+
+        if (
+            status ===
+            "cancelado"
+        ) {
+
+            statusTexto =
+                "Pedido cancelado";
+
+        }
+
+
+        if (
+            status ===
+            "processando"
+        ) {
+
+            statusTexto =
+                "Em processamento";
+
+        }
+
+
+        if (
+            status ===
+            "concluido"
+        ) {
+
+            statusTexto =
+                "Pedido concluído";
+
+        }
+
+
+        const enderecoCompleto = [
+
+            endereco.endereco,
+
+            endereco.numero,
+
+            endereco.complemento,
+
+            endereco.bairro,
+
+            endereco.cidade,
+
+            endereco.estado,
+
+            endereco.cep
+
+        ]
+
+        .filter(Boolean)
+
+        .join(", ");
+
+
+        document.title =
+            `Pedido ${pedido.numero || ""}`;
+
+
+        document.getElementById(
+            "conteudo"
+        ).innerHTML = `
+
+            <!-- =========================
+                 SUCESSO
+            ========================== -->
+
+            <div class="sucesso">
+
+                <div class="icone-sucesso">
+
+                    ✓
+
+                </div>
+
+
+                <h1>
+
+                    Pedido realizado com sucesso!
+
+                </h1>
+
+
+                <p>
+
+                    Obrigado,
+                    <strong>
+                        ${escapar(
+                            cliente.nome ||
+                            "cliente"
+                        )}
+                    </strong>!
+
+                </p>
+
+
+                <p>
+
+                    Seu pedido foi registrado
+                    no nosso sistema.
+
+                </p>
+
+
+                <div class="numero-pedido">
+
+                    Pedido #${escapar(
+                        pedido.numero ||
+                        pedidoId
+                    )}
+
+                </div>
+
+            </div>
+
+
+
+            <div class="grid">
+
+
+                <!-- =========================
+                     ESQUERDA
+                ========================== -->
+
+                <div>
+
+
+                    <div class="card">
+
+                        <h2>
+                            🛒 Produtos do pedido
+                        </h2>
+
+
+                        ${produtosHTML}
+
+                    </div>
+
+
+
+                    <div class="card">
+
+                        <h2>
+                            👤 Dados do cliente
+                        </h2>
+
+
+                        <div class="dados">
+
+
+                            <div class="dado">
+
+                                <span class="dado-label">
+                                    Nome
+                                </span>
+
+                                <span class="dado-valor">
+
+                                    ${escapar(
+                                        cliente.nome
+                                    )}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="dado">
+
+                                <span class="dado-label">
+                                    WhatsApp
+                                </span>
+
+                                <span class="dado-valor">
+
+                                    ${escapar(
+                                        cliente.whatsapp
+                                    )}
+
+                                </span>
+
+                            </div>
+
+
+                            ${
+                                cliente.email
+                                ?
+
+                                `
+
+                                <div class="dado">
+
+                                    <span class="dado-label">
+                                        E-mail
+                                    </span>
+
+                                    <span class="dado-valor">
+
+                                        ${escapar(
+                                            cliente.email
+                                        )}
+
+                                    </span>
+
+                                </div>
+
+                                `
+
+                                :
+
+                                ""
+
+                            }
+
+
+                            <div class="dado">
+
+                                <span class="dado-label">
+                                    Endereço
+                                </span>
+
+                                <span class="dado-valor">
+
+                                    ${escapar(
+                                        enderecoCompleto
+                                    )}
+
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    ${
+                        pedido.observacao
+                        ?
+
+                        `
+
+                        <div class="card">
+
+                            <h2>
+                                📝 Observação
+                            </h2>
+
+                            <p>
+
+                                ${escapar(
+                                    pedido.observacao
+                                )}
+
+                            </p>
+
+                        </div>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
+
+
+                </div>
+
+
+
+                <!-- =========================
+                     DIREITA
+                ========================== -->
+
+                <div>
+
+
+                    <div class="card">
+
+                        <h2>
+                            📋 Informações
+                        </h2>
+
+
+                        <div class="dados">
+
+
+                            <div class="dado">
+
+                                <span class="dado-label">
+                                    Pedido
+                                </span>
+
+                                <span class="dado-valor">
+
+                                    #${escapar(
+                                        pedido.numero ||
+                                        pedidoId
+                                    )}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="dado">
+
+                                <span class="dado-label">
+                                    Data
+                                </span>
+
+                                <span class="dado-valor">
+
+                                    ${formatarData(
+                                        pedido.criadoEm
+                                    )}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="dado">
+
+                                <span class="dado-label">
+                                    Status
+                                </span>
+
+                                <span>
+
+                                    <span class="status">
+
+                                        ${statusTexto}
+
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="card">
+
+                        <h2>
+                            💰 Resumo financeiro
+                        </h2>
+
+
+                        <div class="linha">
+
+                            <span>
+                                Subtotal
+                            </span>
+
+                            <strong>
+
+                                ${formatarMoeda(
+                                    subtotal
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="linha">
+
+                            <span>
+                                Frete
+                            </span>
+
+                            <strong>
+
+                                ${
+                                    frete > 0
+                                    ?
+                                    formatarMoeda(frete)
+                                    :
+                                    "A calcular"
+                                }
+
+                            </strong>
+
+                        </div>
+
+
+                        ${
+                            desconto > 0
+                            ?
+
+                            `
+
+                            <div class="linha">
+
+                                <span>
+                                    Desconto
+                                </span>
+
+                                <strong>
+
+                                    - ${formatarMoeda(
+                                        desconto
+                                    )}
+
+                                </strong>
+
+                            </div>
+
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+
+                        <div class="linha-total">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <strong class="valor-total">
+
+                                ${formatarMoeda(
+                                    total
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="botoes">
+
+
+                            <button
+                                class="botao botao-whatsapp"
+                                onclick="enviarWhatsApp()"
+                            >
+
+                                📱 Enviar pedido pelo WhatsApp
+
+                            </button>
+
+
+                            <button
+                                class="botao botao-loja"
+                                onclick="irParaLoja()"
+                            >
+
+                                🛍 Voltar para a loja
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        `;
+
+
+        /*
+            Guardamos o pedido para
+            montar a mensagem do WhatsApp.
+        */
+
+        window.pedidoAtual =
+            pedido;
+
+    }
+
+
+
+    /* ==========================================
+       WHATSAPP
+    ========================================== */
+
+    window.enviarWhatsApp =
+        function() {
+
+            const pedido =
+                window.pedidoAtual;
+
+
+            if (!pedido) {
+
+                return;
+
+            }
+
+
+            const cliente =
+                pedido.cliente || {};
+
+
+            const endereco =
+                pedido.endereco || {};
+
+
+            const produtos =
+                pedido.produtos || [];
+
+
+            let mensagem = "";
+
+
+            mensagem +=
+                `*NOVO PEDIDO #${pedido.numero}*\\n\\n`;
+
+
+            mensagem +=
+                `*Cliente:* ${cliente.nome || ""}\\n`;
+
+
+            mensagem +=
+                `*WhatsApp:* ${cliente.whatsapp || ""}\\n\\n`;
+
+
+            mensagem +=
+                `*PRODUTOS:*\\n`;
+
+
+            produtos.forEach(
+                item => {
+
+                    mensagem +=
+                        `${item.quantidade}x ${item.nome} — ${formatarMoeda(item.subtotal)}\\n`;
+
+                }
+            );
+
+
+            mensagem += "\\n";
+
+
+            mensagem +=
+                `*TOTAL: ${formatarMoeda(pedido.total)}*\\n\\n`;
+
+
+            if (
+                endereco.endereco
+            ) {
+
+                mensagem +=
+                    `*ENDEREÇO:*\\n`;
+
+                mensagem +=
+                    `${endereco.endereco}, ${endereco.numero || ""}\\n`;
+
+                mensagem +=
+                    `${endereco.bairro || ""}\\n`;
+
+                mensagem +=
+                    `${endereco.cidade || ""} - ${endereco.estado || ""}\\n`;
+
+                mensagem +=
+                    `CEP: ${endereco.cep || ""}\\n\\n`;
+
+            }
+
+
+            if (
+                pedido.observacao
+            ) {
+
+                mensagem +=
+                    `*OBSERVAÇÃO:*\\n${pedido.observacao}\\n\\n`;
+
+            }
+
+
+            mensagem +=
+                `Status: Aguardando pagamento`;
+
+
+            /*
+                ATENÇÃO:
+
+                Coloque aqui o número do WhatsApp
+                da loja, com código do país.
+
+                Exemplo:
+                5588999999999
+
+                Sem:
+                +
+                espaços
+                parênteses
+                hífen
+            */
+
+            const numeroLoja =
+                "5588999999999";
+
+
+            const url =
+                `https://wa.me/${numeroLoja}?text=${encodeURIComponent(mensagem)}`;
+
+
+            window.open(
+                url,
+                "_blank"
+            );
+
+        };
+
+
+
+    /* ==========================================
+       IR PARA LOJA
+    ========================================== */
+
+    window.irParaLoja =
+        function() {
+
+            window.location.href =
+                "index.html";
+
+        };
+
+
+
+    /* ==========================================
+       ERRO
+    ========================================== */
+
+    function mostrarErro(
+        titulo,
+        mensagem
+    ) {
+
+        document.getElementById(
+            "conteudo"
+        ).innerHTML = `
+
+            <div class="erro">
+
+                <h2>
+                    ❌ ${escapar(titulo)}
+                </h2>
+
+                <p>
+                    ${escapar(mensagem)}
+                </p>
+
+                <button
+                    class="botao botao-loja"
+                    style="max-width:250px;"
+                    onclick="irParaLoja()"
+                >
+
+                    Voltar para a loja
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    /* ==========================================
+       INICIAR
+    ========================================== */
+
+    carregarPedido();
+
+</script>
+
+
+</body>
+
+</html>
+```
