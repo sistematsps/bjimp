@@ -1,0 +1,3140 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Painel Administrativo</title>
+
+
+<style>
+
+/* ==================================================
+   ESTILO
+================================================== */
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f3f4f6;
+
+    color: #1f2937;
+
+}
+
+
+header {
+
+    background: #111827;
+
+    color: white;
+
+    height: 65px;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+
+.topo {
+
+    width: 100%;
+
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding: 0 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+.logo {
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+}
+
+
+.logo span {
+
+    color: #22c55e;
+
+}
+
+
+.topo-acoes {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.usuario-logado {
+
+    font-size: 13px;
+
+    color: #d1d5db;
+
+}
+
+
+.botao {
+
+    border: none;
+
+    padding: 9px 14px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+}
+
+
+.botao-loja {
+
+    background: #374151;
+
+    color: white;
+
+}
+
+
+.botao-sair {
+
+    background: #dc2626;
+
+    color: white;
+
+}
+
+
+.container {
+
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding: 25px 20px 50px;
+
+}
+
+
+.titulo {
+
+    margin-bottom: 25px;
+
+}
+
+
+.titulo h1 {
+
+    font-size: 28px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.titulo p {
+
+    color: #6b7280;
+
+}
+
+
+.dashboard {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.card-dashboard {
+
+    background: white;
+
+    border-radius: 10px;
+
+    padding: 18px;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.06);
+
+}
+
+
+.card-dashboard .icone {
+
+    font-size: 25px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.card-dashboard .numero {
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+}
+
+
+.card-dashboard .descricao {
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+    margin-top: 4px;
+
+}
+
+
+.filtros {
+
+    background: white;
+
+    padding: 18px;
+
+    border-radius: 10px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.06);
+
+}
+
+
+.filtros-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        2fr
+        1fr
+        1fr
+        1fr;
+
+    gap: 12px;
+
+}
+
+
+.filtros input,
+.filtros select {
+
+    width: 100%;
+
+    padding: 11px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+
+}
+
+
+.tabela-container {
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.06);
+
+    overflow: hidden;
+
+}
+
+
+.tabela-topo {
+
+    padding: 18px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.tabela-topo h2 {
+
+    font-size: 19px;
+
+}
+
+
+.contador {
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+}
+
+
+.tabela-scroll {
+
+    overflow-x: auto;
+
+}
+
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 900px;
+
+}
+
+
+th {
+
+    background: #f9fafb;
+
+    text-align: left;
+
+    padding: 13px;
+
+    font-size: 13px;
+
+    color: #4b5563;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+}
+
+
+td {
+
+    padding: 13px;
+
+    border-bottom:
+        1px solid #f0f0f0;
+
+    font-size: 14px;
+
+}
+
+
+tr:hover td {
+
+    background: #fafafa;
+
+}
+
+
+.status {
+
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+}
+
+
+.status-aguardando {
+
+    background: #fef3c7;
+
+    color: #92400e;
+
+}
+
+
+.status-pago {
+
+    background: #dcfce7;
+
+    color: #166534;
+
+}
+
+
+.status-producao {
+
+    background: #dbeafe;
+
+    color: #1e40af;
+
+}
+
+
+.status-pronto {
+
+    background: #ede9fe;
+
+    color: #5b21b6;
+
+}
+
+
+.status-concluido {
+
+    background: #d1fae5;
+
+    color: #065f46;
+
+}
+
+
+.status-cancelado {
+
+    background: #fee2e2;
+
+    color: #991b1b;
+
+}
+
+
+.acoes {
+
+    display: flex;
+
+    gap: 5px;
+
+}
+
+
+.btn {
+
+    border: none;
+
+    border-radius: 5px;
+
+    padding: 7px 9px;
+
+    cursor: pointer;
+
+}
+
+
+.btn-ver {
+
+    background: #e5e7eb;
+
+}
+
+
+.btn-status {
+
+    background: #dbeafe;
+
+}
+
+
+.btn-whatsapp {
+
+    background: #dcfce7;
+
+}
+
+
+.btn-imprimir {
+
+    background: #f3e8ff;
+
+}
+
+
+.vazio,
+.carregando {
+
+    text-align: center;
+
+    padding: 40px;
+
+    color: #6b7280;
+
+}
+
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    background:
+        rgba(0,0,0,.55);
+
+    padding: 20px;
+
+    overflow-y: auto;
+
+}
+
+
+.modal.mostrar {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+}
+
+
+.modal-conteudo {
+
+    width: 100%;
+
+    max-width: 850px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    margin-top: 20px;
+
+}
+
+
+.modal-header {
+
+    background: #111827;
+
+    color: white;
+
+    padding: 18px 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.fechar {
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+}
+
+
+.modal-body {
+
+    padding: 20px;
+
+}
+
+
+.info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+}
+
+
+.info {
+
+    background: #f9fafb;
+
+    padding: 12px;
+
+    border-radius: 7px;
+
+}
+
+
+.info small {
+
+    display: block;
+
+    color: #6b7280;
+
+    margin-bottom: 4px;
+
+}
+
+
+.modal-produtos {
+
+    margin-top: 20px;
+
+}
+
+
+.produto-linha {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        100px
+        120px
+        120px;
+
+    gap: 10px;
+
+    padding: 10px;
+
+    border-bottom:
+        1px solid #eee;
+
+}
+
+
+.produto-cabecalho {
+
+    font-weight: bold;
+
+    background: #f9fafb;
+
+}
+
+
+.total-modal {
+
+    text-align: right;
+
+    padding: 18px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+}
+
+
+.observacao {
+
+    margin-top: 15px;
+
+    background: #fff7ed;
+
+    padding: 14px;
+
+    border-radius: 7px;
+
+}
+
+
+.modal-footer {
+
+    padding: 15px 20px;
+
+    border-top:
+        1px solid #eee;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+}
+
+
+@media(max-width:1100px) {
+
+    .dashboard {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+    }
+
+
+    .filtros-grid {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+}
+
+
+@media(max-width:700px) {
+
+    .dashboard {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .filtros-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .info-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .usuario-logado {
+
+        display: none;
+
+    }
+
+}
+
+
+@media(max-width:450px) {
+
+    .dashboard {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="topo">
+
+
+<div class="logo">
+
+    PAINEL
+    <span>ADMINISTRATIVO</span>
+
+</div>
+
+
+<div class="topo-acoes">
+
+
+<span
+    class="usuario-logado"
+    id="usuarioLogado"
+>
+</span>
+
+
+<button
+    class="botao botao-loja"
+    onclick="voltarLoja()"
+>
+
+    🏪 Loja
+
+</button>
+
+
+<button
+    class="botao botao-sair"
+    onclick="sair()"
+>
+
+    🚪 Sair
+
+</button>
+
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<main class="container">
+
+
+<div class="titulo">
+
+<h1>
+    Dashboard
+</h1>
+
+<p>
+    Acompanhe e gerencie os pedidos da sua loja.
+</p>
+
+</div>
+
+
+
+<section class="dashboard">
+
+
+<div class="card-dashboard">
+
+<div class="icone">
+    🛒
+</div>
+
+<div
+    class="numero"
+    id="totalPedidos"
+>
+0
+</div>
+
+<div class="descricao">
+    Total de pedidos
+</div>
+
+</div>
+
+
+
+<div class="card-dashboard">
+
+<div class="icone">
+    ⏳
+</div>
+
+<div
+    class="numero"
+    id="aguardandoPagamento"
+>
+0
+</div>
+
+<div class="descricao">
+    Aguardando pagamento
+</div>
+
+</div>
+
+
+
+<div class="card-dashboard">
+
+<div class="icone">
+    💰
+</div>
+
+<div
+    class="numero"
+    id="pedidosPagos"
+>
+0
+</div>
+
+<div class="descricao">
+    Pagamentos confirmados
+</div>
+
+</div>
+
+
+
+<div class="card-dashboard">
+
+<div class="icone">
+    🏭
+</div>
+
+<div
+    class="numero"
+    id="emProducao"
+>
+0
+</div>
+
+<div class="descricao">
+    Em produção
+</div>
+
+</div>
+
+
+
+<div class="card-dashboard">
+
+<div class="icone">
+    💵
+</div>
+
+<div
+    class="numero"
+    id="faturamento"
+>
+R$ 0,00
+</div>
+
+<div class="descricao">
+    Valor dos pedidos
+</div>
+
+</div>
+
+</section>
+
+
+
+<section class="filtros">
+
+<div class="filtros-grid">
+
+
+<input
+    type="text"
+    id="pesquisa"
+    placeholder="🔎 Pesquisar pedido, cliente ou WhatsApp..."
+>
+
+
+<input
+    type="date"
+    id="dataInicial"
+>
+
+
+<input
+    type="date"
+    id="dataFinal"
+>
+
+
+<select id="filtroStatus">
+
+<option value="">
+Todos os status
+</option>
+
+<option value="aguardando_pagamento">
+Aguardando pagamento
+</option>
+
+<option value="pagamento_confirmado">
+Pagamento confirmado
+</option>
+
+<option value="em_producao">
+Em produção
+</option>
+
+<option value="pronto">
+Pronto
+</option>
+
+<option value="concluido">
+Concluído
+</option>
+
+<option value="cancelado">
+Cancelado
+</option>
+
+</select>
+
+
+</div>
+
+</section>
+
+
+
+<section class="tabela-container">
+
+
+<div class="tabela-topo">
+
+<h2>
+    📦 Pedidos
+</h2>
+
+<div
+    class="contador"
+    id="contadorPedidos"
+>
+0 pedidos
+</div>
+
+</div>
+
+
+
+<div class="tabela-scroll">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Pedido</th>
+
+<th>Data</th>
+
+<th>Cliente</th>
+
+<th>WhatsApp</th>
+
+<th>Itens</th>
+
+<th>Total</th>
+
+<th>Status</th>
+
+<th>Ações</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="listaPedidos">
+
+<tr>
+
+<td
+    colspan="8"
+    class="carregando"
+>
+
+Verificando acesso...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+</main>
+
+
+
+<div
+    id="modalDetalhes"
+    class="modal"
+>
+
+<div class="modal-conteudo">
+
+
+<div class="modal-header">
+
+<h2>
+    Detalhes do pedido
+</h2>
+
+<button
+    class="fechar"
+    onclick="fecharDetalhes()"
+>
+×
+</button>
+
+</div>
+
+
+<div
+    id="conteudoDetalhes"
+    class="modal-body"
+>
+</div>
+
+
+<div class="modal-footer">
+
+<button
+    class="btn btn-imprimir"
+    id="botaoImprimirModal"
+>
+🖨️ Imprimir
+</button>
+
+<button
+    class="btn"
+    onclick="fecharDetalhes()"
+>
+Fechar
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<div
+    id="modalStatus"
+    class="modal"
+>
+
+<div
+    class="modal-conteudo"
+    style="max-width:450px"
+>
+
+
+<div class="modal-header">
+
+<h2>
+    Alterar status
+</h2>
+
+<button
+    class="fechar"
+    onclick="fecharStatus()"
+>
+×
+</button>
+
+</div>
+
+
+<div class="modal-body">
+
+
+<p>
+
+Pedido:
+<strong id="pedidoStatus"></strong>
+
+</p>
+
+
+<select
+    id="novoStatus"
+    style="
+        width:100%;
+        padding:12px;
+        margin:15px 0;
+        border:1px solid #ddd;
+        border-radius:7px;
+    "
+>
+
+<option value="aguardando_pagamento">
+🟡 Aguardando pagamento
+</option>
+
+<option value="pagamento_confirmado">
+🟢 Pagamento confirmado
+</option>
+
+<option value="em_producao">
+🔵 Em produção
+</option>
+
+<option value="pronto">
+🟣 Pronto
+</option>
+
+<option value="concluido">
+✅ Concluído
+</option>
+
+<option value="cancelado">
+❌ Cancelado
+</option>
+
+</select>
+
+
+<button
+    class="btn"
+    style="
+        background:#22c55e;
+        color:white;
+    "
+    onclick="salvarStatus()"
+>
+
+Salvar
+
+</button>
+
+
+<button
+    class="btn"
+    onclick="fecharStatus()"
+>
+
+Cancelar
+
+</button>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<script type="module">
+
+
+/* ==================================================
+   FIREBASE
+================================================== */
+
+import {
+
+    initializeApp
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+
+    getAuth,
+    onAuthStateChanged,
+    signOut
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+
+    getFirestore,
+    collection,
+    doc,
+    updateDoc,
+    onSnapshot
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyDtFVa120k4xnggOHibWOs61Jn-hJaSsdU",
+
+    authDomain:
+        "timonha-b36d6.firebaseapp.com",
+
+    projectId:
+        "timonha-b36d6",
+
+    storageBucket:
+        "timonha-b36d6.firebasestorage.app",
+
+    messagingSenderId:
+        "59864953764",
+
+    appId:
+        "1:59864953764:web:9d44c30ff09b00a0f44731"
+
+};
+
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+
+/* ==================================================
+   VARIÁVEIS
+================================================== */
+
+let pedidos = [];
+
+let pedidoSelecionado = null;
+
+let pedidosListener = null;
+
+
+
+/* ==================================================
+   PROTEÇÃO
+================================================== */
+
+onAuthStateChanged(
+
+    auth,
+
+    usuario => {
+
+        if (!usuario) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        document
+            .getElementById(
+                "usuarioLogado"
+            )
+            .textContent =
+            usuario.email;
+
+
+        iniciarPedidos();
+
+    }
+
+);
+
+
+
+/* ==================================================
+   INICIAR PEDIDOS
+================================================== */
+
+function iniciarPedidos() {
+
+    if (
+        pedidosListener
+    ) {
+
+        return;
+
+    }
+
+
+    pedidosListener =
+        onSnapshot(
+
+            collection(
+                db,
+                "pedidos"
+            ),
+
+            snapshot => {
+
+                pedidos = [];
+
+
+                snapshot.forEach(
+
+                    documento => {
+
+                        pedidos.push({
+
+                            id:
+                                documento.id,
+
+                            ...documento.data()
+
+                        });
+
+                    }
+
+                );
+
+
+                pedidos.sort(
+
+                    (a,b) => {
+
+                        const dataA =
+                            a.criadoEm?.toMillis
+                            ?
+                            a.criadoEm.toMillis()
+                            :
+                            0;
+
+
+                        const dataB =
+                            b.criadoEm?.toMillis
+                            ?
+                            b.criadoEm.toMillis()
+                            :
+                            0;
+
+
+                        return dataB - dataA;
+
+                    }
+
+                );
+
+
+                atualizarDashboard();
+
+                renderizarPedidos();
+
+            },
+
+            erro => {
+
+                console.error(
+                    erro
+                );
+
+
+                document
+                    .getElementById(
+                        "listaPedidos"
+                    )
+                    .innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="8"
+                            class="vazio"
+                        >
+
+                            Erro ao acessar os pedidos.
+
+                            <br><br>
+
+                            Verifique as regras do Firestore.
+
+                        </td>
+
+                    </tr>
+
+                    `;
+
+            }
+
+        );
+
+}
+
+
+
+/* ==================================================
+   FUNÇÕES
+================================================== */
+
+function moeda(valor) {
+
+    return Number(
+        valor || 0
+    ).toLocaleString(
+
+        "pt-BR",
+
+        {
+            style:"currency",
+            currency:"BRL"
+        }
+
+    );
+
+}
+
+
+
+function escapar(valor) {
+
+    return String(
+        valor ?? ""
+    )
+
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+
+function formatarData(timestamp) {
+
+    if (!timestamp) return "-";
+
+
+    let data;
+
+
+    if (timestamp.toDate) {
+
+        data =
+            timestamp.toDate();
+
+    }
+
+    else if (timestamp.seconds) {
+
+        data =
+            new Date(
+                timestamp.seconds * 1000
+            );
+
+    }
+
+    else {
+
+        data =
+            new Date(timestamp);
+
+    }
+
+
+    if (
+        isNaN(
+            data.getTime()
+        )
+    ) {
+
+        return "-";
+
+    }
+
+
+    return data.toLocaleString(
+        "pt-BR"
+    );
+
+}
+
+
+
+function textoStatus(status) {
+
+    const mapa = {
+
+        aguardando_pagamento:
+            "🟡 Aguardando pagamento",
+
+        pagamento_confirmado:
+            "🟢 Pagamento confirmado",
+
+        em_producao:
+            "🔵 Em produção",
+
+        pronto:
+            "🟣 Pronto",
+
+        concluido:
+            "✅ Concluído",
+
+        cancelado:
+            "❌ Cancelado"
+
+    };
+
+
+    return mapa[status]
+        ||
+        status
+        ||
+        "Sem status";
+
+}
+
+
+
+function classeStatus(status) {
+
+    const mapa = {
+
+        aguardando_pagamento:
+            "status-aguardando",
+
+        pagamento_confirmado:
+            "status-pago",
+
+        em_producao:
+            "status-producao",
+
+        pronto:
+            "status-pronto",
+
+        concluido:
+            "status-concluido",
+
+        cancelado:
+            "status-cancelado"
+
+    };
+
+
+    return mapa[status]
+        ||
+        "status-aguardando";
+
+}
+
+
+
+function quantidadeItens(pedido) {
+
+    if (
+        !Array.isArray(
+            pedido.produtos
+        )
+    ) {
+
+        return 0;
+
+    }
+
+
+    return pedido.produtos.reduce(
+
+        (total,produto) => {
+
+            return total +
+                Number(
+                    produto.quantidade || 0
+                );
+
+        },
+
+        0
+
+    );
+
+}
+
+
+
+/* ==================================================
+   DASHBOARD
+================================================== */
+
+function atualizarDashboard() {
+
+    document
+        .getElementById(
+            "totalPedidos"
+        )
+        .textContent =
+        pedidos.length;
+
+
+    document
+        .getElementById(
+            "aguardandoPagamento"
+        )
+        .textContent =
+
+        pedidos.filter(
+            p =>
+                p.status ===
+                "aguardando_pagamento"
+        ).length;
+
+
+    document
+        .getElementById(
+            "pedidosPagos"
+        )
+        .textContent =
+
+        pedidos.filter(
+            p =>
+                p.status ===
+                "pagamento_confirmado"
+        ).length;
+
+
+    document
+        .getElementById(
+            "emProducao"
+        )
+        .textContent =
+
+        pedidos.filter(
+            p =>
+                p.status ===
+                "em_producao"
+        ).length;
+
+
+    const faturamento =
+        pedidos.reduce(
+
+            (total,pedido) => {
+
+                if (
+                    pedido.status ===
+                    "cancelado"
+                ) {
+
+                    return total;
+
+                }
+
+
+                return total +
+                    Number(
+                        pedido.total || 0
+                    );
+
+            },
+
+            0
+
+        );
+
+
+    document
+        .getElementById(
+            "faturamento"
+        )
+        .textContent =
+        moeda(faturamento);
+
+}
+
+
+
+/* ==================================================
+   FILTROS
+================================================== */
+
+function pedidosFiltrados() {
+
+    const pesquisa =
+        document
+            .getElementById(
+                "pesquisa"
+            )
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    const status =
+        document
+            .getElementById(
+                "filtroStatus"
+            )
+            .value;
+
+
+    const inicial =
+        document
+            .getElementById(
+                "dataInicial"
+            )
+            .value;
+
+
+    const final =
+        document
+            .getElementById(
+                "dataFinal"
+            )
+            .value;
+
+
+    return pedidos.filter(
+
+        pedido => {
+
+            if (pesquisa) {
+
+                const texto =
+
+                    (
+                        pedido.numeroPedido ||
+                        ""
+                    )
+                    .toString()
+                    .toLowerCase()
+
+                    + " " +
+
+                    (
+                        pedido.cliente?.nome ||
+                        ""
+                    )
+                    .toLowerCase()
+
+                    + " " +
+
+                    (
+                        pedido.cliente?.whatsapp ||
+                        ""
+                    )
+                    .toLowerCase();
+
+
+                if (
+                    !texto.includes(
+                        pesquisa
+                    )
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+
+            if (
+                status &&
+                pedido.status !== status
+            ) {
+
+                return false;
+
+            }
+
+
+            let dataPedido = null;
+
+
+            if (
+                pedido.criadoEm?.toDate
+            ) {
+
+                dataPedido =
+                    pedido.criadoEm.toDate();
+
+            }
+
+
+            if (
+                dataPedido &&
+                (inicial || final)
+            ) {
+
+                const dia =
+                    dataPedido
+                        .toISOString()
+                        .split("T")[0];
+
+
+                if (
+                    inicial &&
+                    dia < inicial
+                ) {
+
+                    return false;
+
+                }
+
+
+                if (
+                    final &&
+                    dia > final
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+
+            return true;
+
+        }
+
+    );
+
+}
+
+
+
+/* ==================================================
+   RENDERIZAR
+================================================== */
+
+function renderizarPedidos() {
+
+    const lista =
+        document
+            .getElementById(
+                "listaPedidos"
+            );
+
+
+    const filtrados =
+        pedidosFiltrados();
+
+
+    document
+        .getElementById(
+            "contadorPedidos"
+        )
+        .textContent =
+
+        filtrados.length +
+        (
+            filtrados.length === 1
+                ?
+                " pedido"
+                :
+                " pedidos"
+        );
+
+
+    if (
+        !filtrados.length
+    ) {
+
+        lista.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="vazio"
+                >
+
+                    Nenhum pedido encontrado.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    lista.innerHTML = "";
+
+
+    filtrados.forEach(
+
+        pedido => {
+
+            const cliente =
+                pedido.cliente || {};
+
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+
+            tr.innerHTML = `
+
+                <td>
+
+                    <strong>
+
+                        ${escapar(
+                            pedido.numeroPedido ||
+                            pedido.id
+                        )}
+
+                    </strong>
+
+                </td>
+
+
+                <td>
+
+                    ${formatarData(
+                        pedido.criadoEm
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapar(
+                        cliente.nome ||
+                        "-"
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapar(
+                        cliente.whatsapp ||
+                        "-"
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${quantidadeItens(
+                        pedido
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    <strong>
+
+                        ${moeda(
+                            pedido.total
+                        )}
+
+                    </strong>
+
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="status
+                        ${classeStatus(
+                            pedido.status
+                        )}"
+                    >
+
+                        ${textoStatus(
+                            pedido.status
+                        )}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <div class="acoes">
+
+
+                        <button
+                            class="btn btn-ver"
+                            data-acao="ver"
+                            data-id="${pedido.id}"
+                        >
+                            👁️
+                        </button>
+
+
+                        <button
+                            class="btn btn-status"
+                            data-acao="status"
+                            data-id="${pedido.id}"
+                        >
+                            🔄
+                        </button>
+
+
+                        <button
+                            class="btn btn-whatsapp"
+                            data-acao="whatsapp"
+                            data-id="${pedido.id}"
+                        >
+                            📱
+                        </button>
+
+
+                        <button
+                            class="btn btn-imprimir"
+                            data-acao="imprimir"
+                            data-id="${pedido.id}"
+                        >
+                            🖨️
+                        </button>
+
+
+                    </div>
+
+                </td>
+
+            `;
+
+
+            lista.appendChild(
+                tr
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* ==================================================
+   AÇÕES
+================================================== */
+
+document
+    .getElementById(
+        "listaPedidos"
+    )
+    .addEventListener(
+
+        "click",
+
+        evento => {
+
+            const botao =
+                evento.target.closest(
+                    "button"
+                );
+
+
+            if (!botao) return;
+
+
+            const pedido =
+                pedidos.find(
+
+                    p =>
+                        p.id ===
+                        botao.dataset.id
+
+                );
+
+
+            if (!pedido) return;
+
+
+            const acao =
+                botao.dataset.acao;
+
+
+            if (
+                acao === "ver"
+            ) {
+
+                abrirDetalhes(
+                    pedido
+                );
+
+            }
+
+
+            if (
+                acao === "status"
+            ) {
+
+                abrirStatus(
+                    pedido
+                );
+
+            }
+
+
+            if (
+                acao === "whatsapp"
+            ) {
+
+                abrirWhatsApp(
+                    pedido
+                );
+
+            }
+
+
+            if (
+                acao === "imprimir"
+            ) {
+
+                imprimirPedido(
+                    pedido
+                );
+
+            }
+
+        }
+
+    );
+
+
+
+[
+    "pesquisa",
+    "dataInicial",
+    "dataFinal",
+    "filtroStatus"
+
+].forEach(
+
+    id => {
+
+        document
+            .getElementById(id)
+            .addEventListener(
+                "input",
+                renderizarPedidos
+            );
+
+        document
+            .getElementById(id)
+            .addEventListener(
+                "change",
+                renderizarPedidos
+            );
+
+    }
+
+);
+
+
+
+/* ==================================================
+   DETALHES
+================================================== */
+
+function abrirDetalhes(pedido) {
+
+    pedidoSelecionado =
+        pedido;
+
+
+    const cliente =
+        pedido.cliente || {};
+
+
+    const endereco =
+        pedido.endereco || {};
+
+
+    let produtosHTML = "";
+
+
+    if (
+        Array.isArray(
+            pedido.produtos
+        )
+    ) {
+
+        pedido.produtos.forEach(
+
+            produto => {
+
+                produtosHTML += `
+
+                    <div class="produto-linha">
+
+                        <div>
+
+                            ${escapar(
+                                produto.nome ||
+                                "Produto"
+                            )}
+
+                        </div>
+
+                        <div>
+
+                            ${produto.quantidade || 0}
+
+                        </div>
+
+                        <div>
+
+                            ${moeda(
+                                produto.preco
+                            )}
+
+                        </div>
+
+                        <div>
+
+                            ${moeda(
+                                produto.subtotal
+                            )}
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+
+        );
+
+    }
+
+
+    document
+        .getElementById(
+            "conteudoDetalhes"
+        )
+        .innerHTML = `
+
+            <div class="info-grid">
+
+
+                <div class="info">
+
+                    <small>
+                        Pedido
+                    </small>
+
+                    <strong>
+
+                        ${escapar(
+                            pedido.numeroPedido ||
+                            pedido.id
+                        )}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="info">
+
+                    <small>
+                        Data
+                    </small>
+
+                    <strong>
+
+                        ${formatarData(
+                            pedido.criadoEm
+                        )}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="info">
+
+                    <small>
+                        Cliente
+                    </small>
+
+                    <strong>
+
+                        ${escapar(
+                            cliente.nome ||
+                            "-"
+                        )}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="info">
+
+                    <small>
+                        WhatsApp
+                    </small>
+
+                    <strong>
+
+                        ${escapar(
+                            cliente.whatsapp ||
+                            "-"
+                        )}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="info">
+
+                    <small>
+                        E-mail
+                    </small>
+
+                    <strong>
+
+                        ${escapar(
+                            cliente.email ||
+                            "-"
+                        )}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="info">
+
+                    <small>
+                        Status
+                    </small>
+
+                    <strong>
+
+                        ${textoStatus(
+                            pedido.status
+                        )}
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="modal-produtos">
+
+                <h3>
+                    📦 Produtos
+                </h3>
+
+
+                <div
+                    class="produto-linha produto-cabecalho"
+                >
+
+                    <div>
+                        Produto
+                    </div>
+
+                    <div>
+                        Qtd.
+                    </div>
+
+                    <div>
+                        Unitário
+                    </div>
+
+                    <div>
+                        Subtotal
+                    </div>
+
+                </div>
+
+
+                ${produtosHTML}
+
+
+                <div class="total-modal">
+
+                    TOTAL:
+                    ${moeda(
+                        pedido.total
+                    )}
+
+                </div>
+
+            </div>
+
+
+            ${
+                pedido.observacao
+                ?
+                `
+
+                <div class="observacao">
+
+                    <strong>
+                        Observação:
+                    </strong>
+
+                    <br><br>
+
+                    ${escapar(
+                        pedido.observacao
+                    )}
+
+                </div>
+
+                `
+                :
+                ""
+            }
+
+        `;
+
+
+    document
+        .getElementById(
+            "modalDetalhes"
+        )
+        .classList.add(
+            "mostrar"
+        );
+
+}
+
+
+
+window.fecharDetalhes =
+function() {
+
+    document
+        .getElementById(
+            "modalDetalhes"
+        )
+        .classList.remove(
+            "mostrar"
+        );
+
+};
+
+
+
+/* ==================================================
+   STATUS
+================================================== */
+
+function abrirStatus(pedido) {
+
+    pedidoSelecionado =
+        pedido;
+
+
+    document
+        .getElementById(
+            "pedidoStatus"
+        )
+        .textContent =
+
+        pedido.numeroPedido ||
+        pedido.id;
+
+
+    document
+        .getElementById(
+            "novoStatus"
+        )
+        .value =
+
+        pedido.status ||
+        "aguardando_pagamento";
+
+
+    document
+        .getElementById(
+            "modalStatus"
+        )
+        .classList.add(
+            "mostrar"
+        );
+
+}
+
+
+
+window.fecharStatus =
+function() {
+
+    document
+        .getElementById(
+            "modalStatus"
+        )
+        .classList.remove(
+            "mostrar"
+        );
+
+};
+
+
+
+window.salvarStatus =
+async function() {
+
+    if (
+        !pedidoSelecionado
+    ) return;
+
+
+    const status =
+        document
+            .getElementById(
+                "novoStatus"
+            )
+            .value;
+
+
+    try {
+
+        await updateDoc(
+
+            doc(
+                db,
+                "pedidos",
+                pedidoSelecionado.id
+            ),
+
+            {
+
+                status: status
+
+            }
+
+        );
+
+
+        fecharStatus();
+
+    }
+
+    catch(erro) {
+
+        console.error(
+            erro
+        );
+
+
+        alert(
+            "Erro ao alterar o status."
+        );
+
+    }
+
+};
+
+
+
+/* ==================================================
+   WHATSAPP
+================================================== */
+
+function abrirWhatsApp(pedido) {
+
+    const numero =
+        (
+            pedido.cliente?.whatsapp ||
+            ""
+        )
+        .replace(
+            /\D/g,
+            ""
+        );
+
+
+    if (!numero) {
+
+        alert(
+            "O cliente não possui WhatsApp cadastrado."
+        );
+
+        return;
+
+    }
+
+
+    let numeroFinal =
+        numero;
+
+
+    if (
+        numero.length === 10 ||
+        numero.length === 11
+    ) {
+
+        numeroFinal =
+            "55" +
+            numero;
+
+    }
+
+
+    let mensagem =
+
+`*PEDIDO ${
+    pedido.numeroPedido ||
+    pedido.id
+}*
+
+Olá, ${
+    pedido.cliente?.nome ||
+    ""
+}!
+
+Resumo do pedido:
+
+`;
+
+
+    if (
+        Array.isArray(
+            pedido.produtos
+        )
+    ) {
+
+        pedido.produtos.forEach(
+
+            produto => {
+
+                mensagem +=
+
+`• ${produto.nome}
+Quantidade: ${produto.quantidade}
+Subtotal: ${moeda(produto.subtotal)}
+
+`;
+
+            }
+
+        );
+
+    }
+
+
+    mensagem +=
+
+`*TOTAL: ${moeda(
+    pedido.total
+)}*
+
+Status:
+${textoStatus(
+    pedido.status
+)}`;
+
+
+    window.open(
+
+        "https://wa.me/" +
+        numeroFinal +
+        "?text=" +
+        encodeURIComponent(
+            mensagem
+        ),
+
+        "_blank"
+
+    );
+
+}
+
+
+
+/* ==================================================
+   IMPRESSÃO
+================================================== */
+
+function imprimirPedido(pedido) {
+
+    const cliente =
+        pedido.cliente || {};
+
+
+    let produtos = "";
+
+
+    if (
+        Array.isArray(
+            pedido.produtos
+        )
+    ) {
+
+        pedido.produtos.forEach(
+
+            produto => {
+
+                produtos += `
+
+                    <tr>
+
+                        <td>
+                            ${escapar(
+                                produto.nome
+                            )}
+                        </td>
+
+                        <td>
+                            ${produto.quantidade}
+                        </td>
+
+                        <td>
+                            ${moeda(
+                                produto.preco
+                            )}
+                        </td>
+
+                        <td>
+                            ${moeda(
+                                produto.subtotal
+                            )}
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+
+        );
+
+    }
+
+
+    const janela =
+        window.open(
+            "",
+            "_blank"
+        );
+
+
+    janela.document.write(`
+
+        <html>
+
+        <head>
+
+            <title>
+                Pedido
+            </title>
+
+            <style>
+
+                body {
+
+                    font-family: Arial;
+
+                    padding: 30px;
+
+                }
+
+                table {
+
+                    width:100%;
+
+                    border-collapse:collapse;
+
+                    margin-top:20px;
+
+                }
+
+                th,
+                td {
+
+                    border:1px solid #ddd;
+
+                    padding:10px;
+
+                }
+
+                th {
+
+                    background:#eee;
+
+                }
+
+                .total {
+
+                    text-align:right;
+
+                    font-size:22px;
+
+                    font-weight:bold;
+
+                    margin-top:20px;
+
+                }
+
+            </style>
+
+        </head>
+
+
+        <body>
+
+
+            <h1>
+
+                PEDIDO ${
+                    escapar(
+                        pedido.numeroPedido ||
+                        pedido.id
+                    )
+                }
+
+            </h1>
+
+
+            <p>
+
+                <strong>
+                    Cliente:
+                </strong>
+
+                ${escapar(
+                    cliente.nome ||
+                    "-"
+                )}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    WhatsApp:
+                </strong>
+
+                ${escapar(
+                    cliente.whatsapp ||
+                    "-"
+                )}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Data:
+                </strong>
+
+                ${formatarData(
+                    pedido.criadoEm
+                )}
+
+            </p>
+
+
+            <h2>
+                Produtos
+            </h2>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Produto
+                        </th>
+
+                        <th>
+                            Quantidade
+                        </th>
+
+                        <th>
+                            Unitário
+                        </th>
+
+                        <th>
+                            Subtotal
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    ${produtos}
+
+                </tbody>
+
+            </table>
+
+
+            <div class="total">
+
+                TOTAL:
+                ${moeda(
+                    pedido.total
+                )}
+
+            </div>
+
+
+            <p>
+
+                <strong>
+                    Status:
+                </strong>
+
+                ${textoStatus(
+                    pedido.status
+                )}
+
+            </p>
+
+
+        </body>
+
+        </html>
+
+    `);
+
+
+    janela.document.close();
+
+    janela.focus();
+
+
+    setTimeout(
+
+        () => janela.print(),
+
+        300
+
+    );
+
+}
+
+
+
+/* ==================================================
+   SAIR
+================================================== */
+
+window.sair =
+async function() {
+
+    try {
+
+        await signOut(
+            auth
+        );
+
+
+        window.location.href =
+            "login.html";
+
+    }
+
+    catch(erro) {
+
+        console.error(
+            erro
+        );
+
+        alert(
+            "Não foi possível sair."
+        );
+
+    }
+
+};
+
+
+
+/* ==================================================
+   VOLTAR PARA LOJA
+================================================== */
+
+window.voltarLoja =
+function() {
+
+    window.location.href =
+        "index.html";
+
+};
+
+
+</script>
+
+
+</body>
+
+</html>
+```
