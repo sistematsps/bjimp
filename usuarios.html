@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gerenciar Usuários</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+    color: #1f2937;
+}
+
+header {
+    background: #111827;
+    color: white;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button,
+.btn {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-voltar {
+    background: #374151;
+    color: white;
+}
+
+.btn-sair {
+    background: #dc2626;
+    color: white;
+}
+
+.container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 25px auto;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    font-size: 15px;
+    outline: none;
+}
+
+.campo input:focus,
+.campo select:focus {
+    border-color: #2563eb;
+}
+
+.form-acoes {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-salvar {
+    background: #16a34a;
+    color: white;
+}
+
+.btn-cancelar {
+    background: #6b7280;
+    color: white;
+    display: none;
+}
+
+#mensagem {
+    display: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.sucesso {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.erro {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.topo-lista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.topo-lista h2 {
+    margin: 0;
+}
+
+#pesquisa {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+}
+
+.tabela-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 13px 10px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+    background: #f9fafb;
+    font-size: 14px;
+}
+
+td {
+    font-size: 14px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge-admin {
+    background: #ede9fe;
+    color: #6d28d9;
+}
+
+.badge-atendente {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.badge-vendedor {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.badge-estoque {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-ativo {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge-inativo {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.acoes {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.btn-editar {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-status {
+    background: #f59e0b;
+    color: white;
+}
+
+.loading {
+    text-align: center;
+    padding: 30px;
+    color: #6b7280;
+}
+
+.vazio {
+    text-align: center;
+    padding: 30px;
+    color: #6b7280;
+}
+
+@media (max-width: 700px) {
+
+    header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .header-buttons {
+        width: 100%;
+    }
+
+    .header-buttons button {
+        flex: 1;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topo-lista {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #pesquisa {
+        width: 100%;
+    }
+
+    .acoes {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>👥 Gerenciamento de Usuários</h1>
+
+    <div class="header-buttons">
+        <button class="btn-voltar" onclick="voltarAdmin()">
+            ← Voltar ao Admin
+        </button>
+
+        <button class="btn-sair" onclick="sair()">
+            Sair
+        </button>
+    </div>
+
+</header>
+
+<div class="container">
+
+    <div id="mensagem"></div>
+
+    <!-- CADASTRO -->
+    <div class="card">
+
+        <h2 id="tituloFormulario">➕ Novo Usuário</h2>
+
+        <form id="formUsuario">
+
+            <div class="form-grid">
+
+                <div class="campo">
+                    <label for="nome">Nome</label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        placeholder="Nome completo"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="email">E-mail</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="usuario@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="campo" id="campoSenha">
+
+                    <label for="senha">Senha</label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        placeholder="Mínimo de 6 caracteres"
+                        minlength="6"
+                    >
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="tipo">Perfil</label>
+
+                    <select id="tipo" required>
+
+                        <option value="admin">
+                            Administrador
+                        </option>
+
+                        <option value="atendente">
+                            Atendente
+                        </option>
+
+                        <option value="vendedor">
+                            Vendedor
+                        </option>
+
+                        <option value="estoque">
+                            Estoque
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-acoes">
+
+                <button
+                    type="submit"
+                    class="btn-salvar"
+                    id="btnSalvar"
+                >
+                    💾 Cadastrar Usuário
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-cancelar"
+                    id="btnCancelar"
+                    onclick="cancelarEdicao()"
+                >
+                    Cancelar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- LISTA -->
+    <div class="card">
+
+        <div class="topo-lista">
+
+            <h2>📋 Usuários cadastrados</h2>
+
+            <input
+                type="text"
+                id="pesquisa"
+                placeholder="🔎 Pesquisar usuário..."
+            >
+
+        </div>
+
+        <div class="tabela-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Perfil</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="listaUsuarios">
+
+                    <tr>
+                        <td colspan="5" class="loading">
+                            Carregando usuários...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+import {
+    initializeApp,
+    getApps,
+    getApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut,
+    createUserWithEmailAndPassword,
+    signOut as signOutCadastro
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    getDoc,
+    setDoc,
+    updateDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyDtFVa120k4xnggOHibWOs61Jn-hJaSsdU",
+
+    authDomain: "timonha-b36d6.firebaseapp.com",
+
+    projectId: "timonha-b36d6",
+
+    storageBucket: "timonha-b36d6.firebasestorage.app",
+
+    messagingSenderId: "59864953764",
+
+    appId: "1:59864953764:web:9d44c30ff09b00a0f44731"
+
+};
+
+
+/* =========================================================
+   APP PRINCIPAL
+========================================================= */
+
+const app = getApps().length
+    ? getApp()
+    : initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+/* =========================================================
+   SEGUNDA INSTÂNCIA DO FIREBASE AUTH
+   PARA CRIAR USUÁRIOS SEM DESCONECTAR O ADMIN
+========================================================= */
+
+let appCadastro;
+
+try {
+
+    appCadastro = initializeApp(
+        firebaseConfig,
+        "appCadastroUsuarios"
+    );
+
+} catch (erro) {
+
+    appCadastro = getApp("appCadastroUsuarios");
+
+}
+
+const authCadastro = getAuth(appCadastro);
+
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
+let usuarios = [];
+
+let usuarioEditando = null;
+
+let usuarioAtual = null;
+
+
+/* =========================================================
+   VERIFICAR LOGIN
+========================================================= */
+
+onAuthStateChanged(auth, async (user) => {
+
+    if (!user) {
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
+    usuarioAtual = user;
+
+    console.log(
+        "Administrador conectado:",
+        user.email
+    );
+
+    await carregarUsuarios();
+
+});
+
+
+/* =========================================================
+   MENSAGEM
+========================================================= */
+
+function mostrarMensagem(texto, tipo = "info") {
+
+    const elemento = document.getElementById("mensagem");
+
+    elemento.textContent = texto;
+
+    elemento.className = tipo;
+
+    elemento.style.display = "block";
+
+    setTimeout(() => {
+
+        elemento.style.display = "none";
+
+    }, 4000);
+}
+
+
+/* =========================================================
+   CARREGAR USUÁRIOS
+========================================================= */
+
+async function carregarUsuarios() {
+
+    const lista = document.getElementById("listaUsuarios");
+
+    lista.innerHTML = `
+        <tr>
+            <td colspan="5" class="loading">
+                Carregando usuários...
+            </td>
+        </tr>
+    `;
+
+    try {
+
+        const snapshot = await getDocs(
+            collection(db, "usuarios")
+        );
+
+        usuarios = [];
+
+        snapshot.forEach((item) => {
+
+            usuarios.push({
+
+                id: item.id,
+
+                ...item.data()
+
+            });
+
+        });
+
+
+        usuarios.sort((a, b) => {
+
+            return (a.nome || "")
+                .localeCompare(
+                    b.nome || "",
+                    "pt-BR"
+                );
+
+        });
+
+
+        renderizarUsuarios();
+
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        lista.innerHTML = `
+            <tr>
+                <td colspan="5" class="vazio">
+                    Erro ao carregar usuários.
+                </td>
+            </tr>
+        `;
+
+        mostrarMensagem(
+            "Erro ao carregar usuários: " + erro.message,
+            "erro"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDERIZAR
+========================================================= */
+
+function renderizarUsuarios() {
+
+    const lista = document.getElementById("listaUsuarios");
+
+    const pesquisa = document
+        .getElementById("pesquisa")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const filtrados = usuarios.filter(usuario => {
+
+        const nome = (usuario.nome || "")
+            .toLowerCase();
+
+        const email = (usuario.email || "")
+            .toLowerCase();
+
+        const tipo = (usuario.tipo || "")
+            .toLowerCase();
+
+        return (
+            nome.includes(pesquisa) ||
+            email.includes(pesquisa) ||
+            tipo.includes(pesquisa)
+        );
+
+    });
+
+
+    if (!filtrados.length) {
+
+        lista.innerHTML = `
+            <tr>
+                <td colspan="5" class="vazio">
+                    Nenhum usuário encontrado.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    lista.innerHTML = filtrados.map(usuario => {
+
+        const tipo = usuario.tipo || "atendente";
+
+        const ativo = usuario.ativo !== false;
+
+        let nomeTipo = "Atendente";
+
+        let classeTipo = "badge-atendente";
+
+
+        if (tipo === "admin") {
+
+            nomeTipo = "Administrador";
+
+            classeTipo = "badge-admin";
+
+        }
+
+        else if (tipo === "vendedor") {
+
+            nomeTipo = "Vendedor";
+
+            classeTipo = "badge-vendedor";
+
+        }
+
+        else if (tipo === "estoque") {
+
+            nomeTipo = "Estoque";
+
+            classeTipo = "badge-estoque";
+
+        }
+
+
+        const status = ativo
+            ? `<span class="badge badge-ativo">Ativo</span>`
+            : `<span class="badge badge-inativo">Inativo</span>`;
+
+
+        const ehUsuarioAtual =
+            usuario.uid === usuarioAtual?.uid;
+
+
+        return `
+
+            <tr>
+
+                <td>
+                    <strong>
+                        ${escapar(usuario.nome || "Sem nome")}
+                    </strong>
+
+                    ${
+                        ehUsuarioAtual
+                        ? `<small style="color:#2563eb;">
+                            (Você)
+                           </small>`
+                        : ""
+                    }
+                </td>
+
+                <td>
+                    ${escapar(usuario.email || "")}
+                </td>
+
+                <td>
+                    <span class="badge ${classeTipo}">
+                        ${nomeTipo}
+                    </span>
+                </td>
+
+                <td>
+                    ${status}
+                </td>
+
+                <td>
+
+                    <div class="acoes">
+
+                        <button
+                            class="btn-editar"
+                            onclick="editarUsuario('${usuario.id}')"
+                        >
+                            ✏️ Editar
+                        </button>
+
+                        ${
+                            ehUsuarioAtual
+                            ? ""
+                            : `
+                            <button
+                                class="btn-status"
+                                onclick="alterarStatus('${usuario.id}')"
+                            >
+                                ${ativo ? "⛔ Desativar" : "✅ Ativar"}
+                            </button>
+                            `
+                        }
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }).join("");
+
+}
+
+
+/* =========================================================
+   PESQUISA
+========================================================= */
+
+document
+    .getElementById("pesquisa")
+    .addEventListener("input", renderizarUsuarios);
+
+
+/* =========================================================
+   CADASTRAR / EDITAR
+========================================================= */
+
+document
+    .getElementById("formUsuario")
+    .addEventListener("submit", async (evento) => {
+
+        evento.preventDefault();
+
+        const nome = document
+            .getElementById("nome")
+            .value
+            .trim();
+
+        const email = document
+            .getElementById("email")
+            .value
+            .trim()
+            .toLowerCase();
+
+        const senha = document
+            .getElementById("senha")
+            .value;
+
+        const tipo = document
+            .getElementById("tipo")
+            .value;
+
+
+        if (!nome) {
+
+            mostrarMensagem(
+                "Informe o nome do usuário.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (!email) {
+
+            mostrarMensagem(
+                "Informe o e-mail.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        try {
+
+            document
+                .getElementById("btnSalvar")
+                .disabled = true;
+
+
+            /* =============================================
+               EDITANDO
+            ============================================= */
+
+            if (usuarioEditando) {
+
+                await updateDoc(
+                    doc(
+                        db,
+                        "usuarios",
+                        usuarioEditando
+                    ),
+                    {
+
+                        nome: nome,
+
+                        tipo: tipo,
+
+                        atualizadoEm:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                mostrarMensagem(
+                    "Usuário atualizado com sucesso!",
+                    "sucesso"
+                );
+
+
+                cancelarEdicao();
+
+                await carregarUsuarios();
+
+                return;
+
+            }
+
+
+            /* =============================================
+               NOVO USUÁRIO
+            ============================================= */
+
+            if (!senha || senha.length < 6) {
+
+                mostrarMensagem(
+                    "A senha deve possuir pelo menos 6 caracteres.",
+                    "erro"
+                );
+
+                return;
+            }
+
+
+            const resultado =
+                await createUserWithEmailAndPassword(
+                    authCadastro,
+                    email,
+                    senha
+                );
+
+
+            const novoUsuario = resultado.user;
+
+
+            /* =============================================
+               SALVAR PERFIL NO FIRESTORE
+            ============================================= */
+
+            try {
+
+                await setDoc(
+                    doc(
+                        db,
+                        "usuarios",
+                        novoUsuario.uid
+                    ),
+                    {
+
+                        uid: novoUsuario.uid,
+
+                        nome: nome,
+
+                        email: email,
+
+                        tipo: tipo,
+
+                        ativo: true,
+
+                        criadoEm:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+            } catch (erroFirestore) {
+
+                /*
+                 * Se não conseguiu salvar o perfil,
+                 * tenta excluir a conta recém criada
+                 * da segunda sessão.
+                 */
+
+                try {
+
+                    await novoUsuario.delete();
+
+                } catch (erroDelete) {
+
+                    console.error(
+                        "Não foi possível desfazer a conta:",
+                        erroDelete
+                    );
+
+                }
+
+                throw erroFirestore;
+
+            }
+
+
+            await signOutCadastro(authCadastro);
+
+
+            mostrarMensagem(
+                "Usuário cadastrado com sucesso!",
+                "sucesso"
+            );
+
+
+            limparFormulario();
+
+            await carregarUsuarios();
+
+
+        } catch (erro) {
+
+            console.error(erro);
+
+            let mensagem =
+                "Não foi possível cadastrar o usuário.";
+
+
+            if (erro.code === "auth/email-already-in-use") {
+
+                mensagem =
+                    "Este e-mail já está cadastrado.";
+
+            }
+
+            else if (erro.code === "auth/invalid-email") {
+
+                mensagem =
+                    "O e-mail informado é inválido.";
+
+            }
+
+            else if (erro.code === "auth/weak-password") {
+
+                mensagem =
+                    "A senha é muito fraca.";
+
+            }
+
+            else if (
+                erro.code === "permission-denied"
+            ) {
+
+                mensagem =
+                    "Você não possui permissão para alterar os usuários.";
+
+            }
+
+            else if (erro.message) {
+
+                mensagem =
+                    erro.message;
+
+            }
+
+
+            mostrarMensagem(
+                mensagem,
+                "erro"
+            );
+
+
+        } finally {
+
+            document
+                .getElementById("btnSalvar")
+                .disabled = false;
+
+        }
+
+    });
+
+
+/* =========================================================
+   EDITAR USUÁRIO
+========================================================= */
+
+window.editarUsuario = function(id) {
+
+    const usuario = usuarios.find(
+        item => item.id === id
+    );
+
+    if (!usuario) return;
+
+
+    usuarioEditando = id;
+
+
+    document.getElementById("nome").value =
+        usuario.nome || "";
+
+
+    document.getElementById("email").value =
+        usuario.email || "";
+
+
+    document.getElementById("email").disabled =
+        true;
+
+
+    document.getElementById("tipo").value =
+        usuario.tipo || "atendente";
+
+
+    document.getElementById("senha").value =
+        "";
+
+
+    document.getElementById("campoSenha").style.display =
+        "none";
+
+
+    document.getElementById("tituloFormulario")
+        .textContent =
+        "✏️ Editar Usuário";
+
+
+    document.getElementById("btnSalvar")
+        .textContent =
+        "💾 Salvar Alterações";
+
+
+    document.getElementById("btnCancelar")
+        .style.display =
+        "inline-block";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+};
+
+
+/* =========================================================
+   CANCELAR EDIÇÃO
+========================================================= */
+
+window.cancelarEdicao = function() {
+
+    usuarioEditando = null;
+
+    document
+        .getElementById("formUsuario")
+        .reset();
+
+
+    document
+        .getElementById("email")
+        .disabled = false;
+
+
+    document
+        .getElementById("campoSenha")
+        .style.display = "flex";
+
+
+    document
+        .getElementById("tituloFormulario")
+        .textContent =
+        "➕ Novo Usuário";
+
+
+    document
+        .getElementById("btnSalvar")
+        .textContent =
+        "💾 Cadastrar Usuário";
+
+
+    document
+        .getElementById("btnCancelar")
+        .style.display =
+        "none";
+
+};
+
+
+/* =========================================================
+   LIMPAR FORMULÁRIO
+========================================================= */
+
+function limparFormulario() {
+
+    usuarioEditando = null;
+
+    document
+        .getElementById("formUsuario")
+        .reset();
+
+
+    document
+        .getElementById("email")
+        .disabled = false;
+
+
+    document
+        .getElementById("campoSenha")
+        .style.display = "flex";
+
+
+    document
+        .getElementById("tituloFormulario")
+        .textContent =
+        "➕ Novo Usuário";
+
+
+    document
+        .getElementById("btnSalvar")
+        .textContent =
+        "💾 Cadastrar Usuário";
+
+
+    document
+        .getElementById("btnCancelar")
+        .style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   ALTERAR STATUS
+========================================================= */
+
+window.alterarStatus = async function(id) {
+
+    const usuario = usuarios.find(
+        item => item.id === id
+    );
+
+    if (!usuario) return;
+
+
+    if (usuario.uid === usuarioAtual?.uid) {
+
+        mostrarMensagem(
+            "Você não pode desativar o próprio usuário.",
+            "erro"
+        );
+
+        return;
+    }
+
+
+    const novoStatus =
+        usuario.ativo === false;
+
+
+    const texto = novoStatus
+        ? "ativar"
+        : "desativar";
+
+
+    const confirmar = confirm(
+        `Deseja realmente ${texto} o usuário "${usuario.nome}"?`
+    );
+
+
+    if (!confirmar) return;
+
+
+    try {
+
+        await updateDoc(
+            doc(
+                db,
+                "usuarios",
+                id
+            ),
+            {
+
+                ativo: novoStatus,
+
+                atualizadoEm:
+                    serverTimestamp()
+
+            }
+        );
+
+
+        mostrarMensagem(
+            novoStatus
+                ? "Usuário ativado com sucesso."
+                : "Usuário desativado com sucesso.",
+            "sucesso"
+        );
+
+
+        await carregarUsuarios();
+
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        mostrarMensagem(
+            "Erro ao alterar o status: " + erro.message,
+            "erro"
+        );
+
+    }
+
+};
+
+
+/* =========================================================
+   ESCAPAR HTML
+========================================================= */
+
+function escapar(valor) {
+
+    return String(valor ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   VOLTAR
+========================================================= */
+
+window.voltarAdmin = function() {
+
+    window.location.href = "admin.html";
+
+};
+
+
+/* =========================================================
+   SAIR
+========================================================= */
+
+window.sair = async function() {
+
+    try {
+
+        await signOut(auth);
+
+        window.location.href = "login.html";
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        mostrarMensagem(
+            "Erro ao sair.",
+            "erro"
+        );
+
+    }
+
+};
+
+</script>
+
+</body>
+</html>

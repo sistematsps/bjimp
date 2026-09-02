@@ -1,787 +1,860 @@
-```html
-<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>Painel Administrativo</title>
+    <title>ADMINISTRACAO SISTEMA</title>
 
 
-<style>
+    <style>
 
-/* ==================================================
-   ESTILO
-================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-* {
 
-    box-sizing: border-box;
+        body {
 
-    margin: 0;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
 
-    padding: 0;
+            background: #f3f4f6;
 
-}
+            color: #111827;
 
+        }
 
-body {
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+        /* ===================================
+           TOPO
+        =================================== */
 
-    background: #f3f4f6;
+        header {
 
-    color: #1f2937;
+            background: #111827;
 
-}
+            color: white;
 
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.15);
 
-header {
+        }
 
-    background: #111827;
 
-    color: white;
+        .topo {
 
-    height: 65px;
+            max-width: 1200px;
 
-    display: flex;
+            margin: auto;
 
-    align-items: center;
+            padding: 15px 20px;
 
-}
+            display: flex;
 
+            align-items: center;
 
-.topo {
+            justify-content: space-between;
 
-    width: 100%;
+            gap: 15px;
 
-    max-width: 1400px;
+        }
 
-    margin: auto;
 
-    padding: 0 20px;
+        .logo {
 
-    display: flex;
+            font-size: 23px;
 
-    align-items: center;
+            font-weight: bold;
 
-    justify-content: space-between;
+        }
 
-}
 
+        .logo span {
 
-.logo {
+            color: #22c55e;
 
-    font-size: 22px;
+        }
 
-    font-weight: bold;
 
-}
+        .menu {
 
+            display: flex;
 
-.logo span {
+            gap: 8px;
 
-    color: #22c55e;
+            align-items: center;
 
-}
+        }
 
 
-.topo-acoes {
+        .menu button {
 
-    display: flex;
+            border: none;
 
-    align-items: center;
+            background: transparent;
 
-    gap: 10px;
+            color: white;
 
-}
+            padding: 9px 12px;
 
+            border-radius: 6px;
 
-.usuario-logado {
+            cursor: pointer;
 
-    font-size: 13px;
+            font-size: 14px;
 
-    color: #d1d5db;
+        }
 
-}
 
+        .menu button:hover {
 
-.botao {
+            background: #374151;
 
-    border: none;
+        }
 
-    padding: 9px 14px;
+        .menu button.oculto {
+            display: none;
+        }
 
-    border-radius: 6px;
 
-    cursor: pointer;
+        /* ===================================
+           CONTAINER
+        =================================== */
 
-}
+        main {
 
+            max-width: 1200px;
 
-.botao-loja {
+            margin: auto;
 
-    background: #374151;
+            padding: 25px 20px 60px;
 
-    color: white;
+        }
 
-}
 
+        .titulo {
 
-.botao-sair {
+            display: flex;
 
-    background: #dc2626;
+            align-items: center;
 
-    color: white;
+            justify-content: space-between;
 
-}
+            gap: 15px;
 
+            margin-bottom: 20px;
 
-.container {
+        }
 
-    max-width: 1400px;
 
-    margin: auto;
+        .titulo h1 {
 
-    padding: 25px 20px 50px;
+            font-size: 27px;
 
-}
+        }
 
 
-.titulo {
+        .titulo p {
 
-    margin-bottom: 25px;
+            color: #6b7280;
 
-}
+            margin-top: 5px;
 
+        }
 
-.titulo h1 {
 
-    font-size: 28px;
+        .botao-novo {
 
-    margin-bottom: 5px;
+            border: none;
 
-}
+            background: #22c55e;
 
+            color: white;
 
-.titulo p {
+            padding: 12px 18px;
 
-    color: #6b7280;
+            border-radius: 8px;
 
-}
+            cursor: pointer;
 
+            font-weight: bold;
 
-.dashboard {
+        }
 
-    display: grid;
 
-    grid-template-columns:
-        repeat(5, 1fr);
+        .botao-novo:hover {
 
-    gap: 15px;
+            background: #16a34a;
 
-    margin-bottom: 25px;
+        }
 
-}
 
+        /* ===================================
+           MENSAGEM
+        =================================== */
 
-.card-dashboard {
+        #mensagem {
 
-    background: white;
+            display: none;
 
-    border-radius: 10px;
+            padding: 12px 15px;
 
-    padding: 18px;
+            border-radius: 8px;
 
-    box-shadow:
-        0 2px 8px rgba(0,0,0,.06);
+            margin-bottom: 18px;
 
-}
+        }
 
 
-.card-dashboard .icone {
+        #mensagem.sucesso {
 
-    font-size: 25px;
+            display: block;
 
-    margin-bottom: 8px;
+            background: #dcfce7;
 
-}
+            color: #166534;
 
+        }
 
-.card-dashboard .numero {
 
-    font-size: 28px;
+        #mensagem.erro {
 
-    font-weight: bold;
+            display: block;
 
-}
+            background: #fee2e2;
 
+            color: #991b1b;
 
-.card-dashboard .descricao {
+        }
 
-    color: #6b7280;
 
-    font-size: 14px;
+        /* ===================================
+           FORMULÁRIO
+        =================================== */
 
-    margin-top: 4px;
+        .formulario {
 
-}
+            display: none;
 
+            background: white;
 
-.filtros {
+            border-radius: 12px;
 
-    background: white;
+            padding: 22px;
 
-    padding: 18px;
+            margin-bottom: 25px;
 
-    border-radius: 10px;
+            box-shadow:
+                0 2px 10px rgba(0,0,0,.07);
 
-    margin-bottom: 20px;
+        }
 
-    box-shadow:
-        0 2px 8px rgba(0,0,0,.06);
 
-}
+        .formulario.mostrar {
 
+            display: block;
 
-.filtros-grid {
+        }
 
-    display: grid;
 
-    grid-template-columns:
-        2fr
-        1fr
-        1fr
-        1fr;
+        .formulario h2 {
 
-    gap: 12px;
+            margin-bottom: 20px;
 
-}
+            font-size: 20px;
 
+        }
 
-.filtros input,
-.filtros select {
 
-    width: 100%;
+        .grid-form {
 
-    padding: 11px;
+            display: grid;
 
-    border: 1px solid #d1d5db;
+            grid-template-columns:
+                1fr 1fr;
 
-    border-radius: 6px;
+            gap: 15px;
 
-    font-size: 14px;
+        }
 
-}
 
+        .campo {
 
-.tabela-container {
+            margin-bottom: 5px;
 
-    background: white;
+        }
 
-    border-radius: 10px;
 
-    box-shadow:
-        0 2px 8px rgba(0,0,0,.06);
+        .campo.completo {
 
-    overflow: hidden;
+            grid-column:
+                1 / -1;
 
-}
+        }
 
 
-.tabela-topo {
+        .campo label {
 
-    padding: 18px;
+            display: block;
 
-    border-bottom:
-        1px solid #e5e7eb;
+            font-size: 14px;
 
-    display: flex;
+            font-weight: bold;
 
-    justify-content: space-between;
+            margin-bottom: 6px;
 
-    align-items: center;
+        }
 
-}
 
+        .campo input,
+        .campo textarea,
+        .campo select {
 
-.tabela-topo h2 {
+            width: 100%;
 
-    font-size: 19px;
+            padding: 11px 12px;
 
-}
+            border: 1px solid #d1d5db;
 
+            border-radius: 7px;
 
-.contador {
+            outline: none;
 
-    color: #6b7280;
+            font-size: 14px;
 
-    font-size: 14px;
+            background: white;
 
-}
+        }
 
 
-.tabela-scroll {
+        .campo input:focus,
+        .campo textarea:focus,
+        .campo select:focus {
 
-    overflow-x: auto;
+            border-color: #22c55e;
 
-}
+        }
 
 
-table {
+        .campo textarea {
 
-    width: 100%;
+            min-height: 90px;
 
-    border-collapse: collapse;
+            resize: vertical;
 
-    min-width: 900px;
+        }
 
-}
 
+        .ajuda {
 
-th {
+            display: block;
 
-    background: #f9fafb;
+            margin-top: 5px;
 
-    text-align: left;
+            font-size: 12px;
 
-    padding: 13px;
+            color: #777;
 
-    font-size: 13px;
+        }
 
-    color: #4b5563;
 
-    border-bottom:
-        1px solid #e5e7eb;
+        .preview {
 
-}
+            margin-top: 10px;
 
+            display: none;
 
-td {
+        }
 
-    padding: 13px;
 
-    border-bottom:
-        1px solid #f0f0f0;
+        .preview img {
 
-    font-size: 14px;
+            width: 120px;
 
-}
+            height: 100px;
 
+            object-fit: cover;
 
-tr:hover td {
+            border-radius: 8px;
 
-    background: #fafafa;
+            border: 1px solid #ddd;
 
-}
+        }
 
 
-.status {
+        .acoes-form {
 
-    display: inline-block;
+            margin-top: 20px;
 
-    padding: 5px 9px;
+            display: flex;
 
-    border-radius: 20px;
+            gap: 10px;
 
-    font-size: 12px;
+        }
 
-    font-weight: bold;
 
-}
+        .botao {
 
+            border: none;
 
-.status-aguardando {
+            border-radius: 7px;
 
-    background: #fef3c7;
+            padding: 11px 18px;
 
-    color: #92400e;
+            cursor: pointer;
 
-}
+            font-weight: bold;
 
+        }
 
-.status-pago {
 
-    background: #dcfce7;
+        .salvar {
 
-    color: #166534;
+            background: #22c55e;
 
-}
+            color: white;
 
+        }
 
-.status-producao {
 
-    background: #dbeafe;
+        .cancelar {
 
-    color: #1e40af;
+            background: #e5e7eb;
 
-}
+            color: #374151;
 
+        }
 
-.status-pronto {
 
-    background: #ede9fe;
+        /* ===================================
+           BARRA DE PESQUISA
+        =================================== */
 
-    color: #5b21b6;
+        .barra {
 
-}
+            background: white;
 
+            border-radius: 10px;
 
-.status-concluido {
+            padding: 15px;
 
-    background: #d1fae5;
+            margin-bottom: 18px;
 
-    color: #065f46;
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.05);
 
-}
+        }
 
 
-.status-cancelado {
+        .barra input {
 
-    background: #fee2e2;
+            width: 100%;
 
-    color: #991b1b;
+            padding: 12px;
 
-}
+            border: 1px solid #ddd;
 
+            border-radius: 7px;
 
-.acoes {
+            outline: none;
 
-    display: flex;
+            font-size: 15px;
 
-    gap: 5px;
+        }
 
-}
 
+        /* ===================================
+           TABELA
+        =================================== */
 
-.btn {
+        .tabela-container {
 
-    border: none;
+            background: white;
 
-    border-radius: 5px;
+            border-radius: 12px;
 
-    padding: 7px 9px;
+            overflow-x: auto;
 
-    cursor: pointer;
+            box-shadow:
+                0 2px 10px rgba(0,0,0,.07);
 
-}
+        }
 
 
-.btn-ver {
+        table {
 
-    background: #e5e7eb;
+            width: 100%;
 
-}
+            border-collapse: collapse;
 
+            min-width: 800px;
 
-.btn-status {
+        }
 
-    background: #dbeafe;
 
-}
+        th {
 
+            background: #f9fafb;
 
-.btn-whatsapp {
+            text-align: left;
 
-    background: #dcfce7;
+            padding: 13px;
 
-}
+            font-size: 13px;
 
+            color: #6b7280;
 
-.btn-imprimir {
+            border-bottom: 1px solid #e5e7eb;
 
-    background: #f3e8ff;
+        }
 
-}
 
+        td {
 
-.vazio,
-.carregando {
+            padding: 13px;
 
-    text-align: center;
+            border-bottom: 1px solid #f0f0f0;
 
-    padding: 40px;
+            vertical-align: middle;
 
-    color: #6b7280;
+            font-size: 14px;
 
-}
+        }
 
 
-.modal {
+        tr:last-child td {
 
-    display: none;
+            border-bottom: none;
 
-    position: fixed;
+        }
 
-    inset: 0;
 
-    z-index: 1000;
+        .produto-info {
 
-    background:
-        rgba(0,0,0,.55);
+            display: flex;
 
-    padding: 20px;
+            align-items: center;
 
-    overflow-y: auto;
+            gap: 10px;
 
-}
+        }
 
 
-.modal.mostrar {
+        .produto-info img {
 
-    display: flex;
+            width: 50px;
 
-    justify-content: center;
+            height: 50px;
 
-    align-items: flex-start;
+            object-fit: cover;
 
-}
+            border-radius: 7px;
 
+            background: #eee;
 
-.modal-conteudo {
+        }
 
-    width: 100%;
 
-    max-width: 850px;
+        .produto-nome {
 
-    background: white;
+            font-weight: bold;
 
-    border-radius: 12px;
+        }
 
-    overflow: hidden;
 
-    margin-top: 20px;
+        .categoria {
 
-}
+            color: #777;
 
+            font-size: 12px;
 
-.modal-header {
+            margin-top: 3px;
 
-    background: #111827;
+        }
 
-    color: white;
 
-    padding: 18px 20px;
+        .preco {
 
-    display: flex;
+            font-weight: bold;
 
-    justify-content: space-between;
+            color: #16a34a;
 
-    align-items: center;
+        }
 
-}
 
+        .status {
 
-.fechar {
+            display: inline-block;
 
-    border: none;
+            padding: 5px 9px;
 
-    background: transparent;
+            border-radius: 20px;
 
-    color: white;
+            font-size: 12px;
 
-    font-size: 25px;
+            font-weight: bold;
 
-    cursor: pointer;
+        }
 
-}
 
+        .status.ativo {
 
-.modal-body {
+            background: #dcfce7;
 
-    padding: 20px;
+            color: #166534;
 
-}
+        }
 
 
-.info-grid {
+        .status.inativo {
 
-    display: grid;
+            background: #fee2e2;
 
-    grid-template-columns:
-        repeat(2, 1fr);
+            color: #991b1b;
 
-    gap: 12px;
+        }
 
-}
 
+        .acoes {
 
-.info {
+            display: flex;
 
-    background: #f9fafb;
+            gap: 6px;
 
-    padding: 12px;
+            flex-wrap: wrap;
 
-    border-radius: 7px;
+        }
 
-}
 
+        .acao {
 
-.info small {
+            border: none;
 
-    display: block;
+            padding: 7px 9px;
 
-    color: #6b7280;
+            border-radius: 6px;
 
-    margin-bottom: 4px;
+            cursor: pointer;
 
-}
+            font-size: 12px;
 
+        }
 
-.modal-produtos {
 
-    margin-top: 20px;
+        .editar {
 
-}
+            background: #dbeafe;
 
+            color: #1d4ed8;
 
-.produto-linha {
+        }
 
-    display: grid;
 
-    grid-template-columns:
-        1fr
-        100px
-        120px
-        120px;
+        .ativar {
 
-    gap: 10px;
+            background: #dcfce7;
 
-    padding: 10px;
+            color: #166534;
 
-    border-bottom:
-        1px solid #eee;
+        }
 
-}
 
+        .desativar {
 
-.produto-cabecalho {
+            background: #fef3c7;
 
-    font-weight: bold;
+            color: #92400e;
 
-    background: #f9fafb;
+        }
 
-}
 
+        .excluir {
 
-.total-modal {
+            background: #fee2e2;
 
-    text-align: right;
+            color: #991b1b;
 
-    padding: 18px;
+        }
 
-    font-size: 20px;
 
-    font-weight: bold;
+        /* ===================================
+           VAZIO
+        =================================== */
 
-}
+        .vazio {
 
+            text-align: center;
 
-.observacao {
+            padding: 50px 20px;
 
-    margin-top: 15px;
+            color: #777;
 
-    background: #fff7ed;
+        }
 
-    padding: 14px;
 
-    border-radius: 7px;
+        /* ===================================
+           LOADING
+        =================================== */
 
-}
+        .loading {
 
+            text-align: center;
 
-.modal-footer {
+            padding: 35px;
 
-    padding: 15px 20px;
+            color: #777;
 
-    border-top:
-        1px solid #eee;
+        }
 
-    display: flex;
 
-    justify-content: flex-end;
 
-    gap: 8px;
+        /* ===================================
+           DASHBOARD POR PERFIL
+        =================================== */
 
-}
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
 
+        .dashboard-titulo {
+            grid-column: 1 / -1;
+            background: white;
+            border-radius: 12px;
+            padding: 18px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.06);
+        }
 
-@media(max-width:1100px) {
+        .dashboard-titulo h2 {
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
 
-    .dashboard {
+        .dashboard-titulo p {
+            color: #6b7280;
+            font-size: 14px;
+        }
 
-        grid-template-columns:
-            repeat(3, 1fr);
+        .card-resumo {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.06);
+            border-left: 4px solid #22c55e;
+        }
 
-    }
+        .card-resumo .icone {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
 
+        .card-resumo .numero {
+            font-size: 27px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
 
-    .filtros-grid {
+        .card-resumo .descricao {
+            color: #6b7280;
+            font-size: 13px;
+        }
 
-        grid-template-columns:
-            1fr 1fr;
+        .perfil-indicador {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #eef2ff;
+            color: #3730a3;
+            font-size: 12px;
+            font-weight: bold;
+        }
 
-    }
+        .acesso-negado {
+            background: white;
+            border-radius: 12px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,.06);
+        }
 
-}
+        .acesso-negado h2 {
+            margin-bottom: 8px;
+        }
 
+        .acesso-negado p {
+            color: #6b7280;
+        }
 
-@media(max-width:700px) {
+        .oculto {
+            display: none !important;
+        }
 
-    .dashboard {
+        /* ===================================
+           RESPONSIVO
+        =================================== */
 
-        grid-template-columns:
-            repeat(2, 1fr);
+        @media (max-width: 700px) {
 
-    }
+            .grid-form {
 
+                grid-template-columns: 1fr;
 
-    .filtros-grid {
+            }
 
-        grid-template-columns:
-            1fr;
 
-    }
+            .campo.completo {
 
+                grid-column: auto;
 
-    .info-grid {
+            }
 
-        grid-template-columns:
-            1fr;
 
-    }
+            .titulo {
 
+                align-items: flex-start;
 
-    .usuario-logado {
+                flex-direction: column;
 
-        display: none;
+            }
 
-    }
 
-}
+            .topo {
 
+                flex-wrap: wrap;
 
-@media(max-width:450px) {
+            }
 
-    .dashboard {
+            .dashboard {
 
-        grid-template-columns:
-            1fr;
+                grid-template-columns: 1fr 1fr;
 
-    }
+            }
 
-}
 
-</style>
+            .menu {
+
+                width: 100%;
+
+                overflow-x: auto;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -791,1210 +864,857 @@ tr:hover td {
 
 <header>
 
-<div class="topo">
+    <div class="topo">
 
 
-<div class="logo">
+        <div class="logo">
 
-    PAINEL
-    <span>ADMINISTRATIVO</span>
+            BJ<span>IMPRESSOS</span>
+            <small style="font-size:12px;color:#aaa;">
+                ADMINISTRAÇÃO
+            </small>
 
-</div>
-
-
-<div class="topo-acoes">
-
-
-<span
-    class="usuario-logado"
-    id="usuarioLogado"
->
-</span>
+        </div>
 
 
-<button
-    class="botao botao-loja"
-    onclick="voltarLoja()"
->
+        <div class="menu">
 
-    🏪 Loja
-
-</button>
-
-
-<button
-    class="botao botao-sair"
-    onclick="sair()"
->
-
-    🚪 Sair
-
-</button>
+            <button
+                onclick="irParaLoja()"
+            >
+                🛍 INICIO
+            </button>
 
 
-</div>
+            <button
+                id="botaoUsuarios"
+                onclick="irParaUsuarios()"
+                class="oculto"
+            >
+                👥 Usuários
+            </button>
 
-</div>
+            <button
+                id="botaoNotificacoes"
+                onclick="ativarNotificacoes()"
+            >
+                🔔 Ativar notificações
+            </button>
+
+            <button
+                onclick="recarregar()"
+            >
+                🔄 Atualizar
+            </button>
+
+            <button
+                onclick="sairSistema()"
+            >
+                🚪 Sair
+            </button>
+
+        </div>
+
+
+    </div>
 
 </header>
 
 
 
-<main class="container">
 
+<main>
 
-<div class="titulo">
+    <!-- ===========================
+         DASHBOARD
+    ============================ -->
 
-<h1>
-    Dashboard
-</h1>
+    <section id="dashboard" class="dashboard">
 
-<p>
-    Acompanhe e gerencie os pedidos da sua loja.
-</p>
+        <div class="dashboard-titulo">
+            <h2 id="tituloDashboard">Painel Administrativo</h2>
+            <p id="subtituloDashboard">
+                Carregando informações...
+            </p>
+            <span id="perfilIndicador" class="perfil-indicador">
+                Verificando perfil...
+            </span>
 
-</div>
+            <div id="statusNotificacoes" style="
+                margin-top:10px;
+                font-size:13px;
+                font-weight:600;
+            ">
+                🔔 Notificações: verificando...
+            </div>
+        </div>
 
+        <div class="card-resumo" id="cardTotalProdutos">
+            <div class="icone">📦</div>
+            <div class="numero" id="totalProdutos">0</div>
+            <div class="descricao">Total de produtos</div>
+        </div>
 
+        <div class="card-resumo" id="cardProdutosAtivos">
+            <div class="icone">✅</div>
+            <div class="numero" id="produtosAtivos">0</div>
+            <div class="descricao">Produtos ativos</div>
+        </div>
 
-<section class="dashboard">
+        <div class="card-resumo" id="cardEstoqueBaixo">
+            <div class="icone">⚠️</div>
+            <div class="numero" id="estoqueBaixo">0</div>
+            <div class="descricao">Estoque baixo</div>
+        </div>
 
+        <div class="card-resumo" id="cardSemEstoque">
+            <div class="icone">🔴</div>
+            <div class="numero" id="semEstoque">0</div>
+            <div class="descricao">Sem estoque</div>
+        </div>
 
-<div class="card-dashboard">
+    </section>
 
-<div class="icone">
-    🛒
-</div>
+    <div id="acessoNegado" class="acesso-negado oculto">
+        <h2>🔒 Acesso restrito</h2>
+        <p>Seu perfil não possui acesso a esta área.</p>
+    </div>
 
-<div
-    class="numero"
-    id="totalPedidos"
->
-0
-</div>
+    <section id="areaProdutos">
 
-<div class="descricao">
-    Total de pedidos
-</div>
+    <div class="titulo">
 
-</div>
+        <div>
 
+            <h1>
+                Produtos
+            </h1>
 
+            <p>
+                Cadastre e gerencie os produtos da loja.
+            </p>
 
-<div class="card-dashboard">
+        </div>
 
-<div class="icone">
-    ⏳
-</div>
 
-<div
-    class="numero"
-    id="aguardandoPagamento"
->
-0
-</div>
+        <button
+            class="botao-novo"
+            onclick="novoProduto()"
+        >
 
-<div class="descricao">
-    Aguardando pagamento
-</div>
+            + Novo produto
 
-</div>
+        </button>
 
+    </div>
 
 
-<div class="card-dashboard">
 
-<div class="icone">
-    💰
-</div>
+    <div
+        id="mensagem"
+    ></div>
 
-<div
-    class="numero"
-    id="pedidosPagos"
->
-0
-</div>
 
-<div class="descricao">
-    Pagamentos confirmados
-</div>
 
-</div>
+    <!-- ===========================
+         FORMULÁRIO
+    ============================ -->
 
+    <div
+        id="formulario"
+        class="formulario"
+    >
 
+        <h2
+            id="tituloFormulario"
+        >
+            Novo produto
+        </h2>
 
-<div class="card-dashboard">
 
-<div class="icone">
-    🏭
-</div>
+        <form
+            id="formProduto"
+        >
 
-<div
-    class="numero"
-    id="emProducao"
->
-0
-</div>
 
-<div class="descricao">
-    Em produção
-</div>
+            <div class="grid-form">
 
-</div>
 
+                <div class="campo">
 
+                    <label>
+                        Nome do produto *
+                    </label>
 
-<div class="card-dashboard">
+                    <input
+                        type="text"
+                        id="nome"
+                        required
+                        placeholder="Ex.: Arroz 5kg"
+                    >
 
-<div class="icone">
-    💵
-</div>
+                </div>
 
-<div
-    class="numero"
-    id="faturamento"
->
-R$ 0,00
-</div>
 
-<div class="descricao">
-    Valor dos pedidos
-</div>
 
-</div>
+                <div class="campo">
 
-</section>
+                    <label>
+                        Categoria
+                    </label>
 
+                    <input
+                        type="text"
+                        id="categoria"
+                        placeholder="Ex.: Alimentos"
+                    >
 
+                </div>
 
-<section class="filtros">
 
-<div class="filtros-grid">
 
+                <div class="campo">
 
-<input
-    type="text"
-    id="pesquisa"
-    placeholder="🔎 Pesquisar pedido, cliente ou WhatsApp..."
->
+                    <label>
+                        Preço *
+                    </label>
 
+                    <input
+                        type="number"
+                        id="preco"
+                        required
+                        min="0"
+                        step="0.01"
+                        placeholder="0,00"
+                    >
 
-<input
-    type="date"
-    id="dataInicial"
->
+                </div>
 
 
-<input
-    type="date"
-    id="dataFinal"
->
 
+                <div class="campo">
 
-<select id="filtroStatus">
+                    <label>
+                        Estoque
+                    </label>
 
-<option value="">
-Todos os status
-</option>
+                    <input
+                        type="number"
+                        id="estoque"
+                        min="0"
+                        step="1"
+                        value="0"
+                        placeholder="0"
+                    >
 
-<option value="aguardando_pagamento">
-Aguardando pagamento
-</option>
+                </div>
 
-<option value="pagamento_confirmado">
-Pagamento confirmado
-</option>
 
-<option value="em_producao">
-Em produção
-</option>
 
-<option value="pronto">
-Pronto
-</option>
+                <div class="campo completo">
 
-<option value="concluido">
-Concluído
-</option>
+                    <label>
+                        Descrição
+                    </label>
 
-<option value="cancelado">
-Cancelado
-</option>
+                    <textarea
+                        id="descricao"
+                        placeholder="Descrição do produto..."
+                    ></textarea>
 
-</select>
+                </div>
 
 
-</div>
 
-</section>
+                <div class="campo completo">
 
+                    <label>
+                        URL da imagem
+                    </label>
 
+                    <input
+                        type="url"
+                        id="imagem"
+                        placeholder="https://..."
+                    >
 
-<section class="tabela-container">
+                    <span class="ajuda">
+                        Nesta primeira versão,
+                        informe o endereço da imagem.
+                    </span>
 
 
-<div class="tabela-topo">
+                    <div
+                        id="preview"
+                        class="preview"
+                    >
 
-<h2>
-    📦 Pedidos
-</h2>
+                        <img
+                            id="imagemPreview"
+                            src=""
+                            alt="Prévia"
+                        >
 
-<div
-    class="contador"
-    id="contadorPedidos"
->
-0 pedidos
-</div>
+                    </div>
 
-</div>
+                </div>
 
 
 
-<div class="tabela-scroll">
+                <div class="campo">
 
-<table>
+                    <label>
+                        Produto ativo?
+                    </label>
 
-<thead>
+                    <select id="ativo">
 
-<tr>
+                        <option value="true">
+                            Sim
+                        </option>
 
-<th>Pedido</th>
+                        <option value="false">
+                            Não
+                        </option>
 
-<th>Data</th>
+                    </select>
 
-<th>Cliente</th>
+                </div>
 
-<th>WhatsApp</th>
 
-<th>Itens</th>
+            </div>
 
-<th>Total</th>
 
-<th>Status</th>
 
-<th>Ações</th>
+            <div class="acoes-form">
 
-</tr>
+                <button
+                    type="submit"
+                    class="botao salvar"
+                    id="botaoSalvar"
+                >
 
-</thead>
+                    💾 Salvar produto
 
+                </button>
 
-<tbody id="listaPedidos">
 
-<tr>
+                <button
+                    type="button"
+                    class="botao cancelar"
+                    onclick="cancelarFormulario()"
+                >
 
-<td
-    colspan="8"
-    class="carregando"
->
+                    Cancelar
 
-Verificando acesso...
+                </button>
 
-</td>
+            </div>
 
-</tr>
 
-</tbody>
+        </form>
 
-</table>
+    </div>
 
-</div>
 
-</section>
+
+    <!-- ===========================
+         PESQUISA
+    ============================ -->
+
+    <div class="barra">
+
+        <input
+            type="text"
+            id="pesquisa"
+            placeholder="🔎 Pesquisar por nome ou categoria..."
+        >
+
+    </div>
+
+
+
+    <!-- ===========================
+         TABELA
+    ============================ -->
+
+    <div class="tabela-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Produto
+                    </th>
+
+                    <th>
+                        Preço
+                    </th>
+
+                    <th>
+                        Estoque
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Ações
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="listaProdutos"
+            >
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="loading"
+                    >
+                        Carregando produtos...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    </section>
 
 </main>
-
-
-
-<div
-    id="modalDetalhes"
-    class="modal"
->
-
-<div class="modal-conteudo">
-
-
-<div class="modal-header">
-
-<h2>
-    Detalhes do pedido
-</h2>
-
-<button
-    class="fechar"
-    onclick="fecharDetalhes()"
->
-×
-</button>
-
-</div>
-
-
-<div
-    id="conteudoDetalhes"
-    class="modal-body"
->
-</div>
-
-
-<div class="modal-footer">
-
-<button
-    class="btn btn-imprimir"
-    id="botaoImprimirModal"
->
-🖨️ Imprimir
-</button>
-
-<button
-    class="btn"
-    onclick="fecharDetalhes()"
->
-Fechar
-</button>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-
-<div
-    id="modalStatus"
-    class="modal"
->
-
-<div
-    class="modal-conteudo"
-    style="max-width:450px"
->
-
-
-<div class="modal-header">
-
-<h2>
-    Alterar status
-</h2>
-
-<button
-    class="fechar"
-    onclick="fecharStatus()"
->
-×
-</button>
-
-</div>
-
-
-<div class="modal-body">
-
-
-<p>
-
-Pedido:
-<strong id="pedidoStatus"></strong>
-
-</p>
-
-
-<select
-    id="novoStatus"
-    style="
-        width:100%;
-        padding:12px;
-        margin:15px 0;
-        border:1px solid #ddd;
-        border-radius:7px;
-    "
->
-
-<option value="aguardando_pagamento">
-🟡 Aguardando pagamento
-</option>
-
-<option value="pagamento_confirmado">
-🟢 Pagamento confirmado
-</option>
-
-<option value="em_producao">
-🔵 Em produção
-</option>
-
-<option value="pronto">
-🟣 Pronto
-</option>
-
-<option value="concluido">
-✅ Concluído
-</option>
-
-<option value="cancelado">
-❌ Cancelado
-</option>
-
-</select>
-
-
-<button
-    class="btn"
-    style="
-        background:#22c55e;
-        color:white;
-    "
-    onclick="salvarStatus()"
->
-
-Salvar
-
-</button>
-
-
-<button
-    class="btn"
-    onclick="fecharStatus()"
->
-
-Cancelar
-
-</button>
-
-
-</div>
-
-</div>
-
-</div>
 
 
 
 <script type="module">
 
 
-/* ==================================================
-   FIREBASE
-================================================== */
+    /* ==========================================
+       FIREBASE
+    ========================================== */
 
-import {
-
-    initializeApp
-
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import {
+        initializeApp
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 
-import {
+    import {
+        getFirestore,
+        collection,
+        addDoc,
+        getDocs,
+        getDoc,
+        doc,
+        updateDoc,
+        deleteDoc,
+        arrayUnion,
+        serverTimestamp
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-    getAuth,
-    onAuthStateChanged,
-    signOut
+    import {
+        getAuth,
+        onAuthStateChanged,
+        signOut
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-
-import {
-
-    getFirestore,
-    collection,
-    doc,
-    updateDoc,
-    onSnapshot
-
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import {
+        getMessaging,
+        getToken,
+        onMessage
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-messaging.js";
 
 
-
+    /*
+        COLOQUE AQUI A MESMA CONFIGURAÇÃO
+        DO SEU PROJETO FIREBASE
+    */
 const firebaseConfig = {
+  apiKey: "AIzaSyDtFVa120k4xnggOHibWOs61Jn-hJaSsdU",
+  authDomain: "timonha-b36d6.firebaseapp.com",
+  projectId: "timonha-b36d6",
+  storageBucket: "timonha-b36d6.firebasestorage.app",
+  messagingSenderId: "59864953764",
+  appId: "1:59864953764:web:9d44c30ff09b00a0f44731"
 
-    apiKey:
-        "AIzaSyDtFVa120k4xnggOHibWOs61Jn-hJaSsdU",
-
-    authDomain:
-        "timonha-b36d6.firebaseapp.com",
-
-    projectId:
-        "timonha-b36d6",
-
-    storageBucket:
-        "timonha-b36d6.firebasestorage.app",
-
-    messagingSenderId:
-        "59864953764",
-
-    appId:
-        "1:59864953764:web:9d44c30ff09b00a0f44731"
-
-};
+    };
 
 
-const app =
-    initializeApp(
-        firebaseConfig
-    );
+    const app =
+        initializeApp(
+            firebaseConfig
+        );
 
 
-const auth =
-    getAuth(app);
+    const db =
+        getFirestore(app);
 
+    const auth =
+        getAuth(app);
 
-const db =
-    getFirestore(app);
+    const messaging =
+        getMessaging(app);
+
+    const VAPID_KEY =
+        "BAKD2QHinl4pWXHbQxMRCgoVs5NY9CV-7tBcp2b5bT5abLoCNzepWqYgGXnEJM0wO6y6Qs4jr_tHGGaeUrqkp6w";
 
 
 
-/* ==================================================
-   VARIÁVEIS
-================================================== */
+    /* ==========================================
+       AUTENTICAÇÃO E PERFIL
+    ========================================== */
 
-let pedidos = [];
+    let usuarioAtual = null;
+    let perfilAtual = null;
 
-let pedidoSelecionado = null;
+    const nomesPerfis = {
+        admin: "Administrador",
+        administrador: "Administrador",
+        atendente: "Atendente",
+        vendedor: "Vendedor",
+        estoque: "Estoque"
+    };
 
-let pedidosListener = null;
+    function normalizarPerfil(tipo) {
+        const valor = String(tipo || "").toLowerCase().trim();
 
+        if (valor === "administrador") return "admin";
 
+        return valor || "atendente";
+    }
 
-/* ==================================================
-   PROTEÇÃO
-================================================== */
+    function perfilNome(tipo) {
+        return nomesPerfis[normalizarPerfil(tipo)] || "Usuário";
+    }
 
-onAuthStateChanged(
+    function formatarNumero(valor) {
+        return Number(valor || 0).toLocaleString("pt-BR");
+    }
 
-    auth,
+    async function obterPerfilUsuario(user) {
+        try {
+            const perfilRef = doc(db, "usuarios", user.uid);
+            const perfilSnap = await getDoc(perfilRef);
 
-    usuario => {
+            if (perfilSnap.exists()) {
+                const dados = perfilSnap.data();
 
-        if (!usuario) {
+                return {
+                    ...dados,
+                    uid: user.uid
+                };
+            }
 
-            window.location.href =
-                "login.html";
+            return {
+                uid: user.uid,
+                nome: user.displayName || user.email || "Usuário",
+                email: user.email || "",
+                tipo: "admin",
+                ativo: true
+            };
+
+        } catch (erro) {
+            console.error("Erro ao buscar perfil:", erro);
+
+            return {
+                uid: user.uid,
+                nome: user.displayName || user.email || "Usuário",
+                email: user.email || "",
+                tipo: "admin",
+                ativo: true
+            };
+        }
+    }
+
+    function aplicarPerfil(perfil) {
+
+        perfilAtual = normalizarPerfil(perfil.tipo);
+
+        const nomePerfil = perfilNome(perfilAtual);
+
+        const nomeUsuario =
+            perfil.nome ||
+            usuarioAtual?.email ||
+            "Usuário";
+
+        document.getElementById("perfilIndicador").textContent =
+            `${nomePerfil} • ${nomeUsuario}`;
+
+        const titulo = document.getElementById("tituloDashboard");
+        const subtitulo = document.getElementById("subtituloDashboard");
+
+        const areaProdutos =
+            document.getElementById("areaProdutos");
+
+        const acessoNegado =
+            document.getElementById("acessoNegado");
+
+        /*
+         * ADMINISTRADOR
+         * Vê todo o painel.
+         */
+        if (perfilAtual === "admin") {
+
+            titulo.textContent = "Painel Administrativo";
+
+            subtitulo.textContent =
+                "Visão completa da loja e dos produtos.";
+
+            areaProdutos.classList.remove("oculto");
+            acessoNegado.classList.add("oculto");
 
             return;
-
         }
 
+        /*
+         * ESTOQUE
+         * Vê somente informações relacionadas a estoque
+         * e gerenciamento de produtos.
+         */
+        if (perfilAtual === "estoque") {
 
-        document
-            .getElementById(
-                "usuarioLogado"
-            )
-            .textContent =
-            usuario.email;
+            titulo.textContent = "Dashboard de Estoque";
 
+            subtitulo.textContent =
+                "Acompanhe produtos, estoque disponível e produtos que precisam de reposição.";
 
-        iniciarPedidos();
+            areaProdutos.classList.remove("oculto");
+            acessoNegado.classList.add("oculto");
 
+            return;
+        }
+
+        /*
+         * VENDEDOR / ATENDENTE
+         *
+         * Esta página é atualmente a área de produtos.
+         * Não mostramos acesso administrativo adicional.
+         */
+        titulo.textContent =
+            perfilAtual === "vendedor"
+                ? "Painel do Vendedor"
+                : "Painel do Atendente";
+
+        subtitulo.textContent =
+            "Esta área está limitada ao seu perfil.";
+
+        areaProdutos.classList.add("oculto");
+        acessoNegado.classList.remove("oculto");
     }
 
-);
+    async function iniciarAutenticacao() {
 
+        onAuthStateChanged(auth, async (user) => {
 
+            if (!user) {
 
-/* ==================================================
-   INICIAR PEDIDOS
-================================================== */
+                window.location.href = "login.html";
 
-function iniciarPedidos() {
-
-    if (
-        pedidosListener
-    ) {
-
-        return;
-
-    }
-
-
-    pedidosListener =
-        onSnapshot(
-
-            collection(
-                db,
-                "pedidos"
-            ),
-
-            snapshot => {
-
-                pedidos = [];
-
-
-                snapshot.forEach(
-
-                    documento => {
-
-                        pedidos.push({
-
-                            id:
-                                documento.id,
-
-                            ...documento.data()
-
-                        });
-
-                    }
-
-                );
-
-
-                pedidos.sort(
-
-                    (a,b) => {
-
-                        const dataA =
-                            a.criadoEm?.toMillis
-                            ?
-                            a.criadoEm.toMillis()
-                            :
-                            0;
-
-
-                        const dataB =
-                            b.criadoEm?.toMillis
-                            ?
-                            b.criadoEm.toMillis()
-                            :
-                            0;
-
-
-                        return dataB - dataA;
-
-                    }
-
-                );
-
-
-                atualizarDashboard();
-
-                renderizarPedidos();
-
-            },
-
-            erro => {
-
-                console.error(
-                    erro
-                );
-
-
-                document
-                    .getElementById(
-                        "listaPedidos"
-                    )
-                    .innerHTML = `
-
-                    <tr>
-
-                        <td
-                            colspan="8"
-                            class="vazio"
-                        >
-
-                            Erro ao acessar os pedidos.
-
-                            <br><br>
-
-                            Verifique as regras do Firestore.
-
-                        </td>
-
-                    </tr>
-
-                    `;
-
+                return;
             }
 
-        );
+            usuarioAtual = user;
 
-}
+            const perfil = await obterPerfilUsuario(user);
 
+            if (perfil.ativo === false) {
 
-
-/* ==================================================
-   FUNÇÕES
-================================================== */
-
-function moeda(valor) {
-
-    return Number(
-        valor || 0
-    ).toLocaleString(
-
-        "pt-BR",
-
-        {
-            style:"currency",
-            currency:"BRL"
-        }
-
-    );
-
-}
-
-
-
-function escapar(valor) {
-
-    return String(
-        valor ?? ""
-    )
-
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-
-function formatarData(timestamp) {
-
-    if (!timestamp) return "-";
-
-
-    let data;
-
-
-    if (timestamp.toDate) {
-
-        data =
-            timestamp.toDate();
-
-    }
-
-    else if (timestamp.seconds) {
-
-        data =
-            new Date(
-                timestamp.seconds * 1000
-            );
-
-    }
-
-    else {
-
-        data =
-            new Date(timestamp);
-
-    }
-
-
-    if (
-        isNaN(
-            data.getTime()
-        )
-    ) {
-
-        return "-";
-
-    }
-
-
-    return data.toLocaleString(
-        "pt-BR"
-    );
-
-}
-
-
-
-function textoStatus(status) {
-
-    const mapa = {
-
-        aguardando_pagamento:
-            "🟡 Aguardando pagamento",
-
-        pagamento_confirmado:
-            "🟢 Pagamento confirmado",
-
-        em_producao:
-            "🔵 Em produção",
-
-        pronto:
-            "🟣 Pronto",
-
-        concluido:
-            "✅ Concluído",
-
-        cancelado:
-            "❌ Cancelado"
-
-    };
-
-
-    return mapa[status]
-        ||
-        status
-        ||
-        "Sem status";
-
-}
-
-
-
-function classeStatus(status) {
-
-    const mapa = {
-
-        aguardando_pagamento:
-            "status-aguardando",
-
-        pagamento_confirmado:
-            "status-pago",
-
-        em_producao:
-            "status-producao",
-
-        pronto:
-            "status-pronto",
-
-        concluido:
-            "status-concluido",
-
-        cancelado:
-            "status-cancelado"
-
-    };
-
-
-    return mapa[status]
-        ||
-        "status-aguardando";
-
-}
-
-
-
-function quantidadeItens(pedido) {
-
-    if (
-        !Array.isArray(
-            pedido.produtos
-        )
-    ) {
-
-        return 0;
-
-    }
-
-
-    return pedido.produtos.reduce(
-
-        (total,produto) => {
-
-            return total +
-                Number(
-                    produto.quantidade || 0
+                alert(
+                    "Seu usuário está desativado. Entre em contato com o administrador."
                 );
 
-        },
+                await signOut(auth);
 
-        0
+                window.location.href = "login.html";
 
-    );
+                return;
+            }
 
-}
+            aplicarPerfil(perfil);
 
+            atualizarMenuPorPerfil();
 
+            /*
+             * Só administradores e estoque precisam
+             * dos dados desta página.
+             */
+            if (
+                perfilAtual === "admin" ||
+                perfilAtual === "estoque"
+            ) {
+                carregarProdutos();
+            }
 
-/* ==================================================
-   DASHBOARD
-================================================== */
+        });
+    }
 
-function atualizarDashboard() {
+    /* ==========================================
+       VARIÁVEIS
+    ========================================== */
 
-    document
-        .getElementById(
-            "totalPedidos"
-        )
-        .textContent =
-        pedidos.length;
+    let produtos = [];
 
-
-    document
-        .getElementById(
-            "aguardandoPagamento"
-        )
-        .textContent =
-
-        pedidos.filter(
-            p =>
-                p.status ===
-                "aguardando_pagamento"
-        ).length;
+    let produtoEditando = null;
 
 
-    document
-        .getElementById(
-            "pedidosPagos"
-        )
-        .textContent =
 
-        pedidos.filter(
-            p =>
-                p.status ===
-                "pagamento_confirmado"
-        ).length;
+    /* ==========================================
+       ELEMENTOS
+    ========================================== */
 
-
-    document
-        .getElementById(
-            "emProducao"
-        )
-        .textContent =
-
-        pedidos.filter(
-            p =>
-                p.status ===
-                "em_producao"
-        ).length;
-
-
-    const faturamento =
-        pedidos.reduce(
-
-            (total,pedido) => {
-
-                if (
-                    pedido.status ===
-                    "cancelado"
-                ) {
-
-                    return total;
-
-                }
-
-
-                return total +
-                    Number(
-                        pedido.total || 0
-                    );
-
-            },
-
-            0
-
+    const formulario =
+        document.getElementById(
+            "formulario"
         );
 
 
-    document
-        .getElementById(
-            "faturamento"
-        )
-        .textContent =
-        moeda(faturamento);
-
-}
+    const formProduto =
+        document.getElementById(
+            "formProduto"
+        );
 
 
+    const listaProdutos =
+        document.getElementById(
+            "listaProdutos"
+        );
 
-/* ==================================================
-   FILTROS
-================================================== */
-
-function pedidosFiltrados() {
 
     const pesquisa =
-        document
-            .getElementById(
-                "pesquisa"
-            )
-            .value
-            .toLowerCase()
-            .trim();
-
-
-    const status =
-        document
-            .getElementById(
-                "filtroStatus"
-            )
-            .value;
-
-
-    const inicial =
-        document
-            .getElementById(
-                "dataInicial"
-            )
-            .value;
-
-
-    const final =
-        document
-            .getElementById(
-                "dataFinal"
-            )
-            .value;
-
-
-    return pedidos.filter(
-
-        pedido => {
-
-            if (pesquisa) {
-
-                const texto =
-
-                    (
-                        pedido.numeroPedido ||
-                        ""
-                    )
-                    .toString()
-                    .toLowerCase()
-
-                    + " " +
-
-                    (
-                        pedido.cliente?.nome ||
-                        ""
-                    )
-                    .toLowerCase()
-
-                    + " " +
-
-                    (
-                        pedido.cliente?.whatsapp ||
-                        ""
-                    )
-                    .toLowerCase();
-
-
-                if (
-                    !texto.includes(
-                        pesquisa
-                    )
-                ) {
-
-                    return false;
-
-                }
-
-            }
-
-
-            if (
-                status &&
-                pedido.status !== status
-            ) {
-
-                return false;
-
-            }
-
-
-            let dataPedido = null;
-
-
-            if (
-                pedido.criadoEm?.toDate
-            ) {
-
-                dataPedido =
-                    pedido.criadoEm.toDate();
-
-            }
-
-
-            if (
-                dataPedido &&
-                (inicial || final)
-            ) {
-
-                const dia =
-                    dataPedido
-                        .toISOString()
-                        .split("T")[0];
-
-
-                if (
-                    inicial &&
-                    dia < inicial
-                ) {
-
-                    return false;
-
-                }
-
-
-                if (
-                    final &&
-                    dia > final
-                ) {
-
-                    return false;
-
-                }
-
-            }
-
-
-            return true;
-
-        }
-
-    );
-
-}
-
-
-
-/* ==================================================
-   RENDERIZAR
-================================================== */
-
-function renderizarPedidos() {
-
-    const lista =
-        document
-            .getElementById(
-                "listaPedidos"
-            );
-
-
-    const filtrados =
-        pedidosFiltrados();
-
-
-    document
-        .getElementById(
-            "contadorPedidos"
-        )
-        .textContent =
-
-        filtrados.length +
-        (
-            filtrados.length === 1
-                ?
-                " pedido"
-                :
-                " pedidos"
+        document.getElementById(
+            "pesquisa"
         );
 
 
-    if (
-        !filtrados.length
+
+    /* ==========================================
+       MENSAGEM
+    ========================================== */
+
+    function mostrarMensagem(
+        texto,
+        tipo
     ) {
 
-        lista.innerHTML = `
+        const elemento =
+            document.getElementById(
+                "mensagem"
+            );
+
+
+        elemento.textContent =
+            texto;
+
+
+        elemento.className =
+            tipo;
+
+
+        setTimeout(() => {
+
+            elemento.className = "";
+
+            elemento.textContent = "";
+
+        }, 3500);
+
+    }
+
+
+
+    /* ==========================================
+       MOEDA
+    ========================================== */
+
+    function moeda(valor) {
+
+        return Number(
+            valor || 0
+        ).toLocaleString(
+
+            "pt-BR",
+
+            {
+                style: "currency",
+                currency: "BRL"
+            }
+
+        );
+
+    }
+
+
+
+    /* ==========================================
+       ESCAPAR
+    ========================================== */
+
+    function escapar(valor) {
+
+        return String(
+            valor ?? ""
+        )
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+    }
+
+
+
+    /* ==========================================
+       CARREGAR PRODUTOS
+    ========================================== */
+
+    async function carregarProdutos() {
+
+        listaProdutos.innerHTML = `
 
             <tr>
 
                 <td
-                    colspan="8"
-                    class="vazio"
+                    colspan="5"
+                    class="loading"
                 >
 
-                    Nenhum pedido encontrado.
+                    Carregando produtos...
 
                 </td>
 
@@ -2002,1134 +1722,1315 @@ function renderizarPedidos() {
 
         `;
 
-        return;
 
-    }
+        try {
 
-
-    lista.innerHTML = "";
-
-
-    filtrados.forEach(
-
-        pedido => {
-
-            const cliente =
-                pedido.cliente || {};
-
-
-            const tr =
-                document.createElement(
-                    "tr"
+            const snapshot =
+                await getDocs(
+                    collection(
+                        db,
+                        "produtos"
+                    )
                 );
 
 
-            tr.innerHTML = `
-
-                <td>
-
-                    <strong>
-
-                        ${escapar(
-                            pedido.numeroPedido ||
-                            pedido.id
-                        )}
-
-                    </strong>
-
-                </td>
+            produtos = [];
 
 
-                <td>
+            snapshot.forEach(
+                documento => {
 
-                    ${formatarData(
-                        pedido.criadoEm
-                    )}
+                    produtos.push({
 
-                </td>
+                        id:
+                            documento.id,
 
+                        ...documento.data()
 
-                <td>
+                    });
 
-                    ${escapar(
-                        cliente.nome ||
-                        "-"
-                    )}
-
-                </td>
+                }
+            );
 
 
-                <td>
-
-                    ${escapar(
-                        cliente.whatsapp ||
-                        "-"
-                    )}
-
-                </td>
+            renderizarProdutos();
 
 
-                <td>
+        } catch (erro) {
 
-                    ${quantidadeItens(
-                        pedido
-                    )}
-
-                </td>
+            console.error(
+                erro
+            );
 
 
-                <td>
+            listaProdutos.innerHTML = `
 
-                    <strong>
+                <tr>
 
-                        ${moeda(
-                            pedido.total
-                        )}
-
-                    </strong>
-
-                </td>
-
-
-                <td>
-
-                    <span
-                        class="status
-                        ${classeStatus(
-                            pedido.status
-                        )}"
+                    <td
+                        colspan="5"
+                        class="vazio"
                     >
 
-                        ${textoStatus(
-                            pedido.status
-                        )}
+                        Erro ao carregar produtos.
 
-                    </span>
+                    </td>
 
-                </td>
-
-
-                <td>
-
-                    <div class="acoes">
-
-
-                        <button
-                            class="btn btn-ver"
-                            data-acao="ver"
-                            data-id="${pedido.id}"
-                        >
-                            👁️
-                        </button>
-
-
-                        <button
-                            class="btn btn-status"
-                            data-acao="status"
-                            data-id="${pedido.id}"
-                        >
-                            🔄
-                        </button>
-
-
-                        <button
-                            class="btn btn-whatsapp"
-                            data-acao="whatsapp"
-                            data-id="${pedido.id}"
-                        >
-                            📱
-                        </button>
-
-
-                        <button
-                            class="btn btn-imprimir"
-                            data-acao="imprimir"
-                            data-id="${pedido.id}"
-                        >
-                            🖨️
-                        </button>
-
-
-                    </div>
-
-                </td>
+                </tr>
 
             `;
 
 
-            lista.appendChild(
-                tr
+            mostrarMensagem(
+                "Erro ao carregar os produtos.",
+                "erro"
             );
 
         }
 
-    );
-
-}
+    }
 
 
 
-/* ==================================================
-   AÇÕES
-================================================== */
+    /* ==========================================
+       RENDERIZAR
+    ========================================== */
 
-document
-    .getElementById(
-        "listaPedidos"
-    )
-    .addEventListener(
+    function renderizarProdutos() {
 
-        "click",
+        const termo =
+            pesquisa
+                .value
+                .toLowerCase()
+                .trim();
 
-        evento => {
+
+        const filtrados =
+            produtos.filter(
+                produto => {
+
+                    const nome =
+                        String(
+                            produto.nome || ""
+                        ).toLowerCase();
+
+
+                    const categoria =
+                        String(
+                            produto.categoria || ""
+                        ).toLowerCase();
+
+
+                    return (
+
+                        nome.includes(
+                            termo
+                        )
+
+                        ||
+
+                        categoria.includes(
+                            termo
+                        )
+
+                    );
+
+                }
+            );
+
+
+        atualizarDashboard();
+
+        if (!filtrados.length) {
+
+            listaProdutos.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="vazio"
+                    >
+
+                        Nenhum produto encontrado.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        listaProdutos.innerHTML = "";
+
+
+        filtrados.forEach(
+            produto => {
+
+                const ativo =
+                    produto.ativo !== false &&
+                    produto.ativa !== false;
+
+
+                const imagem =
+                    produto.imagem ||
+                    produto.foto ||
+                    "https://via.placeholder.com/100x100?text=Produto";
+
+
+                const linha =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                linha.innerHTML = `
+
+                    <td>
+
+                        <div class="produto-info">
+
+                            <img
+                                src="${escapar(imagem)}"
+                                alt="${escapar(produto.nome)}"
+                                onerror="this.src='https://via.placeholder.com/100x100?text=Produto'"
+                            >
+
+
+                            <div>
+
+                                <div class="produto-nome">
+
+                                    ${escapar(
+                                        produto.nome ||
+                                        "Sem nome"
+                                    )}
+
+                                </div>
+
+
+                                <div class="categoria">
+
+                                    ${escapar(
+                                        produto.categoria ||
+                                        "Sem categoria"
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="preco">
+
+                            ${moeda(
+                                produto.preco
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        ${Number(
+                            produto.estoque || 0
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="status ${
+                                ativo
+                                ? "ativo"
+                                : "inativo"
+                            }"
+                        >
+
+                            ${
+                                ativo
+                                ? "Ativo"
+                                : "Inativo"
+                            }
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <div class="acoes">
+
+                            <button
+                                class="acao editar"
+                                onclick="editarProduto('${produto.id}')"
+                            >
+                                ✏️ Editar
+                            </button>
+
+
+                            <button
+                                class="acao ${
+                                    ativo
+                                    ? "desativar"
+                                    : "ativar"
+                                }"
+                                onclick="alternarProduto('${produto.id}')"
+                            >
+
+                                ${
+                                    ativo
+                                    ? "⏸ Desativar"
+                                    : "▶ Ativar"
+                                }
+
+                            </button>
+
+
+                            <button
+                                class="acao excluir"
+                                onclick="excluirProduto('${produto.id}')"
+                            >
+
+                                🗑 Excluir
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                `;
+
+
+                listaProdutos.appendChild(
+                    linha
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* ==========================================
+       ATUALIZAR DASHBOARD
+    ========================================== */
+
+    function atualizarDashboard() {
+
+        const total = produtos.length;
+
+        const ativos = produtos.filter(produto =>
+            produto.ativo !== false &&
+            produto.ativa !== false
+        ).length;
+
+        const semEstoque = produtos.filter(produto =>
+            Number(produto.estoque || 0) <= 0
+        ).length;
+
+        const estoqueBaixo = produtos.filter(produto => {
+
+            const estoque = Number(produto.estoque || 0);
+
+            return estoque > 0 && estoque <= 5;
+
+        }).length;
+
+        document.getElementById("totalProdutos").textContent =
+            formatarNumero(total);
+
+        document.getElementById("produtosAtivos").textContent =
+            formatarNumero(ativos);
+
+        document.getElementById("estoqueBaixo").textContent =
+            formatarNumero(estoqueBaixo);
+
+        document.getElementById("semEstoque").textContent =
+            formatarNumero(semEstoque);
+
+        /*
+         * Para estoque, os quatro cartões são relevantes.
+         *
+         * Para administrador, também aparecem.
+         */
+        document.getElementById("cardTotalProdutos")
+            .classList.remove("oculto");
+
+        document.getElementById("cardProdutosAtivos")
+            .classList.remove("oculto");
+
+        document.getElementById("cardEstoqueBaixo")
+            .classList.remove("oculto");
+
+        document.getElementById("cardSemEstoque")
+            .classList.remove("oculto");
+    }
+
+    /* ==========================================
+       NOVO PRODUTO
+    ========================================== */
+
+    window.novoProduto =
+        function() {
+
+            produtoEditando =
+                null;
+
+
+            formProduto.reset();
+
+
+            document.getElementById(
+                "ativo"
+            ).value = "true";
+
+
+            document.getElementById(
+                "tituloFormulario"
+            ).textContent =
+                "Novo produto";
+
+
+            document.getElementById(
+                "botaoSalvar"
+            ).textContent =
+                "💾 Salvar produto";
+
+
+            esconderPreview();
+
+
+            formulario.classList.add(
+                "mostrar"
+            );
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        };
+
+
+
+    /* ==========================================
+       EDITAR
+    ========================================== */
+
+    window.editarProduto =
+        function(id) {
+
+            const produto =
+                produtos.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!produto) {
+
+                return;
+
+            }
+
+
+            produtoEditando =
+                id;
+
+
+            document.getElementById(
+                "nome"
+            ).value =
+                produto.nome || "";
+
+
+            document.getElementById(
+                "categoria"
+            ).value =
+                produto.categoria || "";
+
+
+            document.getElementById(
+                "preco"
+            ).value =
+                produto.preco || 0;
+
+
+            document.getElementById(
+                "estoque"
+            ).value =
+                produto.estoque || 0;
+
+
+            document.getElementById(
+                "descricao"
+            ).value =
+                produto.descricao || "";
+
+
+            document.getElementById(
+                "imagem"
+            ).value =
+                produto.imagem ||
+                produto.foto ||
+                "";
+
+
+            document.getElementById(
+                "ativo"
+            ).value =
+                (
+                    produto.ativo !== false &&
+                    produto.ativa !== false
+                )
+                ? "true"
+                : "false";
+
+
+            document.getElementById(
+                "tituloFormulario"
+            ).textContent =
+                "Editar produto";
+
+
+            document.getElementById(
+                "botaoSalvar"
+            ).textContent =
+                "💾 Atualizar produto";
+
+
+            atualizarPreview();
+
+
+            formulario.classList.add(
+                "mostrar"
+            );
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        };
+
+
+
+    /* ==========================================
+       ATIVAR / DESATIVAR
+    ========================================== */
+
+    window.alternarProduto =
+        async function(id) {
+
+            const produto =
+                produtos.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!produto) {
+
+                return;
+
+            }
+
+
+            const ativoAtual =
+                produto.ativo !== false &&
+                produto.ativa !== false;
+
+
+            const novoStatus =
+                !ativoAtual;
+
+
+            try {
+
+                await updateDoc(
+
+                    doc(
+                        db,
+                        "produtos",
+                        id
+                    ),
+
+                    {
+
+                        ativo:
+                            novoStatus,
+
+                        atualizadoEm:
+                            serverTimestamp()
+
+                    }
+
+                );
+
+
+                mostrarMensagem(
+
+                    novoStatus
+
+                        ? "Produto ativado."
+
+                        : "Produto desativado.",
+
+                    "sucesso"
+
+                );
+
+
+                carregarProdutos();
+
+
+            } catch (erro) {
+
+                console.error(
+                    erro
+                );
+
+
+                mostrarMensagem(
+                    "Não foi possível alterar o status.",
+                    "erro"
+                );
+
+            }
+
+        };
+
+
+
+    /* ==========================================
+       EXCLUIR
+    ========================================== */
+
+    window.excluirProduto =
+        async function(id) {
+
+            const produto =
+                produtos.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!produto) {
+
+                return;
+
+            }
+
+
+            const confirmar =
+                confirm(
+
+                    `Deseja realmente excluir o produto "${produto.nome}"?`
+
+                );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            try {
+
+                await deleteDoc(
+
+                    doc(
+                        db,
+                        "produtos",
+                        id
+                    )
+
+                );
+
+
+                mostrarMensagem(
+                    "Produto excluído com sucesso.",
+                    "sucesso"
+                );
+
+
+                carregarProdutos();
+
+
+            } catch (erro) {
+
+                console.error(
+                    erro
+                );
+
+
+                mostrarMensagem(
+                    "Não foi possível excluir o produto.",
+                    "erro"
+                );
+
+            }
+
+        };
+
+
+
+    /* ==========================================
+       FORMULÁRIO SUBMIT
+    ========================================== */
+
+    formProduto.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
 
             const botao =
-                evento.target.closest(
-                    "button"
+                document.getElementById(
+                    "botaoSalvar"
                 );
 
 
-            if (!botao) return;
+            botao.disabled = true;
 
 
-            const pedido =
-                pedidos.find(
+            try {
 
-                    p =>
-                        p.id ===
-                        botao.dataset.id
+                const nome =
+                    document.getElementById(
+                        "nome"
+                    )
+                    .value
+                    .trim();
 
+
+                const categoria =
+                    document.getElementById(
+                        "categoria"
+                    )
+                    .value
+                    .trim();
+
+
+                const preco =
+                    Number(
+                        document.getElementById(
+                            "preco"
+                        ).value
+                    );
+
+
+                const estoque =
+                    Number(
+                        document.getElementById(
+                            "estoque"
+                        ).value
+                    );
+
+
+                const descricao =
+                    document.getElementById(
+                        "descricao"
+                    )
+                    .value
+                    .trim();
+
+
+                const imagem =
+                    document.getElementById(
+                        "imagem"
+                    )
+                    .value
+                    .trim();
+
+
+                const ativo =
+                    document.getElementById(
+                        "ativo"
+                    ).value === "true";
+
+
+                const dados = {
+
+                    nome:
+                        nome,
+
+                    categoria:
+                        categoria,
+
+                    preco:
+                        preco,
+
+                    estoque:
+                        estoque,
+
+                    descricao:
+                        descricao,
+
+                    imagem:
+                        imagem,
+
+                    ativo:
+                        ativo,
+
+                    atualizadoEm:
+                        serverTimestamp()
+
+                };
+
+
+
+                /* =========================
+                   NOVO
+                ========================== */
+
+                if (!produtoEditando) {
+
+                    dados.criadoEm =
+                        serverTimestamp();
+
+
+                    await addDoc(
+
+                        collection(
+                            db,
+                            "produtos"
+                        ),
+
+                        dados
+
+                    );
+
+
+                    mostrarMensagem(
+                        "Produto cadastrado com sucesso!",
+                        "sucesso"
+                    );
+
+                }
+
+
+                /* =========================
+                   EDITAR
+                ========================== */
+
+                else {
+
+                    await updateDoc(
+
+                        doc(
+                            db,
+                            "produtos",
+                            produtoEditando
+                        ),
+
+                        dados
+
+                    );
+
+
+                    mostrarMensagem(
+                        "Produto atualizado com sucesso!",
+                        "sucesso"
+                    );
+
+                }
+
+
+                cancelarFormulario();
+
+                carregarProdutos();
+
+
+            } catch (erro) {
+
+                console.error(
+                    erro
                 );
 
 
-            if (!pedido) return;
-
-
-            const acao =
-                botao.dataset.acao;
-
-
-            if (
-                acao === "ver"
-            ) {
-
-                abrirDetalhes(
-                    pedido
+                mostrarMensagem(
+                    "Não foi possível salvar o produto.",
+                    "erro"
                 );
 
             }
 
 
-            if (
-                acao === "status"
-            ) {
+            botao.disabled =
+                false;
 
-                abrirStatus(
-                    pedido
-                );
-
-            }
+        }
+    );
 
 
-            if (
-                acao === "whatsapp"
-            ) {
 
-                abrirWhatsApp(
-                    pedido
-                );
+    /* ==========================================
+       CANCELAR
+    ========================================== */
 
-            }
+    window.cancelarFormulario =
+        function() {
+
+            produtoEditando =
+                null;
 
 
-            if (
-                acao === "imprimir"
-            ) {
+            formulario.classList.remove(
+                "mostrar"
+            );
 
-                imprimirPedido(
-                    pedido
-                );
 
-            }
+            formProduto.reset();
+
+
+            esconderPreview();
+
+        };
+
+
+
+    /* ==========================================
+       PREVIEW IMAGEM
+    ========================================== */
+
+    const campoImagem =
+        document.getElementById(
+            "imagem"
+        );
+
+
+    campoImagem.addEventListener(
+        "input",
+        atualizarPreview
+    );
+
+
+    function atualizarPreview() {
+
+        const url =
+            campoImagem.value.trim();
+
+
+        const preview =
+            document.getElementById(
+                "preview"
+            );
+
+
+        const imagem =
+            document.getElementById(
+                "imagemPreview"
+            );
+
+
+        if (!url) {
+
+            esconderPreview();
+
+            return;
 
         }
 
+
+        imagem.src =
+            url;
+
+
+        imagem.onload =
+            function() {
+
+                preview.style.display =
+                    "block";
+
+            };
+
+
+        imagem.onerror =
+            function() {
+
+                preview.style.display =
+                    "none";
+
+            };
+
+    }
+
+
+
+    function esconderPreview() {
+
+        document.getElementById(
+            "preview"
+        ).style.display =
+            "none";
+
+    }
+
+
+
+    /* ==========================================
+       PESQUISA
+    ========================================== */
+
+    pesquisa.addEventListener(
+        "input",
+        renderizarProdutos
     );
 
 
 
-[
-    "pesquisa",
-    "dataInicial",
-    "dataFinal",
-    "filtroStatus"
+    /* ==========================================
+       NAVEGAÇÃO POR PERFIL
+    ========================================== */
 
-].forEach(
+    function atualizarMenuPorPerfil() {
 
-    id => {
+        const botaoUsuarios =
+            document.getElementById("botaoUsuarios");
 
-        document
-            .getElementById(id)
-            .addEventListener(
-                "input",
-                renderizarPedidos
+        if (!botaoUsuarios) return;
+
+        if (perfilAtual === "admin") {
+            botaoUsuarios.classList.remove("oculto");
+        } else {
+            botaoUsuarios.classList.add("oculto");
+        }
+    }
+
+    window.irParaUsuarios = function() {
+
+        if (perfilAtual !== "admin") {
+
+            mostrarMensagem(
+                "Apenas administradores podem acessar usuários.",
+                "erro"
             );
 
-        document
-            .getElementById(id)
-            .addEventListener(
-                "change",
-                renderizarPedidos
+            return;
+        }
+
+        window.location.href = "usuarios.html";
+    };
+
+    window.sairSistema = async function() {
+
+        try {
+
+            await signOut(auth);
+
+            window.location.href = "login.html";
+
+        } catch (erro) {
+
+            console.error(erro);
+
+            mostrarMensagem(
+                "Não foi possível sair do sistema.",
+                "erro"
+            );
+        }
+    };
+
+    /* ==========================================
+       IR PARA LOJA
+    ========================================== */
+
+    window.irParaLoja =
+        function() {
+
+            window.location.href =
+                "../bjimp/index.html";
+
+        };
+
+
+
+
+    /* ==========================================
+       NOTIFICAÇÕES PUSH - NOVOS PEDIDOS
+    ========================================== */
+
+    function atualizarStatusNotificacoes(texto, sucesso = null) {
+        const el = document.getElementById("statusNotificacoes");
+        if (!el) return;
+
+        el.textContent = texto;
+
+        if (sucesso === true) {
+            el.style.color = "#198754";
+        } else if (sucesso === false) {
+            el.style.color = "#dc3545";
+        } else {
+            el.style.color = "";
+        }
+    }
+
+
+    window.ativarNotificacoes = async function() {
+
+        if (!usuarioAtual) {
+            atualizarStatusNotificacoes(
+                "🔔 Faça login para ativar as notificações.",
+                false
+            );
+            return;
+        }
+
+        if (!("Notification" in window)) {
+            atualizarStatusNotificacoes(
+                "❌ Este navegador não suporta notificações.",
+                false
+            );
+            return;
+        }
+
+        if (!window.isSecureContext) {
+            atualizarStatusNotificacoes(
+                "❌ As notificações exigem HTTPS (ou localhost).",
+                false
+            );
+            return;
+        }
+
+        try {
+
+            atualizarStatusNotificacoes(
+                "🔔 Solicitando permissão..."
             );
 
-    }
+            const permission =
+                await Notification.requestPermission();
 
-);
-
-
-
-/* ==================================================
-   DETALHES
-================================================== */
-
-function abrirDetalhes(pedido) {
-
-    pedidoSelecionado =
-        pedido;
-
-
-    const cliente =
-        pedido.cliente || {};
-
-
-    const endereco =
-        pedido.endereco || {};
-
-
-    let produtosHTML = "";
-
-
-    if (
-        Array.isArray(
-            pedido.produtos
-        )
-    ) {
-
-        pedido.produtos.forEach(
-
-            produto => {
-
-                produtosHTML += `
-
-                    <div class="produto-linha">
-
-                        <div>
-
-                            ${escapar(
-                                produto.nome ||
-                                "Produto"
-                            )}
-
-                        </div>
-
-                        <div>
-
-                            ${produto.quantidade || 0}
-
-                        </div>
-
-                        <div>
-
-                            ${moeda(
-                                produto.preco
-                            )}
-
-                        </div>
-
-                        <div>
-
-                            ${moeda(
-                                produto.subtotal
-                            )}
-
-                        </div>
-
-                    </div>
-
-                `;
-
+            if (permission !== "granted") {
+                atualizarStatusNotificacoes(
+                    "⚠️ Permissão de notificações não concedida.",
+                    false
+                );
+                return;
             }
 
-        );
-
-    }
-
-
-    document
-        .getElementById(
-            "conteudoDetalhes"
-        )
-        .innerHTML = `
-
-            <div class="info-grid">
-
-
-                <div class="info">
-
-                    <small>
-                        Pedido
-                    </small>
-
-                    <strong>
-
-                        ${escapar(
-                            pedido.numeroPedido ||
-                            pedido.id
-                        )}
-
-                    </strong>
-
-                </div>
-
-
-                <div class="info">
-
-                    <small>
-                        Data
-                    </small>
-
-                    <strong>
-
-                        ${formatarData(
-                            pedido.criadoEm
-                        )}
-
-                    </strong>
-
-                </div>
-
-
-                <div class="info">
-
-                    <small>
-                        Cliente
-                    </small>
-
-                    <strong>
-
-                        ${escapar(
-                            cliente.nome ||
-                            "-"
-                        )}
-
-                    </strong>
-
-                </div>
-
-
-                <div class="info">
-
-                    <small>
-                        WhatsApp
-                    </small>
-
-                    <strong>
-
-                        ${escapar(
-                            cliente.whatsapp ||
-                            "-"
-                        )}
-
-                    </strong>
-
-                </div>
-
-
-                <div class="info">
-
-                    <small>
-                        E-mail
-                    </small>
-
-                    <strong>
-
-                        ${escapar(
-                            cliente.email ||
-                            "-"
-                        )}
-
-                    </strong>
-
-                </div>
-
-
-                <div class="info">
-
-                    <small>
-                        Status
-                    </small>
-
-                    <strong>
-
-                        ${textoStatus(
-                            pedido.status
-                        )}
-
-                    </strong>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="modal-produtos">
-
-                <h3>
-                    📦 Produtos
-                </h3>
-
-
-                <div
-                    class="produto-linha produto-cabecalho"
-                >
-
-                    <div>
-                        Produto
-                    </div>
-
-                    <div>
-                        Qtd.
-                    </div>
-
-                    <div>
-                        Unitário
-                    </div>
-
-                    <div>
-                        Subtotal
-                    </div>
-
-                </div>
-
-
-                ${produtosHTML}
-
-
-                <div class="total-modal">
-
-                    TOTAL:
-                    ${moeda(
-                        pedido.total
-                    )}
-
-                </div>
-
-            </div>
-
-
-            ${
-                pedido.observacao
-                ?
-                `
-
-                <div class="observacao">
-
-                    <strong>
-                        Observação:
-                    </strong>
-
-                    <br><br>
-
-                    ${escapar(
-                        pedido.observacao
-                    )}
-
-                </div>
-
-                `
-                :
-                ""
+            const registration =
+                await navigator.serviceWorker.register(
+                    "/firebase-messaging-sw.js"
+                );
+
+            const token =
+                await getToken(
+                    messaging,
+                    {
+                        vapidKey: VAPID_KEY,
+                        serviceWorkerRegistration: registration
+                    }
+                );
+
+            if (!token) {
+                atualizarStatusNotificacoes(
+                    "⚠️ Não foi possível registrar este navegador.",
+                    false
+                );
+                return;
             }
 
-        `;
+            await updateDoc(
+                doc(db, "usuarios", usuarioAtual.uid),
+                {
+                    fcmTokens: arrayUnion(token),
+                    notificacoesAtivas: true,
+                    atualizadoEm: serverTimestamp()
+                }
+            );
 
+            localStorage.setItem(
+                "bjimpressos_push_ativo",
+                "true"
+            );
 
-    document
-        .getElementById(
-            "modalDetalhes"
-        )
-        .classList.add(
-            "mostrar"
-        );
+            atualizarStatusNotificacoes(
+                "✅ Notificações de novos pedidos ativadas neste navegador.",
+                true
+            );
 
-}
+            const botao =
+                document.getElementById("botaoNotificacoes");
 
-
-
-window.fecharDetalhes =
-function() {
-
-    document
-        .getElementById(
-            "modalDetalhes"
-        )
-        .classList.remove(
-            "mostrar"
-        );
-
-};
-
-
-
-/* ==================================================
-   STATUS
-================================================== */
-
-function abrirStatus(pedido) {
-
-    pedidoSelecionado =
-        pedido;
-
-
-    document
-        .getElementById(
-            "pedidoStatus"
-        )
-        .textContent =
-
-        pedido.numeroPedido ||
-        pedido.id;
-
-
-    document
-        .getElementById(
-            "novoStatus"
-        )
-        .value =
-
-        pedido.status ||
-        "aguardando_pagamento";
-
-
-    document
-        .getElementById(
-            "modalStatus"
-        )
-        .classList.add(
-            "mostrar"
-        );
-
-}
-
-
-
-window.fecharStatus =
-function() {
-
-    document
-        .getElementById(
-            "modalStatus"
-        )
-        .classList.remove(
-            "mostrar"
-        );
-
-};
-
-
-
-window.salvarStatus =
-async function() {
-
-    if (
-        !pedidoSelecionado
-    ) return;
-
-
-    const status =
-        document
-            .getElementById(
-                "novoStatus"
-            )
-            .value;
-
-
-    try {
-
-        await updateDoc(
-
-            doc(
-                db,
-                "pedidos",
-                pedidoSelecionado.id
-            ),
-
-            {
-
-                status: status
-
+            if (botao) {
+                botao.textContent = "🔔 Notificações ativadas";
             }
 
-        );
+        } catch (erro) {
+
+            console.error(
+                "Erro ao ativar notificações:",
+                erro
+            );
+
+            atualizarStatusNotificacoes(
+                "❌ Erro ao ativar notificações. Veja o console.",
+                false
+            );
+        }
+    };
 
 
-        fecharStatus();
+    async function verificarNotificacoes() {
 
-    }
+        if (!usuarioAtual) return;
 
-    catch(erro) {
+        if (!("Notification" in window)) {
+            atualizarStatusNotificacoes(
+                "❌ Navegador sem suporte a notificações.",
+                false
+            );
+            return;
+        }
 
-        console.error(
-            erro
-        );
+        if (Notification.permission !== "granted") {
+            atualizarStatusNotificacoes(
+                "🔕 Notificações ainda não ativadas."
+            );
+            return;
+        }
 
+        try {
 
-        alert(
-            "Erro ao alterar o status."
-        );
+            const registration =
+                await navigator.serviceWorker.register(
+                    "/firebase-messaging-sw.js"
+                );
 
-    }
+            const token =
+                await getToken(
+                    messaging,
+                    {
+                        vapidKey: VAPID_KEY,
+                        serviceWorkerRegistration: registration
+                    }
+                );
 
-};
+            if (token) {
 
+                await updateDoc(
+                    doc(db, "usuarios", usuarioAtual.uid),
+                    {
+                        fcmTokens: arrayUnion(token),
+                        notificacoesAtivas: true,
+                        atualizadoEm: serverTimestamp()
+                    }
+                );
 
+                atualizarStatusNotificacoes(
+                    "✅ Notificações ativas neste navegador.",
+                    true
+                );
 
-/* ==================================================
-   WHATSAPP
-================================================== */
+                const botao =
+                    document.getElementById("botaoNotificacoes");
 
-function abrirWhatsApp(pedido) {
-
-    const numero =
-        (
-            pedido.cliente?.whatsapp ||
-            ""
-        )
-        .replace(
-            /\D/g,
-            ""
-        );
-
-
-    if (!numero) {
-
-        alert(
-            "O cliente não possui WhatsApp cadastrado."
-        );
-
-        return;
-
-    }
-
-
-    let numeroFinal =
-        numero;
-
-
-    if (
-        numero.length === 10 ||
-        numero.length === 11
-    ) {
-
-        numeroFinal =
-            "55" +
-            numero;
-
-    }
-
-
-    let mensagem =
-
-`*PEDIDO ${
-    pedido.numeroPedido ||
-    pedido.id
-}*
-
-Olá, ${
-    pedido.cliente?.nome ||
-    ""
-}!
-
-Resumo do pedido:
-
-`;
-
-
-    if (
-        Array.isArray(
-            pedido.produtos
-        )
-    ) {
-
-        pedido.produtos.forEach(
-
-            produto => {
-
-                mensagem +=
-
-`• ${produto.nome}
-Quantidade: ${produto.quantidade}
-Subtotal: ${moeda(produto.subtotal)}
-
-`;
-
+                if (botao) {
+                    botao.textContent = "🔔 Notificações ativadas";
+                }
             }
 
-        );
+        } catch (erro) {
 
+            console.warn(
+                "Não foi possível verificar o push:",
+                erro
+            );
+
+            atualizarStatusNotificacoes(
+                "🔔 Clique em 'Ativar notificações' para configurar."
+            );
+        }
     }
 
 
-    mensagem +=
+    onMessage(
+        messaging,
+        (payload) => {
 
-`*TOTAL: ${moeda(
-    pedido.total
-)}*
+            console.log(
+                "Notificação recebida em primeiro plano:",
+                payload
+            );
 
-Status:
-${textoStatus(
-    pedido.status
-)}`;
+            const titulo =
+                payload?.notification?.title ||
+                "🔔 Novo pedido recebido";
 
+            const corpo =
+                payload?.notification?.body ||
+                "Há um novo pedido aguardando atendimento.";
 
-    window.open(
+            if ("Notification" in window &&
+                Notification.permission === "granted") {
 
-        "https://wa.me/" +
-        numeroFinal +
-        "?text=" +
-        encodeURIComponent(
-            mensagem
-        ),
+                new Notification(
+                    titulo,
+                    {
+                        body: corpo,
+                        icon: "/favicon.ico",
+                        data: {
+                            url: "/admin/pedidos.html"
+                        }
+                    }
+                );
+            }
 
-        "_blank"
-
+        }
     );
 
-}
 
+    /* ==========================================
+       RECARREGAR
+    ========================================== */
 
+    window.recarregar =
+        function() {
 
-/* ==================================================
-   IMPRESSÃO
-================================================== */
-
-function imprimirPedido(pedido) {
-
-    const cliente =
-        pedido.cliente || {};
-
-
-    let produtos = "";
-
-
-    if (
-        Array.isArray(
-            pedido.produtos
-        )
-    ) {
-
-        pedido.produtos.forEach(
-
-            produto => {
-
-                produtos += `
-
-                    <tr>
-
-                        <td>
-                            ${escapar(
-                                produto.nome
-                            )}
-                        </td>
-
-                        <td>
-                            ${produto.quantidade}
-                        </td>
-
-                        <td>
-                            ${moeda(
-                                produto.preco
-                            )}
-                        </td>
-
-                        <td>
-                            ${moeda(
-                                produto.subtotal
-                            )}
-                        </td>
-
-                    </tr>
-
-                `;
-
+            if (
+                perfilAtual !== "admin" &&
+                perfilAtual !== "estoque"
+            ) {
+                return;
             }
 
-        );
+            carregarProdutos();
 
-    }
+        };
 
 
-    const janela =
-        window.open(
-            "",
-            "_blank"
-        );
 
+    /* ==========================================
+       INICIAR
+    ========================================== */
 
-    janela.document.write(`
-
-        <html>
-
-        <head>
-
-            <title>
-                Pedido
-            </title>
-
-            <style>
-
-                body {
-
-                    font-family: Arial;
-
-                    padding: 30px;
-
-                }
-
-                table {
-
-                    width:100%;
-
-                    border-collapse:collapse;
-
-                    margin-top:20px;
-
-                }
-
-                th,
-                td {
-
-                    border:1px solid #ddd;
-
-                    padding:10px;
-
-                }
-
-                th {
-
-                    background:#eee;
-
-                }
-
-                .total {
-
-                    text-align:right;
-
-                    font-size:22px;
-
-                    font-weight:bold;
-
-                    margin-top:20px;
-
-                }
-
-            </style>
-
-        </head>
-
-
-        <body>
-
-
-            <h1>
-
-                PEDIDO ${
-                    escapar(
-                        pedido.numeroPedido ||
-                        pedido.id
-                    )
-                }
-
-            </h1>
-
-
-            <p>
-
-                <strong>
-                    Cliente:
-                </strong>
-
-                ${escapar(
-                    cliente.nome ||
-                    "-"
-                )}
-
-            </p>
-
-
-            <p>
-
-                <strong>
-                    WhatsApp:
-                </strong>
-
-                ${escapar(
-                    cliente.whatsapp ||
-                    "-"
-                )}
-
-            </p>
-
-
-            <p>
-
-                <strong>
-                    Data:
-                </strong>
-
-                ${formatarData(
-                    pedido.criadoEm
-                )}
-
-            </p>
-
-
-            <h2>
-                Produtos
-            </h2>
-
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Produto
-                        </th>
-
-                        <th>
-                            Quantidade
-                        </th>
-
-                        <th>
-                            Unitário
-                        </th>
-
-                        <th>
-                            Subtotal
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    ${produtos}
-
-                </tbody>
-
-            </table>
-
-
-            <div class="total">
-
-                TOTAL:
-                ${moeda(
-                    pedido.total
-                )}
-
-            </div>
-
-
-            <p>
-
-                <strong>
-                    Status:
-                </strong>
-
-                ${textoStatus(
-                    pedido.status
-                )}
-
-            </p>
-
-
-        </body>
-
-        </html>
-
-    `);
-
-
-    janela.document.close();
-
-    janela.focus();
-
-
-    setTimeout(
-
-        () => janela.print(),
-
-        300
-
-    );
-
-}
-
-
-
-/* ==================================================
-   SAIR
-================================================== */
-
-window.sair =
-async function() {
-
-    try {
-
-        await signOut(
-            auth
-        );
-
-
-        window.location.href =
-            "login.html";
-
-    }
-
-    catch(erro) {
-
-        console.error(
-            erro
-        );
-
-        alert(
-            "Não foi possível sair."
-        );
-
-    }
-
-};
-
-
-
-/* ==================================================
-   VOLTAR PARA LOJA
-================================================== */
-
-window.voltarLoja =
-function() {
-
-    window.location.href =
-        "index.html";
-
-};
-
+    iniciarAutenticacao();
 
 </script>
 
@@ -3137,4 +3038,3 @@ function() {
 </body>
 
 </html>
-```

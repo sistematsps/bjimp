@@ -1,0 +1,1773 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Cadastro de Usuários</title>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f3f4f6;
+
+    color: #1f2937;
+
+    min-height: 100vh;
+
+}
+
+
+header {
+
+    background: #111827;
+
+    color: white;
+
+    padding: 15px 20px;
+
+}
+
+
+.topo {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+}
+
+
+.logo {
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+}
+
+
+.logo span {
+
+    color: #22c55e;
+
+}
+
+
+.menu {
+
+    display: flex;
+
+    gap: 8px;
+
+}
+
+
+.menu button {
+
+    border: none;
+
+    border-radius: 6px;
+
+    padding: 9px 13px;
+
+    cursor: pointer;
+
+    color: white;
+
+    background: #374151;
+
+}
+
+
+.menu .sair {
+
+    background: #dc2626;
+
+}
+
+
+main {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 30px 20px 60px;
+
+}
+
+
+.titulo {
+
+    margin-bottom: 25px;
+
+}
+
+
+.titulo h1 {
+
+    font-size: 28px;
+
+    margin-bottom: 6px;
+
+}
+
+
+.titulo p {
+
+    color: #6b7280;
+
+}
+
+
+.painel {
+
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,.07);
+
+    margin-bottom: 25px;
+
+}
+
+
+.painel h2 {
+
+    margin-bottom: 20px;
+
+    font-size: 20px;
+
+}
+
+
+.grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 17px;
+
+}
+
+
+.campo {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.campo.completo {
+
+    grid-column: 1 / -1;
+
+}
+
+
+.campo label {
+
+    font-weight: bold;
+
+    font-size: 14px;
+
+    margin-bottom: 7px;
+
+}
+
+
+.campo input,
+.campo select {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    outline: none;
+
+}
+
+
+.campo input:focus,
+.campo select:focus {
+
+    border-color: #22c55e;
+
+}
+
+
+.ajuda {
+
+    font-size: 12px;
+
+    color: #6b7280;
+
+    margin-top: 5px;
+
+}
+
+
+.botoes {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    gap: 10px;
+
+    justify-content: flex-end;
+
+}
+
+
+.btn {
+
+    border: none;
+
+    border-radius: 7px;
+
+    padding: 11px 17px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+}
+
+
+.btn-cadastrar {
+
+    background: #22c55e;
+
+    color: white;
+
+}
+
+
+.btn-cadastrar:hover {
+
+    background: #16a34a;
+
+}
+
+
+.btn-cancelar {
+
+    background: #e5e7eb;
+
+    color: #374151;
+
+}
+
+
+.btn:disabled {
+
+    opacity: .6;
+
+    cursor: wait;
+
+}
+
+
+.mensagem {
+
+    display: none;
+
+    padding: 13px;
+
+    border-radius: 7px;
+
+    margin-bottom: 18px;
+
+    font-size: 14px;
+
+}
+
+
+.mensagem.sucesso {
+
+    display: block;
+
+    background: #dcfce7;
+
+    color: #166534;
+
+}
+
+
+.mensagem.erro {
+
+    display: block;
+
+    background: #fee2e2;
+
+    color: #991b1b;
+
+}
+
+
+.tabela {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+.tabela th {
+
+    background: #f9fafb;
+
+    text-align: left;
+
+    padding: 13px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    font-size: 13px;
+
+}
+
+
+.tabela td {
+
+    padding: 13px;
+
+    border-bottom:
+        1px solid #eee;
+
+    font-size: 14px;
+
+}
+
+
+.badge {
+
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+}
+
+
+.badge-admin {
+
+    background: #ede9fe;
+
+    color: #5b21b6;
+
+}
+
+
+.badge-atendente {
+
+    background: #dbeafe;
+
+    color: #1e40af;
+
+}
+
+
+.badge-vendedor {
+
+    background: #dcfce7;
+
+    color: #166534;
+
+}
+
+
+.badge-estoque {
+
+    background: #fef3c7;
+
+    color: #92400e;
+
+}
+
+
+.status {
+
+    color: #166534;
+
+    font-weight: bold;
+
+}
+
+
+.carregando {
+
+    text-align: center;
+
+    padding: 30px;
+
+    color: #6b7280;
+
+}
+
+
+.vazio {
+
+    text-align: center;
+
+    padding: 30px;
+
+    color: #6b7280;
+
+}
+
+
+@media(max-width:700px) {
+
+    .grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .campo.completo {
+
+        grid-column: auto;
+
+    }
+
+
+    .topo {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .menu {
+
+        justify-content: stretch;
+
+    }
+
+
+    .menu button {
+
+        flex: 1;
+
+    }
+
+
+    .tabela-container {
+
+        overflow-x: auto;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="topo">
+
+
+<div class="logo">
+
+    Minha<span>Loja</span>
+
+    <small
+        style="
+            font-size:12px;
+            color:#aaa;
+            margin-left:5px;
+        "
+    >
+        ADMIN
+    </small>
+
+</div>
+
+
+<div class="menu">
+
+
+<button
+    onclick="voltarPainel()"
+>
+
+    📊 Painel
+
+</button>
+
+
+<button
+    class="sair"
+    onclick="sair()"
+>
+
+    🚪 Sair
+
+</button>
+
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<main>
+
+
+<div class="titulo">
+
+<h1>
+
+    👥 Usuários
+
+</h1>
+
+<p>
+
+    Cadastre os usuários que terão acesso ao sistema administrativo.
+
+</p>
+
+</div>
+
+
+
+<div
+    id="mensagem"
+    class="mensagem"
+>
+</div>
+
+
+
+<section class="painel">
+
+
+<h2>
+
+    ➕ Novo usuário
+
+</h2>
+
+
+<form id="formUsuario">
+
+
+<div class="grid">
+
+
+<div class="campo">
+
+<label for="nome">
+
+    Nome
+
+</label>
+
+<input
+    type="text"
+    id="nome"
+    placeholder="Nome completo"
+    required
+>
+
+</div>
+
+
+
+<div class="campo">
+
+<label for="tipo">
+
+    Tipo de acesso
+
+</label>
+
+
+<select
+    id="tipo"
+    required
+>
+
+<option value="admin">
+
+    Administrador
+
+</option>
+
+<option value="atendente">
+
+    Atendente
+
+</option>
+
+<option value="vendedor">
+
+    Vendedor
+
+</option>
+
+<option value="estoque">
+
+    Estoque
+
+</option>
+
+</select>
+
+</div>
+
+
+
+<div class="campo completo">
+
+<label for="email">
+
+    E-mail
+
+</label>
+
+<input
+    type="email"
+    id="email"
+    placeholder="usuario@email.com"
+    autocomplete="off"
+    required
+>
+
+</div>
+
+
+
+<div class="campo">
+
+<label for="senha">
+
+    Senha
+
+</label>
+
+<input
+    type="password"
+    id="senha"
+    placeholder="Mínimo de 6 caracteres"
+    autocomplete="new-password"
+    minlength="6"
+    required
+>
+
+</div>
+
+
+
+<div class="campo">
+
+<label for="confirmarSenha">
+
+    Confirmar senha
+
+</label>
+
+<input
+    type="password"
+    id="confirmarSenha"
+    placeholder="Digite a senha novamente"
+    autocomplete="new-password"
+    minlength="6"
+    required
+>
+
+</div>
+
+
+</div>
+
+
+
+<div class="botoes">
+
+
+<button
+    type="button"
+    class="btn btn-cancelar"
+    onclick="limparFormulario()"
+>
+
+    Limpar
+
+</button>
+
+
+<button
+    type="submit"
+    class="btn btn-cadastrar"
+    id="btnCadastrar"
+>
+
+    👤 Cadastrar usuário
+
+</button>
+
+
+</div>
+
+
+</form>
+
+</section>
+
+
+
+<section class="painel">
+
+
+<h2>
+
+    📋 Usuários cadastrados
+
+</h2>
+
+
+<div
+    style="
+        overflow-x:auto;
+    "
+>
+
+
+<table class="tabela">
+
+
+<thead>
+
+<tr>
+
+<th>
+Nome
+</th>
+
+<th>
+E-mail
+</th>
+
+<th>
+Tipo
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Cadastro
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="listaUsuarios">
+
+<tr>
+
+<td
+    colspan="5"
+    class="carregando"
+>
+
+    Carregando usuários...
+
+</td>
+
+</tr>
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+
+<script type="module">
+
+
+/* ==================================================
+   FIREBASE
+================================================== */
+
+import {
+
+    initializeApp
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+
+    getAuth,
+    onAuthStateChanged,
+    signOut,
+    createUserWithEmailAndPassword
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    orderBy,
+    serverTimestamp
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+
+/* ==================================================
+   CONFIGURAÇÃO
+================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyDtFVa120k4xnggOHibWOs61Jn-hJaSsdU",
+
+    authDomain:
+        "timonha-b36d6.firebaseapp.com",
+
+    projectId:
+        "timonha-b36d6",
+
+    storageBucket:
+        "timonha-b36d6.firebasestorage.app",
+
+    messagingSenderId:
+        "59864953764",
+
+    appId:
+        "1:59864953764:web:9d44c30ff09b00a0f44731"
+
+};
+
+
+
+/* ==================================================
+   APP PRINCIPAL
+================================================== */
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+
+/* ==================================================
+   SEGUNDA INSTÂNCIA
+   USADA SOMENTE PARA CRIAR O NOVO USUÁRIO
+================================================== */
+
+const appCadastro =
+    initializeApp(
+        firebaseConfig,
+        "appCadastro"
+    );
+
+
+const authCadastro =
+    getAuth(
+        appCadastro
+    );
+
+
+
+/* ==================================================
+   ELEMENTOS
+================================================== */
+
+const form =
+    document.getElementById(
+        "formUsuario"
+    );
+
+
+const mensagem =
+    document.getElementById(
+        "mensagem"
+    );
+
+
+const btnCadastrar =
+    document.getElementById(
+        "btnCadastrar"
+    );
+
+
+const listaUsuarios =
+    document.getElementById(
+        "listaUsuarios"
+    );
+
+
+
+/* ==================================================
+   PROTEÇÃO DA PÁGINA
+================================================== */
+
+onAuthStateChanged(
+
+    auth,
+
+    usuario => {
+
+        if (!usuario) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        carregarUsuarios();
+
+    }
+
+);
+
+
+
+/* ==================================================
+   MENSAGEM
+================================================== */
+
+function mostrarMensagem(
+    texto,
+    tipo
+) {
+
+    mensagem.textContent =
+        texto;
+
+    mensagem.className =
+        "mensagem " +
+        tipo;
+
+
+    setTimeout(
+
+        () => {
+
+            mensagem.className =
+                "mensagem";
+
+        },
+
+        6000
+
+    );
+
+}
+
+
+
+/* ==================================================
+   ESCAPAR HTML
+================================================== */
+
+function escapar(valor) {
+
+    return String(
+        valor ?? ""
+    )
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
+}
+
+
+
+/* ==================================================
+   TIPO
+================================================== */
+
+function textoTipo(tipo) {
+
+    const tipos = {
+
+        admin:
+            "Administrador",
+
+        atendente:
+            "Atendente",
+
+        vendedor:
+            "Vendedor",
+
+        estoque:
+            "Estoque"
+
+    };
+
+
+    return tipos[tipo]
+        ||
+        tipo
+        ||
+        "-";
+
+}
+
+
+function classeTipo(tipo) {
+
+    return {
+
+        admin:
+            "badge-admin",
+
+        atendente:
+            "badge-atendente",
+
+        vendedor:
+            "badge-vendedor",
+
+        estoque:
+            "badge-estoque"
+
+    }[tipo]
+    ||
+    "";
+
+}
+
+
+
+/* ==================================================
+   DATA
+================================================== */
+
+function formatarData(timestamp) {
+
+    if (!timestamp) {
+
+        return "-";
+
+    }
+
+
+    let data;
+
+
+    if (
+        timestamp.toDate
+    ) {
+
+        data =
+            timestamp.toDate();
+
+    }
+
+    else if (
+        timestamp.seconds
+    ) {
+
+        data =
+            new Date(
+                timestamp.seconds * 1000
+            );
+
+    }
+
+    else {
+
+        data =
+            new Date(timestamp);
+
+    }
+
+
+    if (
+        isNaN(
+            data.getTime()
+        )
+    ) {
+
+        return "-";
+
+    }
+
+
+    return data.toLocaleString(
+        "pt-BR"
+    );
+
+}
+
+
+
+/* ==================================================
+   CADASTRAR USUÁRIO
+================================================== */
+
+form.addEventListener(
+
+    "submit",
+
+    async evento => {
+
+        evento.preventDefault();
+
+
+        const nome =
+            document
+                .getElementById(
+                    "nome"
+                )
+                .value
+                .trim();
+
+
+        const email =
+            document
+                .getElementById(
+                    "email"
+                )
+                .value
+                .trim();
+
+
+        const senha =
+            document
+                .getElementById(
+                    "senha"
+                )
+                .value;
+
+
+        const confirmarSenha =
+            document
+                .getElementById(
+                    "confirmarSenha"
+                )
+                .value;
+
+
+        const tipo =
+            document
+                .getElementById(
+                    "tipo"
+                )
+                .value;
+
+
+
+        if (
+            senha.length < 6
+        ) {
+
+            mostrarMensagem(
+
+                "A senha precisa ter pelo menos 6 caracteres.",
+
+                "erro"
+
+            );
+
+            return;
+
+        }
+
+
+
+        if (
+            senha !==
+            confirmarSenha
+        ) {
+
+            mostrarMensagem(
+
+                "As senhas não são iguais.",
+
+                "erro"
+
+            );
+
+            return;
+
+        }
+
+
+
+        btnCadastrar.disabled =
+            true;
+
+
+        btnCadastrar.textContent =
+            "Cadastrando...";
+
+
+
+        try {
+
+
+            /* ====================================
+               CRIA CONTA NO AUTHENTICATION
+            ==================================== */
+
+            const resultado =
+
+                await createUserWithEmailAndPassword(
+
+                    authCadastro,
+
+                    email,
+
+                    senha
+
+                );
+
+
+            const novoUsuario =
+                resultado.user;
+
+
+
+            /* ====================================
+               SALVA PERFIL NO FIRESTORE
+            ==================================== */
+
+            await addDoc(
+
+                collection(
+                    db,
+                    "usuarios"
+                ),
+
+                {
+
+                    uid:
+                        novoUsuario.uid,
+
+                    nome:
+                        nome,
+
+                    email:
+                        email,
+
+                    tipo:
+                        tipo,
+
+                    ativo:
+                        true,
+
+                    criadoEm:
+                        serverTimestamp()
+
+                }
+
+            );
+
+
+
+            mostrarMensagem(
+
+                "Usuário cadastrado com sucesso!",
+
+                "sucesso"
+
+            );
+
+
+
+            limparFormulario();
+
+
+            carregarUsuarios();
+
+
+            /*
+               NÃO fazemos signOut no auth principal.
+
+               O administrador continua logado
+               no painel.
+            */
+
+
+        }
+
+
+        catch(erro) {
+
+            console.error(
+                erro
+            );
+
+
+            let texto =
+                "Não foi possível cadastrar o usuário.";
+
+
+            if (
+                erro.code ===
+                "auth/email-already-in-use"
+            ) {
+
+                texto =
+                    "Este e-mail já está cadastrado.";
+
+            }
+
+
+            else if (
+                erro.code ===
+                "auth/invalid-email"
+            ) {
+
+                texto =
+                    "O e-mail informado é inválido.";
+
+            }
+
+
+            else if (
+                erro.code ===
+                "auth/weak-password"
+            ) {
+
+                texto =
+                    "A senha é muito fraca.";
+
+            }
+
+
+            else if (
+                erro.code ===
+                "auth/operation-not-allowed"
+            ) {
+
+                texto =
+                    "O login por e-mail e senha não está ativado no Firebase Authentication.";
+
+            }
+
+
+            mostrarMensagem(
+                texto,
+                "erro"
+            );
+
+        }
+
+
+        finally {
+
+            btnCadastrar.disabled =
+                false;
+
+
+            btnCadastrar.textContent =
+                "👤 Cadastrar usuário";
+
+        }
+
+    }
+
+);
+
+
+
+/* ==================================================
+   CARREGAR USUÁRIOS
+================================================== */
+
+async function carregarUsuarios() {
+
+    listaUsuarios.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="5"
+                class="carregando"
+            >
+
+                Carregando usuários...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try {
+
+        const consulta =
+            query(
+
+                collection(
+                    db,
+                    "usuarios"
+                ),
+
+                orderBy(
+                    "nome"
+                )
+
+            );
+
+
+        const snapshot =
+            await getDocs(
+                consulta
+            );
+
+
+        if (
+            snapshot.empty
+        ) {
+
+            listaUsuarios.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="vazio"
+                    >
+
+                        Nenhum usuário cadastrado.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        listaUsuarios.innerHTML =
+            "";
+
+
+        snapshot.forEach(
+
+            documento => {
+
+                const usuario =
+                    documento.data();
+
+
+                const tr =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                tr.innerHTML = `
+
+                    <td>
+
+                        <strong>
+
+                            ${escapar(
+                                usuario.nome
+                            )}
+
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapar(
+                            usuario.email
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="badge
+                            ${classeTipo(
+                                usuario.tipo
+                            )}"
+                        >
+
+                            ${textoTipo(
+                                usuario.tipo
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="status">
+
+                            ● Ativo
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        ${formatarData(
+                            usuario.criadoEm
+                        )}
+
+                    </td>
+
+                `;
+
+
+                listaUsuarios.appendChild(
+                    tr
+                );
+
+            }
+
+        );
+
+    }
+
+
+    catch(erro) {
+
+        console.error(
+            erro
+        );
+
+
+        listaUsuarios.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="vazio"
+                >
+
+                    Não foi possível carregar os usuários.
+
+                    <br><br>
+
+                    Verifique as regras do Firestore.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+
+/* ==================================================
+   LIMPAR
+================================================== */
+
+window.limparFormulario =
+function() {
+
+    form.reset();
+
+
+    document
+        .getElementById(
+            "tipo"
+        )
+        .value =
+        "admin";
+
+};
+
+
+
+/* ==================================================
+   VOLTAR
+================================================== */
+
+window.voltarPainel =
+function() {
+
+    window.location.href =
+        "admin.html";
+
+};
+
+
+
+/* ==================================================
+   SAIR
+================================================== */
+
+window.sair =
+async function() {
+
+    try {
+
+        await signOut(
+            auth
+        );
+
+
+        window.location.href =
+            "login.html";
+
+    }
+
+    catch(erro) {
+
+        console.error(
+            erro
+        );
+
+        alert(
+            "Não foi possível sair."
+        );
+
+    }
+
+};
+
+
+</script>
+
+
+</body>
+
+</html>
+```
