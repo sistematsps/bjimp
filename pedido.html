@@ -1040,34 +1040,19 @@
 
         const cliente =
             pedido.cliente || {};
-
-
-        const endereco =
-            pedido.endereco || {};
-
-
         const produtos =
             pedido.produtos || [];
-
-
         let produtosHTML = "";
-
-
         produtos.forEach(
             item => {
-
                 const quantidade =
                     Number(
                         item.quantidade || 0
                     );
-
-
                 const preco =
                     Number(
                         item.precoUnitario || 0
                     );
-
-
                 const subtotal =
                     Number(
                         item.subtotal ??
@@ -1213,18 +1198,7 @@
 
             endereco.endereco,
 
-            endereco.numero,
-
-            endereco.complemento,
-
-            endereco.bairro,
-
-            endereco.cidade,
-
-            endereco.estado,
-
-            endereco.cep
-
+            
         ]
 
         .filter(Boolean)
