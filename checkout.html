@@ -1903,7 +1903,12 @@
 
                 if (
                     !dadosCliente.nome ||
-                   
+                    !dadosCliente.whatsapp ||
+                    !dadosCliente.endereco ||
+                    !dadosCliente.numero ||
+                    !dadosCliente.bairro ||
+                    !dadosCliente.cidade ||
+                    !dadosCliente.estado
                 ) {
 
                     erro.textContent =
@@ -1966,28 +1971,7 @@
                         },
 
 
-                        endereco: {
-
-                            cep:
-                                dadosCliente.cep,
-
-                            endereco:
-                                dadosCliente.endereco,
-
-                            numero:
-                                dadosCliente.numero,
-
-                            bairro:
-                                dadosCliente.bairro,
-
-                            cidade:
-                                dadosCliente.cidade,
-
-                            estado:
-                                dadosCliente.estado
-
-                        },
-
+                       
 
                         produtos:
                             carrinho.map(
