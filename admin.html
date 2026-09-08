@@ -1,168 +1,92 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
 >
-
 <title>Painel Administrativo</title>
-
-
 <style>
-
 /* ==================================================
    ESTILO
 ================================================== */
-
 * {
-
     box-sizing: border-box;
-
     margin: 0;
-
     padding: 0;
-
 }
-
 
 body {
-
     font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+       Arial,
+       Helvetica,
+       sans-serif;
     background: #f3f4f6;
-
     color: #1f2937;
-
 }
-
 
 header {
-
     background: #111827;
-
     color: white;
-
     height: 65px;
-
     display: flex;
-
     align-items: center;
-
 }
-
 
 .topo {
-
     width: 100%;
-
     max-width: 1400px;
-
     margin: auto;
-
     padding: 0 20px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
 }
-
-
 .logo {
-
     font-size: 22px;
-
     font-weight: bold;
-
 }
-
-
 .logo span {
-
     color: #22c55e;
-
 }
-
-
 .topo-acoes {
-
     display: flex;
-
     align-items: center;
-
     gap: 10px;
-
 }
-
 
 .usuario-logado {
-
     font-size: 13px;
-
     color: #d1d5db;
-
 }
-
 
 .botao {
-
     border: none;
-
     padding: 9px 14px;
-
     border-radius: 6px;
-
     cursor: pointer;
-
 }
-
 
 .botao-loja {
-
     background: #374151;
-
     color: white;
-
 }
-
 
 .botao-sair {
-
     background: #dc2626;
-
     color: white;
-
 }
-
 
 .container {
-
     max-width: 1400px;
-
     margin: auto;
-
     padding: 25px 20px 50px;
-
 }
-
 
 .titulo {
-
     margin-bottom: 25px;
-
 }
-
 
 .titulo h1 {
 
@@ -792,19 +716,13 @@ tr:hover td {
 <header>
 
 <div class="topo">
-
-
 <div class="logo">
-
     PAINEL
     <span>ADMINISTRATIVO</span>
-
 </div>
 
 
 <div class="topo-acoes">
-
-
 <span
     class="usuario-logado"
     id="usuarioLogado"
@@ -818,6 +736,14 @@ tr:hover td {
 >
 
     🏪 Loja
+
+</button>
+<button
+    class="botao botao-produtos"
+    onclick="admin_produtos()"
+>
+
+    🏪 Adm Produtos
 
 </button>
 
@@ -842,34 +768,23 @@ tr:hover td {
 
 <main class="container">
 
-
 <div class="titulo">
-
 <h1>
     Dashboard
 </h1>
-
 <p>
     Acompanhe e gerencie os pedidos da sua loja.
 </p>
-
 </div>
-
-
 
 <section class="dashboard">
-
-
 <div class="card-dashboard">
-
 <div class="icone">
-    🛒
+   🛒
 </div>
-
 <div
-    class="numero"
-    id="totalPedidos"
->
+   class="numero"
+    id="totalPedidos">
 0
 </div>
 
@@ -1059,39 +974,24 @@ Cancelado
 <tr>
 
 <th>Pedido</th>
-
 <th>Data</th>
-
 <th>Cliente</th>
-
 <th>WhatsApp</th>
-
 <th>Itens</th>
-
 <th>Total</th>
-
 <th>Status</th>
-
 <th>Ações</th>
-
 </tr>
-
 </thead>
-
-
 <tbody id="listaPedidos">
-
 <tr>
-
 <td
     colspan="8"
     class="carregando"
 >
 
 Verificando acesso...
-
 </td>
-
 </tr>
 
 </tbody>
@@ -1315,22 +1215,16 @@ const firebaseConfig = {
 
     apiKey:
         "AIzaSyDtFVa120k4xnggOHibWOs61Jn-hJaSsdU",
-
     authDomain:
         "timonha-b36d6.firebaseapp.com",
-
     projectId:
         "timonha-b36d6",
-
     storageBucket:
         "timonha-b36d6.firebasestorage.app",
-
     messagingSenderId:
         "59864953764",
-
     appId:
         "1:59864953764:web:9d44c30ff09b00a0f44731"
-
 };
 
 
@@ -3129,6 +3023,20 @@ function() {
         "index.html";
 
 };
+
+
+/* ==================================================
+   ADMINISTRAR PRODUTOS
+================================================== */
+
+window.admin_produtos =
+function() {
+
+    window.location.href =
+        "admin_produtos.html";
+
+};
+
 
 
 </script>
